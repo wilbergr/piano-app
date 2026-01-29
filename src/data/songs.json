@@ -1,0 +1,103 @@
+{
+  "songs": [
+    {
+      "id": "test-scale",
+      "title": "C Major Scale",
+      "difficulty": "beginner",
+      "order": 1,
+      "midiFile": "test",
+      "triviaQuestionId": "q1",
+      "unlocked": true,
+      "preview": "Simple C major scale to get started",
+      "description": "Learn the basic C major scale. A great way to familiarize yourself with the keyboard!"
+    },
+    {
+      "id": "twinkle",
+      "title": "Twinkle Twinkle Little Star",
+      "difficulty": "beginner",
+      "order": 2,
+      "midiFile": "twinkle",
+      "triviaQuestionId": "q2",
+      "unlocked": true,
+      "preview": "Classic children's melody",
+      "description": "A beloved melody that's perfect for beginners. Features simple notes and repetitive patterns."
+    },
+    {
+      "id": "mary-lamb",
+      "title": "Mary Had a Little Lamb",
+      "difficulty": "beginner",
+      "order": 3,
+      "midiFile": "mary",
+      "triviaQuestionId": "q3",
+      "unlocked": true,
+      "preview": "Easy melody with repetition",
+      "description": "Another classic tune with a simple, repetitive melody that's easy to learn."
+    },
+    {
+      "id": "ode-to-joy",
+      "title": "Ode to Joy",
+      "difficulty": "intermediate",
+      "order": 4,
+      "midiFile": "ode",
+      "triviaQuestionId": "q4",
+      "unlocked": true,
+      "preview": "Beethoven's iconic melody",
+      "description": "The famous theme from Beethoven's 9th Symphony. Features dotted rhythms and longer phrases."
+    },
+    {
+      "id": "fur-elise",
+      "title": "Für Elise",
+      "difficulty": "intermediate",
+      "order": 5,
+      "midiFile": "furelise",
+      "triviaQuestionId": "q5",
+      "unlocked": true,
+      "preview": "Beethoven's beloved piece",
+      "description": "The instantly recognizable opening of Für Elise. Requires coordination between both hands and faster note transitions."
+    },
+    {
+      "id": "jingle-bells",
+      "title": "Jingle Bells",
+      "difficulty": "intermediate",
+      "order": 6,
+      "midiFile": "jingle",
+      "triviaQuestionId": "q6",
+      "unlocked": true,
+      "preview": "Classic holiday tune",
+      "description": "A festive favorite with varied rhythms and upbeat tempo. Great for practicing timing and dynamics."
+    },
+    {
+      "id": "canon-in-d",
+      "title": "Canon in D",
+      "difficulty": "advanced",
+      "order": 7,
+      "midiFile": "canon",
+      "triviaQuestionId": "q7",
+      "unlocked": true,
+      "preview": "Pachelbel's masterpiece",
+      "description": "Beautiful baroque piece featuring a repeating bass line and flowing melody. Requires independent hand coordination."
+    },
+    {
+      "id": "moonlight-sonata",
+      "title": "Moonlight Sonata",
+      "difficulty": "advanced",
+      "order": 8,
+      "midiFile": "moonlight",
+      "triviaQuestionId": "q8",
+      "unlocked": true,
+      "preview": "Beethoven's haunting composition",
+      "description": "The atmospheric opening of one of Beethoven's most famous works. Features triplet arpeggios and sustained melody."
+    },
+    {
+      "id": "hungarian-dance",
+      "title": "Hungarian Dance No. 5",
+      "difficulty": "advanced",
+      "order": 9,
+      "midiFile": "hungarian",
+      "triviaQuestionId": "q9",
+      "unlocked": true,
+      "preview": "Brahms' energetic dance",
+      "description": "Fast-paced and dramatic piece with rapid note sequences and dynamic contrasts. A challenging test of technique!"
+    }
+  ]
+}
