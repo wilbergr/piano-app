@@ -34,6 +34,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
   const [isLoading, setIsLoading] = useState(false);
   const [performanceTracker, setPerformanceTracker] = useState(null);
   const [lastFeedback, setLastFeedback] = useState(null);
+  const [midiFileData, setMidiFileData] = useState(null); // Store raw MIDI file data for music notation
 
   const animationFrameRef = useRef(null);
   const startTimeRef = useRef(null);
@@ -47,6 +48,11 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
 
     setIsLoading(true);
     try {
+      // Read the file as ArrayBuffer for music notation conversion
+      const arrayBuffer = await file.arrayBuffer();
+      setMidiFileData(arrayBuffer);
+
+      // Also parse it for playback
       const songData = await parseMidiFile(file);
 
       songData.id = 'uploaded';
@@ -83,6 +89,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       }
 
       setSelectedSong(song);
+      setMidiFileData(null); // Clear MIDI file data for built-in songs
 
       let songData;
       if (song.midiFile === 'test') {
@@ -233,11 +240,15 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       if (onShowResults && performanceTracker) {
         // Small delay to show 100% progress before results
         setTimeout(() => {
-          onShowResults(performanceTracker.getResults());
+          const results = performanceTracker.getResults();
+          onShowResults(results);
+
+          // Show trivia only after successful challenge completion
+          if (mode === 'challenge' && results.passed && onSongComplete) {
+            onSongComplete(currentSong);
+          }
         }, 300);
       }
-    } else if (onSongComplete) {
-      onSongComplete(currentSong);
     }
   };
 
@@ -516,7 +527,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       {currentSong && (
         <div className="player-controls">
           {/* Music Staff */}
-          <MusicStaff song={currentSong} />
+          <MusicStaff song={currentSong} midiFileData={midiFileData} />
 
           {/* Progress bar */}
           <div className="progress-section">
@@ -585,7 +596,10 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
             </div>
           )}
 
-          <button onClick={() => setCurrentSong(null)} className="back-btn">
+          <button onClick={() => {
+            resetSong();
+            setCurrentSong(null);
+          }} className="back-btn">
             ← Back to Song List
           </button>
         </div>

@@ -109,21 +109,8 @@ function Piano({ highlightedKeys = [], disableInput = false, scrollToKey = null,
     return highlightedKeys.includes(note) ? 1 : 0;
   }, [highlightedKeys]);
 
-  const handleStartAudio = async () => {
-    await ensureAudioReady();
-  };
-
   return (
     <div className="piano-container">
-      {!audioReady && (
-        <div className="audio-notice">
-          <p>🔊 Click the button below to enable audio</p>
-          <button onClick={handleStartAudio} className="start-audio-btn">
-            Enable Audio 🎵
-          </button>
-        </div>
-      )}
-
       <div className="piano-scroll" ref={pianoRef}>
         <div className="piano-keyboard">
           {keys.map((keyData, index) => (

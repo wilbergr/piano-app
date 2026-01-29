@@ -6,6 +6,18 @@ import { Midi } from '@tonejs/midi';
  */
 
 /**
+ * Convert MIDI note number to note name (e.g., 60 -> 'C4')
+ * @param {number} midiNumber - MIDI note number (0-127)
+ * @returns {string} Note name with octave
+ */
+function midiToNoteName(midiNumber) {
+  const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const octave = Math.floor(midiNumber / 12) - 1;
+  const noteName = notes[midiNumber % 12];
+  return `${noteName}${octave}`;
+}
+
+/**
  * Parse a MIDI file from URL or File object
  * @param {string|File} source - MIDI file URL or File object
  * @returns {Promise<Object>} Parsed song data
@@ -438,52 +450,89 @@ export function createJingleBellsSong() {
  * @returns {Object} Song data for Canon in D
  */
 export function createCanonInDSong() {
-  const notes = [
-    // Bass line (left hand)
-    { note: 'D3', midi: 50, time: 0.0, duration: 1.0, velocity: 0.7 },
-    { note: 'A2', midi: 45, time: 1.0, duration: 1.0, velocity: 0.7 },
-    { note: 'B2', midi: 47, time: 2.0, duration: 1.0, velocity: 0.7 },
-    { note: 'F#2', midi: 42, time: 3.0, duration: 1.0, velocity: 0.7 },
-    { note: 'G2', midi: 43, time: 4.0, duration: 1.0, velocity: 0.7 },
-    { note: 'D3', midi: 50, time: 5.0, duration: 1.0, velocity: 0.7 },
-    { note: 'G2', midi: 43, time: 6.0, duration: 1.0, velocity: 0.7 },
-    { note: 'A2', midi: 45, time: 7.0, duration: 1.0, velocity: 0.7 },
+  const notes = [];
 
-    // Melody (right hand) - starting after intro
-    { note: 'F#5', midi: 78, time: 8.0, duration: 0.5, velocity: 0.75 },
-    { note: 'E5', midi: 76, time: 8.5, duration: 0.5, velocity: 0.75 },
-    { note: 'D5', midi: 74, time: 9.0, duration: 0.5, velocity: 0.75 },
-    { note: 'C#5', midi: 73, time: 9.5, duration: 0.5, velocity: 0.75 },
-
-    { note: 'B4', midi: 71, time: 10.0, duration: 0.5, velocity: 0.75 },
-    { note: 'A4', midi: 69, time: 10.5, duration: 0.5, velocity: 0.75 },
-    { note: 'B4', midi: 71, time: 11.0, duration: 0.5, velocity: 0.75 },
-    { note: 'C#5', midi: 73, time: 11.5, duration: 0.5, velocity: 0.75 },
-
-    { note: 'D5', midi: 74, time: 12.0, duration: 0.5, velocity: 0.75 },
-    { note: 'A4', midi: 69, time: 12.5, duration: 0.5, velocity: 0.75 },
-    { note: 'B4', midi: 71, time: 13.0, duration: 0.5, velocity: 0.75 },
-    { note: 'F#4', midi: 66, time: 13.5, duration: 0.5, velocity: 0.75 },
-
-    { note: 'G4', midi: 67, time: 14.0, duration: 0.5, velocity: 0.75 },
-    { note: 'D5', midi: 74, time: 14.5, duration: 0.5, velocity: 0.75 },
-    { note: 'G4', midi: 67, time: 15.0, duration: 0.5, velocity: 0.75 },
-    { note: 'A4', midi: 69, time: 15.5, duration: 0.5, velocity: 0.75 },
-
-    // Continue bass line
-    { note: 'D3', midi: 50, time: 8.0, duration: 1.0, velocity: 0.6 },
-    { note: 'A2', midi: 45, time: 9.0, duration: 1.0, velocity: 0.6 },
-    { note: 'B2', midi: 47, time: 10.0, duration: 1.0, velocity: 0.6 },
-    { note: 'F#2', midi: 42, time: 11.0, duration: 1.0, velocity: 0.6 },
-    { note: 'G2', midi: 43, time: 12.0, duration: 1.0, velocity: 0.6 },
-    { note: 'D3', midi: 50, time: 13.0, duration: 1.0, velocity: 0.6 },
-    { note: 'G2', midi: 43, time: 14.0, duration: 1.0, velocity: 0.6 },
-    { note: 'A2', midi: 45, time: 15.0, duration: 1.0, velocity: 0.6 },
+  // Define the bass progression (8 bars, repeating)
+  const bassProgression = [
+    { note: 'D3', midi: 50 }, { note: 'A2', midi: 45 },
+    { note: 'B2', midi: 47 }, { note: 'F#2', midi: 42 },
+    { note: 'G2', midi: 43 }, { note: 'D3', midi: 50 },
+    { note: 'G2', midi: 43 }, { note: 'A2', midi: 45 },
   ];
+
+  // Bass line plays throughout (10 repetitions = 80 beats)
+  for (let rep = 0; rep < 10; rep++) {
+    bassProgression.forEach((note, i) => {
+      notes.push({
+        note: note.note,
+        midi: note.midi,
+        time: rep * 8.0 + i,
+        duration: 1.0,
+        velocity: 0.65
+      });
+    });
+  }
+
+  // First voice melody (starts at measure 3)
+  const melody1Start = 16.0;
+  const melody1 = [
+    { midi: 78, dur: 2 }, { midi: 76, dur: 2 }, { midi: 74, dur: 2 }, { midi: 73, dur: 2 },
+    { midi: 71, dur: 2 }, { midi: 69, dur: 2 }, { midi: 71, dur: 2 }, { midi: 73, dur: 2 },
+    { midi: 74, dur: 2 }, { midi: 69, dur: 2 }, { midi: 71, dur: 2 }, { midi: 66, dur: 2 },
+    { midi: 67, dur: 2 }, { midi: 74, dur: 2 }, { midi: 67, dur: 2 }, { midi: 69, dur: 2 },
+  ];
+
+  let time = melody1Start;
+  melody1.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: time, duration: n.dur, velocity: 0.75 });
+    time += n.dur;
+  });
+
+  // Second voice (enters at measure 5, canon at 2-bar interval)
+  const melody2Start = 32.0;
+  time = melody2Start;
+  melody1.forEach(n => {
+    const midi = n.midi - 12;
+    notes.push({ note: midiToNoteName(midi), midi: midi, time: time, duration: n.dur, velocity: 0.7 });
+    time += n.dur;
+  });
+
+  // Third voice - eighth notes (enters at measure 7)
+  const melody3Start = 48.0;
+  const eighth = 0.5;
+  const melody3Pattern = [
+    78, 76, 74, 73, 71, 69, 71, 73, 74, 76, 78, 76, 74, 73, 71, 69,
+    71, 69, 66, 69, 71, 73, 74, 76, 78, 76, 74, 73, 71, 69, 67, 66,
+  ];
+
+  melody3Pattern.forEach((midi, i) => {
+    notes.push({
+      note: midiToNoteName(midi),
+      midi: midi,
+      time: melody3Start + i * eighth,
+      duration: eighth,
+      velocity: 0.72
+    });
+  });
+
+  // Fourth voice - more complex rhythm (enters at measure 9)
+  const melody4Start = 64.0;
+  const melody4Pattern = [
+    { midi: 74, dur: 0.5 }, { midi: 78, dur: 0.5 }, { midi: 76, dur: 0.5 }, { midi: 74, dur: 0.5 },
+    { midi: 73, dur: 0.5 }, { midi: 71, dur: 0.5 }, { midi: 69, dur: 1.0 }, { midi: 71, dur: 1.0 },
+    { midi: 74, dur: 0.5 }, { midi: 76, dur: 0.5 }, { midi: 78, dur: 1.0 }, { midi: 76, dur: 1.0 },
+    { midi: 74, dur: 0.5 }, { midi: 73, dur: 0.5 }, { midi: 71, dur: 0.5 }, { midi: 69, dur: 0.5 },
+  ];
+
+  time = melody4Start;
+  melody4Pattern.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: time, duration: n.dur, velocity: 0.73 });
+    time += n.dur;
+  });
 
   return {
     name: 'Canon in D',
-    duration: 16.0,
+    duration: 80.0,
     tempo: 80,
     timeSignature: { timeSignature: [4, 4] },
     tracks: 2,
@@ -498,50 +547,80 @@ export function createCanonInDSong() {
  * @returns {Object} Song data for Moonlight Sonata
  */
 export function createMoonlightSonataSong() {
-  const notes = [
-    // Triplet arpeggios in right hand with bass notes
-    { note: 'G#2', midi: 44, time: 0.0, duration: 0.5, velocity: 0.5 },
-    { note: 'C#3', midi: 49, time: 0.0, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 0.33, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 0.66, duration: 0.33, velocity: 0.4 },
+  const notes = [];
+  const triplet = 0.33;
 
-    { note: 'C#3', midi: 49, time: 1.0, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 1.33, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 1.66, duration: 0.33, velocity: 0.4 },
+  // Define the triplet arpeggio pattern
+  const addArpeggio = (bass, chord, startTime, measures) => {
+    for (let m = 0; m < measures; m++) {
+      const t = startTime + m * 4.0;
+      // Bass note
+      notes.push({ note: midiToNoteName(bass), midi: bass, time: t, duration: 2.0, velocity: 0.5 });
+      // Triplet arpeggios (12 triplets per measure)
+      for (let i = 0; i < 12; i++) {
+        const chordNote = chord[i % chord.length];
+        notes.push({ note: midiToNoteName(chordNote), midi: chordNote, time: t + i * triplet, duration: triplet, velocity: 0.4 });
+      }
+    }
+  };
 
-    { note: 'E3', midi: 52, time: 2.0, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 2.33, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 2.66, duration: 0.33, velocity: 0.4 },
+  // Opening measures (C# minor arpeggio)
+  addArpeggio(44, [49, 52, 49], 0, 2); // G# - C#, E, C#
 
-    { note: 'C#3', midi: 49, time: 3.0, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 3.33, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 3.66, duration: 0.33, velocity: 0.4 },
+  // A major arpeggio
+  addArpeggio(45, [49, 52, 49], 8, 2); // A - C#, E, C#
 
-    // Second measure
-    { note: 'A2', midi: 45, time: 4.0, duration: 0.5, velocity: 0.5 },
-    { note: 'C#3', midi: 49, time: 4.0, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 4.33, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 4.66, duration: 0.33, velocity: 0.4 },
+  // E major arpeggio with melody
+  const melodyStart = 16.0;
+  addArpeggio(52, [56, 59, 56], melodyStart, 2); // E - G#, B, G#
 
-    { note: 'C#3', midi: 49, time: 5.0, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 5.33, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 5.66, duration: 0.33, velocity: 0.4 },
+  // Add melody over arpeggios
+  const melody = [
+    { midi: 68, time: melodyStart, dur: 2.0 }, // G#
+    { midi: 66, time: melodyStart + 2, dur: 1.0 }, // F#
+    { midi: 68, time: melodyStart + 3, dur: 1.0 }, // G#
+    { midi: 69, time: melodyStart + 4, dur: 2.0 }, // A
+    { midi: 66, time: melodyStart + 6, dur: 1.0 }, // F#
+    { midi: 64, time: melodyStart + 7, dur: 1.0 }, // E
 
-    // Melody enters
-    { note: 'G#4', midi: 68, time: 6.0, duration: 0.5, velocity: 0.6 },
-    { note: 'E3', midi: 52, time: 6.0, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 6.33, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 6.66, duration: 0.33, velocity: 0.4 },
-
-    { note: 'F#4', midi: 66, time: 7.0, duration: 0.5, velocity: 0.6 },
-    { note: 'C#3', midi: 49, time: 7.0, duration: 0.33, velocity: 0.4 },
-    { note: 'E3', midi: 52, time: 7.33, duration: 0.33, velocity: 0.4 },
-    { note: 'C#3', midi: 49, time: 7.66, duration: 0.33, velocity: 0.4 },
+    { midi: 66, time: 24, dur: 2.0 }, // F#
+    { midi: 64, time: 26, dur: 1.0 }, // E
+    { midi: 61, time: 27, dur: 1.0 }, // C#
+    { midi: 64, time: 28, dur: 3.0 }, // E
+    { midi: 61, time: 31, dur: 1.0 }, // C#
   ];
+
+  melody.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.65 });
+  });
+
+  // B minor section
+  addArpeggio(47, [50, 54, 50], 32, 2); // B - D, F#, D
+
+  // Return to C# minor with development
+  addArpeggio(44, [49, 52, 49], 40, 4); // G# - C#, E, C#
+
+  // Second melody phrase
+  const melody2 = [
+    { midi: 68, time: 40, dur: 1.5 }, { midi: 73, time: 41.5, dur: 0.5 },
+    { midi: 76, time: 42, dur: 2.0 }, { midi: 73, time: 44, dur: 1.0 },
+    { midi: 68, time: 45, dur: 1.0 }, { midi: 66, time: 46, dur: 2.0 },
+    { midi: 68, time: 48, dur: 2.0 }, { midi: 69, time: 50, dur: 2.0 },
+    { midi: 73, time: 52, dur: 1.5 }, { midi: 68, time: 53.5, dur: 0.5 },
+    { midi: 66, time: 54, dur: 2.0 }, { midi: 64, time: 56, dur: 4.0 },
+  ];
+
+  melody2.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.68 });
+  });
+
+  // Final cadence
+  addArpeggio(49, [52, 56, 52], 56, 2); // C# - E, G#, E
+  notes.push({ note: midiToNoteName(61), midi: 61, time: 64, duration: 4.0, velocity: 0.6 }); // Final C#
 
   return {
     name: 'Moonlight Sonata',
-    duration: 8.0,
+    duration: 68.0,
     tempo: 60,
     timeSignature: { timeSignature: [4, 4] },
     tracks: 2,
@@ -556,50 +635,125 @@ export function createMoonlightSonataSong() {
  * @returns {Object} Song data for Hungarian Dance No. 5
  */
 export function createHungarianDanceSong() {
-  const notes = [
-    // Fast opening phrase
-    { note: 'D4', midi: 62, time: 0.0, duration: 0.25, velocity: 0.9 },
-    { note: 'F#4', midi: 66, time: 0.25, duration: 0.25, velocity: 0.85 },
-    { note: 'A4', midi: 69, time: 0.5, duration: 0.25, velocity: 0.8 },
-    { note: 'D5', midi: 74, time: 0.75, duration: 0.25, velocity: 0.9 },
+  const notes = [];
 
-    { note: 'C#5', midi: 73, time: 1.0, duration: 0.375, velocity: 0.85 },
-    { note: 'D5', midi: 74, time: 1.375, duration: 0.125, velocity: 0.7 },
-    { note: 'E5', midi: 76, time: 1.5, duration: 0.5, velocity: 0.8 },
+  // Section A - Fast opening theme (D minor)
+  const themeA = [
+    { midi: 62, time: 0, dur: 0.25 }, { midi: 66, time: 0.25, dur: 0.25 },
+    { midi: 69, time: 0.5, dur: 0.25 }, { midi: 74, time: 0.75, dur: 0.25 },
+    { midi: 73, time: 1.0, dur: 0.375 }, { midi: 74, time: 1.375, dur: 0.125 },
+    { midi: 76, time: 1.5, dur: 0.5 },
 
-    { note: 'D4', midi: 62, time: 2.0, duration: 0.25, velocity: 0.9 },
-    { note: 'F#4', midi: 66, time: 2.25, duration: 0.25, velocity: 0.85 },
-    { note: 'A4', midi: 69, time: 2.5, duration: 0.25, velocity: 0.8 },
-    { note: 'D5', midi: 74, time: 2.75, duration: 0.25, velocity: 0.9 },
-
-    { note: 'F#5', midi: 78, time: 3.0, duration: 0.5, velocity: 0.9 },
-    { note: 'E5', midi: 76, time: 3.5, duration: 0.5, velocity: 0.85 },
-
-    // Second phrase with bass
-    { note: 'D5', midi: 74, time: 4.0, duration: 0.25, velocity: 0.85 },
-    { note: 'D3', midi: 50, time: 4.0, duration: 0.5, velocity: 0.7 },
-    { note: 'C#5', midi: 73, time: 4.25, duration: 0.25, velocity: 0.8 },
-    { note: 'D5', midi: 74, time: 4.5, duration: 0.25, velocity: 0.85 },
-    { note: 'E5', midi: 76, time: 4.75, duration: 0.25, velocity: 0.8 },
-
-    { note: 'F#5', midi: 78, time: 5.0, duration: 0.375, velocity: 0.9 },
-    { note: 'A3', midi: 57, time: 5.0, duration: 0.5, velocity: 0.7 },
-    { note: 'E5', midi: 76, time: 5.375, duration: 0.125, velocity: 0.75 },
-    { note: 'D5', midi: 74, time: 5.5, duration: 0.5, velocity: 0.85 },
-
-    { note: 'C#5', midi: 73, time: 6.0, duration: 0.25, velocity: 0.8 },
-    { note: 'A3', midi: 57, time: 6.0, duration: 0.5, velocity: 0.7 },
-    { note: 'B4', midi: 71, time: 6.25, duration: 0.25, velocity: 0.75 },
-    { note: 'A4', midi: 69, time: 6.5, duration: 0.5, velocity: 0.8 },
-
-    { note: 'D5', midi: 74, time: 7.0, duration: 1.0, velocity: 0.9 },
-    { note: 'D3', midi: 50, time: 7.0, duration: 1.0, velocity: 0.7 },
-    { note: 'A3', midi: 57, time: 7.0, duration: 1.0, velocity: 0.7 },
+    { midi: 62, time: 2.0, dur: 0.25 }, { midi: 66, time: 2.25, dur: 0.25 },
+    { midi: 69, time: 2.5, dur: 0.25 }, { midi: 74, time: 2.75, dur: 0.25 },
+    { midi: 78, time: 3.0, dur: 0.5 }, { midi: 76, time: 3.5, dur: 0.5 },
   ];
+
+  themeA.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.88 });
+  });
+
+  // Bass accompaniment for theme A
+  const bassA = [
+    { midi: 50, time: 0, dur: 0.5 }, { midi: 50, time: 0.5, dur: 0.5 },
+    { midi: 57, time: 1.0, dur: 0.5 }, { midi: 57, time: 1.5, dur: 0.5 },
+    { midi: 50, time: 2.0, dur: 0.5 }, { midi: 50, time: 2.5, dur: 0.5 },
+    { midi: 57, time: 3.0, dur: 0.5 }, { midi: 57, time: 3.5, dur: 0.5 },
+  ];
+
+  bassA.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.7 });
+  });
+
+  // Repeat and develop theme A
+  const themeA2 = [
+    { midi: 74, time: 4, dur: 0.25 }, { midi: 73, time: 4.25, dur: 0.25 },
+    { midi: 74, time: 4.5, dur: 0.25 }, { midi: 76, time: 4.75, dur: 0.25 },
+    { midi: 78, time: 5.0, dur: 0.375 }, { midi: 76, time: 5.375, dur: 0.125 },
+    { midi: 74, time: 5.5, dur: 0.5 },
+
+    { midi: 73, time: 6.0, dur: 0.25 }, { midi: 71, time: 6.25, dur: 0.25 },
+    { midi: 69, time: 6.5, dur: 0.5 }, { midi: 74, time: 7.0, dur: 1.0 },
+  ];
+
+  themeA2.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.86 });
+  });
+
+  bassA.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time + 4, duration: n.dur, velocity: 0.7 });
+  });
+
+  // Section B - Slower lyrical section (F# major)
+  const themeB = [
+    { midi: 73, time: 8, dur: 1.5 }, { midi: 78, time: 9.5, dur: 0.5 },
+    { midi: 80, time: 10, dur: 1.0 }, { midi: 78, time: 11, dur: 1.0 },
+    { midi: 73, time: 12, dur: 1.0 }, { midi: 75, time: 13, dur: 1.0 },
+    { midi: 73, time: 14, dur: 1.5 }, { midi: 71, time: 15.5, dur: 0.5 },
+
+    { midi: 69, time: 16, dur: 1.5 }, { midi: 73, time: 17.5, dur: 0.5 },
+    { midi: 75, time: 18, dur: 1.0 }, { midi: 73, time: 19, dur: 1.0 },
+    { midi: 71, time: 20, dur: 2.0 }, { midi: 69, time: 22, dur: 2.0 },
+  ];
+
+  themeB.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.75 });
+  });
+
+  // Bass for slower section
+  const slowBass = [
+    { midi: 49, time: 8 }, { midi: 54, time: 10 }, { midi: 49, time: 12 }, { midi: 54, time: 14 },
+    { midi: 45, time: 16 }, { midi: 52, time: 18 }, { midi: 45, time: 20 }, { midi: 52, time: 22 },
+  ];
+
+  slowBass.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: 2.0, velocity: 0.65 });
+  });
+
+  // Section C - Return to fast theme with variation
+  const themeC = [
+    { midi: 74, time: 24, dur: 0.125 }, { midi: 76, time: 24.125, dur: 0.125 },
+    { midi: 78, time: 24.25, dur: 0.125 }, { midi: 81, time: 24.375, dur: 0.125 },
+    { midi: 83, time: 24.5, dur: 0.25 }, { midi: 81, time: 24.75, dur: 0.25 },
+    { midi: 78, time: 25.0, dur: 0.5 }, { midi: 76, time: 25.5, dur: 0.5 },
+
+    { midi: 74, time: 26, dur: 0.25 }, { midi: 73, time: 26.25, dur: 0.25 },
+    { midi: 71, time: 26.5, dur: 0.25 }, { midi: 69, time: 26.75, dur: 0.25 },
+    { midi: 74, time: 27.0, dur: 1.0 },
+  ];
+
+  themeC.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.9 });
+  });
+
+  // Fast bass pattern
+  for (let i = 0; i < 4; i++) {
+    notes.push({ note: midiToNoteName(50), midi: 50, time: 24 + i, duration: 0.5, velocity: 0.75 });
+    notes.push({ note: midiToNoteName(57), midi: 57, time: 24.5 + i, duration: 0.5, velocity: 0.75 });
+  }
+
+  // Grand finale - accelerating to climax
+  const finale = [
+    { midi: 78, time: 28, dur: 0.25 }, { midi: 76, time: 28.25, dur: 0.25 },
+    { midi: 74, time: 28.5, dur: 0.25 }, { midi: 73, time: 28.75, dur: 0.25 },
+    { midi: 74, time: 29.0, dur: 0.5 }, { midi: 76, time: 29.5, dur: 0.5 },
+    { midi: 78, time: 30.0, dur: 0.5 }, { midi: 81, time: 30.5, dur: 0.5 },
+    { midi: 74, time: 31.0, dur: 1.0 },
+  ];
+
+  finale.forEach(n => {
+    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.92 });
+  });
+
+  // Final bass chords
+  notes.push({ note: midiToNoteName(50), midi: 50, time: 28, duration: 1.0, velocity: 0.8 });
+  notes.push({ note: midiToNoteName(57), midi: 57, time: 29, duration: 1.0, velocity: 0.8 });
+  notes.push({ note: midiToNoteName(50), midi: 50, time: 30, duration: 1.0, velocity: 0.85 });
+  notes.push({ note: midiToNoteName(38), midi: 38, time: 31, duration: 1.0, velocity: 0.9 }); // Low D
 
   return {
     name: 'Hungarian Dance No. 5',
-    duration: 8.0,
+    duration: 32.0,
     tempo: 160,
     timeSignature: { timeSignature: [2, 4] },
     tracks: 2,
