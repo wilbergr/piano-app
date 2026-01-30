@@ -35,11 +35,134 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
   const [performanceTracker, setPerformanceTracker] = useState(null);
   const [lastFeedback, setLastFeedback] = useState(null);
   const [midiFileData, setMidiFileData] = useState(null); // Store raw MIDI file data for music notation
+  const [countingIn, setCountingIn] = useState(false);
+  const [countInBeats, setCountInBeats] = useState(0);
+  const [metronomeEnabled, setMetronomeEnabled] = useState(false);
+  const [metronomeBeat, setMetronomeBeat] = useState(0);
 
   const animationFrameRef = useRef(null);
   const startTimeRef = useRef(null);
   const pausedTimeRef = useRef(0);
   const lastStateUpdateRef = useRef(0); // Track last time we updated state
+  const metronomeIntervalRef = useRef(null);
+  const metronomeSynthRef = useRef(null);
+
+  // Initialize metronome synth
+  useEffect(() => {
+    // Create a simple noise burst for metronome click
+    metronomeSynthRef.current = new Tone.NoiseSynth({
+      noise: {
+        type: 'white'
+      },
+      envelope: {
+        attack: 0.001,
+        decay: 0.02,
+        sustain: 0
+      }
+    }).toDestination();
+    metronomeSynthRef.current.volume.value = -15;
+
+    return () => {
+      if (metronomeSynthRef.current) {
+        metronomeSynthRef.current.dispose();
+      }
+    };
+  }, []);
+
+  // Play metronome click
+  const playMetronomeClick = useCallback((isDownbeat = false) => {
+    if (metronomeSynthRef.current) {
+      // Make downbeat slightly louder
+      const volume = metronomeSynthRef.current.volume.value;
+      if (isDownbeat) {
+        metronomeSynthRef.current.volume.value = volume + 3;
+      }
+      metronomeSynthRef.current.triggerAttackRelease('16n');
+      // Reset volume after a short delay
+      if (isDownbeat) {
+        setTimeout(() => {
+          if (metronomeSynthRef.current) {
+            metronomeSynthRef.current.volume.value = volume;
+          }
+        }, 50);
+      }
+    }
+  }, []);
+
+  // Start count-in before challenge/practice
+  const startCountIn = useCallback(async () => {
+    if (!currentSong) return;
+
+    await audioService.init('piano');
+
+    const tempo = currentSong.tempo || 120;
+    const beatDuration = 60 / tempo; // Duration of one beat in seconds
+    const countInLength = 8; // 8 beats count-in
+
+    setCountingIn(true);
+    setCountInBeats(8);
+
+    // Use Tone.js for precise timing
+    Tone.getTransport().bpm.value = tempo;
+    Tone.getTransport().cancel(); // Clear any existing scheduled events
+    Tone.Draw.cancel();
+
+    // Play the first click immediately
+    if (metronomeEnabled) {
+      playMetronomeClick(true);
+    }
+
+    // Start time is now (first beat already played)
+    const startTime = Tone.now();
+    const songStartTime = startTime + (countInLength * beatDuration);
+
+    // Store the actual song start time
+    startTimeRef.current = songStartTime;
+
+    // Calculate total beats needed (count-in + song)
+    const songDuration = currentSong.duration || 60;
+    const totalBeats = Math.ceil(songDuration / beatDuration) + countInLength;
+
+    // Schedule ONE continuous metronome track (starting from beat 1, since beat 0 already played)
+    if (metronomeEnabled) {
+      for (let i = 1; i < totalBeats; i++) {
+        const beatTime = startTime + (i * beatDuration);
+        const isCountInBeat = i < countInLength;
+        const beatInMeasure = isCountInBeat ? i : (i - countInLength) % 4;
+
+        Tone.Draw.schedule(() => {
+          // Play click (downbeat on first beat of each measure)
+          playMetronomeClick(beatInMeasure === 0);
+
+          // Update count-in display for first 8 beats (8, 7, 6, 5, 4, 3, 2, 1)
+          if (isCountInBeat) {
+            setCountInBeats(8 - i);
+          }
+        }, beatTime);
+      }
+    } else {
+      // If metronome disabled, still schedule count-in UI updates
+      for (let i = 1; i < countInLength; i++) {
+        const beatTime = startTime + (i * beatDuration);
+        Tone.Draw.schedule(() => {
+          setCountInBeats(8 - i);
+        }, beatTime);
+      }
+    }
+
+    // Schedule end of count-in and start of song
+    Tone.Draw.schedule(() => {
+      setCountingIn(false);
+      setCountInBeats(0);
+
+      // Start actual playback
+      if (performanceTracker && pausedTimeRef.current === 0) {
+        performanceTracker.start();
+      }
+      lastStateUpdateRef.current = 0;
+      setIsPlaying(true);
+    }, songStartTime);
+  }, [currentSong, playMetronomeClick, performanceTracker, metronomeEnabled]);
 
   // Handle MIDI file upload
   const handleMidiUpload = useCallback(async (event) => {
@@ -165,7 +288,14 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
         await audioService.init('piano');
       }
 
-      // Start performance tracking
+      // Use count-in for challenge mode starting from beginning
+      if (mode === 'challenge' && pausedTimeRef.current === 0) {
+        // Don't check the note yet, wait for count-in to finish
+        startCountIn();
+        return;
+      }
+
+      // Start performance tracking for practice mode
       if (pausedTimeRef.current === 0) {
         performanceTracker.start();
       }
@@ -225,6 +355,9 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = null;
     }
+    // Cancel all scheduled Tone.js events
+    Tone.getTransport().cancel();
+    Tone.Draw.cancel();
     audioService.stopAllNotes();
     if (onHighlightKeys) {
       onHighlightKeys([]);
@@ -252,6 +385,25 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
     }
   };
 
+  // Start actual playback (called after count-in or directly)
+  const startPlayback = useCallback(() => {
+    if (!currentSong) return;
+
+    // Start performance tracking for practice/challenge modes
+    if ((mode === 'practice' || mode === 'challenge') && performanceTracker) {
+      if (pausedTimeRef.current === 0) {
+        performanceTracker.start();
+      }
+    }
+
+    startTimeRef.current = Tone.now() - pausedTimeRef.current;
+    lastStateUpdateRef.current = 0; // Reset state update timer
+    setIsPlaying(true);
+
+    // Note: playbackLoop will be started by the useEffect that watches isPlaying
+    // Note: metronome is now handled by Tone.js scheduling in startCountIn
+  }, [currentSong, mode, performanceTracker]);
+
   // Play/Pause toggle
   const togglePlayback = useCallback(async () => {
     if (!currentSong) return;
@@ -268,20 +420,19 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
         cancelAnimationFrame(animationFrameRef.current);
         animationFrameRef.current = null;
       }
+      if (metronomeIntervalRef.current) {
+        clearInterval(metronomeIntervalRef.current);
+        metronomeIntervalRef.current = null;
+      }
       audioService.stopAllNotes();
     } else {
       // Play
-      // Start performance tracking for practice/challenge modes
-      if ((mode === 'practice' || mode === 'challenge') && performanceTracker) {
-        if (pausedTimeRef.current === 0) {
-          performanceTracker.start();
-        }
+      // Use count-in for challenge mode starting from beginning
+      if (mode === 'challenge' && pausedTimeRef.current === 0) {
+        startCountIn();
+      } else {
+        startPlayback();
       }
-
-      startTimeRef.current = Tone.now() - pausedTimeRef.current;
-      lastStateUpdateRef.current = 0; // Reset state update timer
-      setIsPlaying(true);
-      // Note: playbackLoop will be started by the useEffect that watches isPlaying
     }
   }, [currentSong, isPlaying, mode, performanceTracker]);
 
@@ -294,6 +445,16 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       const now = Tone.now();
       const elapsed = (now - startTimeRef.current) * playbackSpeed;
       pausedTimeRef.current = elapsed;
+
+      // Update metronome beat indicator (visual only, sound handled by Tone.js scheduling)
+      if (metronomeEnabled) {
+        const tempo = currentSong.tempo || 120;
+        const beatDuration = 60 / tempo;
+        const currentBeat = Math.floor(elapsed / beatDuration) % 4;
+        if (currentBeat !== metronomeBeat) {
+          setMetronomeBeat(currentBeat);
+        }
+      }
 
       // Only update state every 50ms to reduce re-renders
       const shouldUpdateState = now - lastStateUpdateRef.current >= 0.05;
@@ -358,7 +519,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       // Continue loop (waiting for user input)
       animationFrameRef.current = requestAnimationFrame(playbackLoop);
     }
-  }, [isPlaying, currentSong, mode, playbackSpeed, onHighlightKeys, performanceTracker]);
+  }, [isPlaying, currentSong, mode, playbackSpeed, onHighlightKeys, performanceTracker, metronomeEnabled, metronomeBeat, playMetronomeClick]);
 
   // Start/stop playback loop based on isPlaying
   // Note: playbackLoop is intentionally NOT in dependencies to avoid infinite loops
@@ -398,6 +559,9 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
+    // Cancel all scheduled Tone.js events
+    Tone.getTransport().cancel();
+    Tone.Draw.cancel();
     audioService.stopAllNotes();
     if (onHighlightKeys) {
       onHighlightKeys([]);
@@ -434,6 +598,29 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
 
   return (
     <div className="song-player">
+      {/* Count-in overlay */}
+      {countingIn && (
+        <div className="count-in-overlay">
+          <div className="count-in-display">
+            <h2>Get Ready!</h2>
+            <div className="count-number">{countInBeats}</div>
+            <p>Tempo: {currentSong?.tempo || 120} BPM</p>
+          </div>
+        </div>
+      )}
+
+      {/* Visual metronome indicator */}
+      {metronomeEnabled && isPlaying && !countingIn && (
+        <div className="metronome-indicator">
+          {[0, 1, 2, 3].map((beat) => (
+            <div
+              key={beat}
+              className={`beat-dot ${beat === metronomeBeat ? 'active' : ''} ${beat === 0 ? 'downbeat' : ''}`}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="player-header">
         <div className="header-top">
           {/* Mode selector dropdown - only show when song is selected */}
@@ -474,6 +661,38 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
                   <option key={speed} value={speed}>{speed}x</option>
                 ))}
               </select>
+            </div>
+          )}
+          {/* Metronome toggle and control buttons - show in challenge and practice modes */}
+          {currentSong && (mode === 'challenge' || mode === 'practice') && (
+            <div className="control-group mode-in-header metronome-controls">
+              <label htmlFor="metronome-toggle">
+                <input
+                  type="checkbox"
+                  id="metronome-toggle"
+                  checked={metronomeEnabled}
+                  onChange={(e) => setMetronomeEnabled(e.target.checked)}
+                />
+                🔊 Click Track
+              </label>
+              {!isPlaying && !countingIn && currentTime === 0 && (
+                <button
+                  onClick={startCountIn}
+                  className="play-icon-btn"
+                  title="Start with count-in"
+                >
+                  ▶
+                </button>
+              )}
+              {isPlaying && (
+                <button
+                  onClick={resetSong}
+                  className="reset-icon-btn"
+                  title="Reset"
+                >
+                  🔄
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -560,11 +779,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
               </div>
             ) : (
               <div className="ready-message-inline">
-                {isPlaying && (
-                  <button onClick={resetSong} className="control-btn reset-inline" title="Reset">
-                    🔄
-                  </button>
-                )}
+                {/* Controls moved to header next to Click Track */}
               </div>
             )}
           </div>

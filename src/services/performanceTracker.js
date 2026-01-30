@@ -5,12 +5,13 @@
 
 /**
  * Timing windows for scoring (in milliseconds)
+ * Made more forgiving for better user experience
  */
 export const TIMING_WINDOWS = {
-  PERFECT: 50,   // ±50ms = 100%
-  GOOD: 100,     // ±100ms = 80%
-  OK: 200,       // ±200ms = 60%
-  // >200ms = 0% (miss)
+  PERFECT: 100,   // ±100ms = 100%
+  GOOD: 200,      // ±200ms = 80%
+  OK: 350,        // ±350ms = 60%
+  // >350ms = 0% (miss)
 };
 
 /**
@@ -215,11 +216,11 @@ export class PerformanceTracker {
   }
 
   /**
-   * Check if the user passed (85% or higher)
+   * Check if the user passed (75% or higher)
    * @returns {boolean} True if passed
    */
   hasPassed() {
-    return this.getAccuracy() >= 85;
+    return this.getAccuracy() >= 75;
   }
 
   /**
