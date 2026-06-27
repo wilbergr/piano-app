@@ -216,11 +216,11 @@ export class PerformanceTracker {
   }
 
   /**
-   * Check if the user passed (75% or higher)
+   * Check if the user passed (90% or higher)
    * @returns {boolean} True if passed
    */
   hasPassed() {
-    return this.getAccuracy() >= 75;
+    return this.getAccuracy() >= 90;
   }
 
   /**

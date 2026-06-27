@@ -20,6 +20,15 @@ function App() {
 
     preloadAudio();
   }, []);
+
+  const [challengeConfig, setChallengeConfig] = useState(null);
+  useEffect(() => {
+    fetch('challenge-config.json')
+      .then((r) => r.json())
+      .then(setChallengeConfig)
+      .catch(() => {});
+  }, []);
+
   const [highlightedKeys, setHighlightedKeys] = useState([]);
   const [keyFeedback, setKeyFeedback] = useState(null);
   const [performanceResults, setPerformanceResults] = useState(null);
@@ -139,9 +148,17 @@ function App() {
               </div>
               <div className="results-status">
                 {performanceResults.passed ? (
-                  <p className="pass-message">🎉 Excellent! You passed!</p>
+                  <>
+                    <p className="pass-message">🎉 Excellent! You passed!</p>
+                    {challengeConfig?.code && (
+                      <div className="challenge-code">
+                        <p className="challenge-code-label">Your unlock code:</p>
+                        <span className="challenge-code-value">{challengeConfig.code}</span>
+                      </div>
+                    )}
+                  </>
                 ) : (
-                  <p className="fail-message">Keep practicing! You need 85% to pass.</p>
+                  <p className="fail-message">Keep practicing! You need 90% to pass.</p>
                 )}
               </div>
             </div>
