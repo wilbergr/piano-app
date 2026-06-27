@@ -181,10 +181,6 @@ function App() {
                 <span className="result-value">{performanceResults.good}</span>
               </div>
               <div className="result-row">
-                <span className="result-label">✓ OK</span>
-                <span className="result-value">{performanceResults.ok}</span>
-              </div>
-              <div className="result-row">
                 <span className="result-label">✗ Missed</span>
                 <span className="result-value">{performanceResults.missed}</span>
               </div>
