@@ -29,6 +29,11 @@ function App() {
       .catch(() => {});
   }, []);
 
+  const resetChallengeRef = useRef(null);
+  const handleRegisterReset = useCallback((fn) => {
+    resetChallengeRef.current = fn;
+  }, []);
+
   const [highlightedKeys, setHighlightedKeys] = useState([]);
   const [keyFeedback, setKeyFeedback] = useState(null);
   const [performanceResults, setPerformanceResults] = useState(null);
@@ -55,8 +60,11 @@ function App() {
   }, []);
 
   const handleCloseResults = useCallback(() => {
+    if (performanceResults && !performanceResults.passed) {
+      resetChallengeRef.current?.();
+    }
     setPerformanceResults(null);
-  }, []);
+  }, [performanceResults]);
 
   // Handle song completion
   const handleSongComplete = useCallback((song) => {
@@ -101,6 +109,7 @@ function App() {
           onUserKeyPress={setUserKeyPressHandler}
           onKeyFeedback={handleKeyFeedback}
           onShowResults={handleShowResults}
+          onRegisterReset={handleRegisterReset}
         />
 
         <div className="info-section">

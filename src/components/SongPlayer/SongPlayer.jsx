@@ -23,7 +23,7 @@ import './SongPlayer.css';
  * Song Player Component
  * Handles song loading, playback, and mode management
  */
-function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeedback, onShowResults }) {
+function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeedback, onShowResults, onRegisterReset }) {
   const [songs] = useState(songsData.songs);
   const [selectedSong, setSelectedSong] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
@@ -68,6 +68,21 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       }
     };
   }, []);
+
+  // Reset challenge to the beginning (called by App after a failed result is dismissed)
+  const resetChallenge = useCallback(() => {
+    setIsPlaying(false);
+    audioService.stopAllNotes();
+    setCurrentTime(0);
+    pausedTimeRef.current = 0;
+    if (currentSong) {
+      setPerformanceTracker(new PerformanceTracker(currentSong));
+    }
+  }, [currentSong]);
+
+  useEffect(() => {
+    onRegisterReset?.(resetChallenge);
+  }, [onRegisterReset, resetChallenge]);
 
   // Play metronome click
   const playMetronomeClick = useCallback((isDownbeat = false) => {
