@@ -159,7 +159,7 @@ function App() {
                 {performanceResults.passed ? (
                   <>
                     <p className="pass-message">🎉 Excellent! You passed!</p>
-                    {challengeConfig?.code && (
+                    {performanceResults.mode === 'challenge' && challengeConfig?.code && (
                       <div className="challenge-code">
                         <p className="challenge-code-label">Your unlock code:</p>
                         <span className="challenge-code-value">{challengeConfig.code}</span>
