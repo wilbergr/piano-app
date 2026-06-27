@@ -60,11 +60,9 @@ function App() {
   }, []);
 
   const handleCloseResults = useCallback(() => {
-    if (performanceResults && !performanceResults.passed) {
-      resetChallengeRef.current?.();
-    }
+    resetChallengeRef.current?.();
     setPerformanceResults(null);
-  }, [performanceResults]);
+  }, []);
 
   // Handle song completion
   const handleSongComplete = useCallback((song) => {

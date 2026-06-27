@@ -69,9 +69,12 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
     };
   }, []);
 
-  // Reset challenge to the beginning (called by App after a failed result is dismissed)
+  // Reset challenge to the beginning (called by App after results are dismissed)
   const resetChallenge = useCallback(() => {
     setIsPlaying(false);
+    setCountingIn(false);
+    setCountInBeats(0);
+    setLastFeedback(null);
     audioService.stopAllNotes();
     setCurrentTime(0);
     pausedTimeRef.current = 0;
