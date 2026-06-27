@@ -820,7 +820,6 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
                   <div className="stat-grid">
                     <span className="stat-mini perfect">🌟 {performanceTracker.results.perfect}</span>
                     <span className="stat-mini good">👍 {performanceTracker.results.good}</span>
-                    <span className="stat-mini ok">✓ {performanceTracker.results.ok}</span>
                     <span className="stat-mini missed">✗ {performanceTracker.results.missed}</span>
                     <span className="stat-mini wrong">❌ {performanceTracker.results.wrong}</span>
                   </div>

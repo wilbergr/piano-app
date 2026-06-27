@@ -8,9 +8,8 @@
  * Made more forgiving for better user experience
  */
 export const TIMING_WINDOWS = {
-  PERFECT: 200,   // ±200ms = 100%
-  GOOD: 400,      // ±400ms = 90%
-  OK: 600,        // ±600ms = 75%
+  PERFECT: 400,   // ±400ms = 100%
+  GOOD: 600,      // ±600ms = 80%
   // >600ms = late (40%)
 };
 
@@ -25,7 +24,6 @@ export class PerformanceTracker {
     this.results = {
       perfect: 0,
       good: 0,
-      ok: 0,
       missed: 0,
       wrong: 0,
       totalNotes: song.notes.length,
@@ -113,12 +111,8 @@ export class PerformanceTracker {
       this.results.perfect++;
     } else if (timingDiff <= TIMING_WINDOWS.GOOD) {
       rating = 'good';
-      score = 90;
+      score = 80;
       this.results.good++;
-    } else if (timingDiff <= TIMING_WINDOWS.OK) {
-      rating = 'ok';
-      score = 75;
-      this.results.ok++;
     } else {
       rating = 'late';
       score = 40;
@@ -188,8 +182,6 @@ export class PerformanceTracker {
         return '🌟 Perfect!';
       case 'good':
         return '👍 Good!';
-      case 'ok':
-        return '✓ OK';
       case 'late':
         return `⏰ Late (${Math.round(timingDiff)}ms)`;
       default:
@@ -252,7 +244,6 @@ export class PerformanceTracker {
     this.results = {
       perfect: 0,
       good: 0,
-      ok: 0,
       missed: 0,
       wrong: 0,
       totalNotes: this.song.notes.length,
