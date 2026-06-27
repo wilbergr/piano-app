@@ -8,10 +8,10 @@
  * Made more forgiving for better user experience
  */
 export const TIMING_WINDOWS = {
-  PERFECT: 100,   // ±100ms = 100%
-  GOOD: 200,      // ±200ms = 80%
-  OK: 350,        // ±350ms = 60%
-  // >350ms = 0% (miss)
+  PERFECT: 200,   // ±200ms = 100%
+  GOOD: 400,      // ±400ms = 90%
+  OK: 600,        // ±600ms = 75%
+  // >600ms = late (40%)
 };
 
 /**
@@ -113,15 +113,15 @@ export class PerformanceTracker {
       this.results.perfect++;
     } else if (timingDiff <= TIMING_WINDOWS.GOOD) {
       rating = 'good';
-      score = 80;
+      score = 90;
       this.results.good++;
     } else if (timingDiff <= TIMING_WINDOWS.OK) {
       rating = 'ok';
-      score = 60;
+      score = 75;
       this.results.ok++;
     } else {
       rating = 'late';
-      score = 30; // Give some credit for eventually playing it
+      score = 40;
       this.results.missed++;
     }
 
