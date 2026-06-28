@@ -86,7 +86,10 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>🎹 Piano Learning App</h1>
+        <div className="app-title">
+          <span aria-hidden="true">🎹</span>
+          <h1>Piano Learning App</h1>
+        </div>
         <p>Learn piano through interactive lessons and songs</p>
       </header>
 
