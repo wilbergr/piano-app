@@ -727,22 +727,35 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       {!currentSong && (
         <div className="song-list">
           <h3>Select a Song:</h3>
-          <div className="songs-grid">
-            {songs.filter(s => s.unlocked).map(song => (
-              <button
-                key={song.id}
-                className="song-card"
-                onClick={() => loadSong(song.id)}
-                disabled={isLoading}
-              >
-                <div className="song-title">{song.title}</div>
-                <div className="song-preview">{song.preview}</div>
-                <span className={`difficulty-badge ${song.difficulty}`}>
-                  {song.difficulty}
-                </span>
-              </button>
-            ))}
-          </div>
+          {[
+            { key: 'beginner', label: 'Beginner' },
+            { key: 'intermediate', label: 'Intermediate' },
+            { key: 'advanced', label: 'Advanced' },
+          ].map(({ key, label }) => {
+            const group = songs.filter(s => s.unlocked && s.difficulty === key);
+            if (group.length === 0) return null;
+            return (
+              <div key={key} className="difficulty-group">
+                <h3 className="difficulty-heading">{label}</h3>
+                <div className="songs-grid">
+                  {group.map(song => (
+                    <button
+                      key={song.id}
+                      className="song-card"
+                      onClick={() => loadSong(song.id)}
+                      disabled={isLoading}
+                    >
+                      <div className="song-title">{song.title}</div>
+                      <div className="song-preview">{song.preview}</div>
+                      <span className={`difficulty-badge ${song.difficulty}`}>
+                        {song.difficulty}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
 
           {/* MIDI Upload Section */}
           <div className="upload-section">
