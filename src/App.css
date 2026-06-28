@@ -79,8 +79,31 @@
   transform: translateY(0);
 }
 
-/* Info section */
-.info-section {
+/* Help toggle */
+.help-toggle-container {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.help-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.help-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.help-content {
+  margin-top: 1rem;
+  text-align: left;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 2rem;
@@ -90,30 +113,30 @@
   z-index: 1;
 }
 
-.info-section h2 {
+.help-content h2 {
   margin-top: 0;
   color: #4caf50;
   font-size: 1.5rem;
 }
 
-.info-section h3 {
+.help-content h3 {
   margin-top: 1.5rem;
   color: #81c784;
   font-size: 1.2rem;
 }
 
-.info-section ul {
+.help-content ul {
   list-style: none;
   padding: 0;
 }
 
-.info-section li {
+.help-content li {
   padding: 0.5rem 0;
   padding-left: 1.5rem;
   position: relative;
 }
 
-.info-section li::before {
+.help-content li::before {
   content: '▸';
   position: absolute;
   left: 0;

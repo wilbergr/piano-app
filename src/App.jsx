@@ -37,6 +37,7 @@ function App() {
   const [highlightedKeys, setHighlightedKeys] = useState([]);
   const [keyFeedback, setKeyFeedback] = useState(null);
   const [performanceResults, setPerformanceResults] = useState(null);
+  const [showHelp, setShowHelp] = useState(false);
   const userKeyPressHandlerRef = useRef(null);
 
   // Handle key highlighting from song player
@@ -113,32 +114,43 @@ function App() {
           onRegisterReset={handleRegisterReset}
         />
 
-        <div className="info-section">
-          <h2>How to Use</h2>
-          <ul>
-            <li>🎵 <strong>Select a song</strong> from the song player above</li>
-            <li>🎮 <strong>Choose a mode:</strong> Demo (watch), Practice (your pace), or Challenge (real-time)</li>
-            <li>▶️ <strong>Demo mode:</strong> Press play to watch and listen</li>
-            <li>🎹 <strong>Practice/Challenge:</strong> Just start playing the highlighted keys!</li>
-            <li>⚡ <strong>Adjust speed</strong> to learn at your own pace</li>
-          </ul>
+        <div className="help-toggle-container">
+          <button
+            className="help-toggle-btn"
+            onClick={() => setShowHelp(h => !h)}
+            aria-expanded={showHelp}
+          >
+            {showHelp ? '✕ Hide Help' : '? How to Use'}
+          </button>
+          {showHelp && (
+            <div className="help-content">
+              <h2>How to Use</h2>
+              <ul>
+                <li>🎵 <strong>Select a song</strong> from the song player above</li>
+                <li>🎮 <strong>Choose a mode:</strong> Demo (watch), Practice (your pace), or Challenge (real-time)</li>
+                <li>▶️ <strong>Demo mode:</strong> Press play to watch and listen</li>
+                <li>🎹 <strong>Practice/Challenge:</strong> Just start playing the highlighted keys!</li>
+                <li>⚡ <strong>Adjust speed</strong> to learn at your own pace</li>
+              </ul>
 
-          <h3>Features:</h3>
-          <ul>
-            <li>✅ 88-key interactive piano with real sounds</li>
-            <li>✅ MIDI song playback with key highlighting</li>
-            <li>✅ Adjustable playback speed (0.5x to 2.0x)</li>
-            <li>✅ Demo mode - watch and learn</li>
-            <li>✅ Practice mode - play at your own pace</li>
-            <li>✅ Challenge mode - test your timing</li>
-            <li>✅ Performance tracking with detailed metrics</li>
-            <li>⏳ Trivia challenges - coming soon</li>
-          </ul>
+              <h3>Features:</h3>
+              <ul>
+                <li>✅ 88-key interactive piano with real sounds</li>
+                <li>✅ MIDI song playback with key highlighting</li>
+                <li>✅ Adjustable playback speed (0.5x to 2.0x)</li>
+                <li>✅ Demo mode - watch and learn</li>
+                <li>✅ Practice mode - play at your own pace</li>
+                <li>✅ Challenge mode - test your timing</li>
+                <li>✅ Performance tracking with detailed metrics</li>
+                <li>⏳ Trivia challenges - coming soon</li>
+              </ul>
 
-          <div className="tip-box">
-            <h4>💡 Pro Tip:</h4>
-            <p>Start with the C Major Scale to familiarize yourself with the keyboard layout. Then try more complex songs as they unlock!</p>
-          </div>
+              <div className="tip-box">
+                <h4>💡 Pro Tip:</h4>
+                <p>Start with the C Major Scale to familiarize yourself with the keyboard layout. Then try more complex songs as they unlock!</p>
+              </div>
+            </div>
+          )}
         </div>
       </main>
 
