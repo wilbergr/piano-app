@@ -46,7 +46,32 @@
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+}
+
+/* Two-column layout */
+.app-columns {
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .app-columns {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .app-col-left {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .app-col-right {
+    flex: 0 0 420px;
+    width: 420px;
+  }
 }
 
 /* Controls */
