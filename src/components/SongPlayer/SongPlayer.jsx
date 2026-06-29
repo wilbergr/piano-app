@@ -11,6 +11,20 @@ import {
   createCanonInDSong,
   createMoonlightSonataSong,
   createHungarianDanceSong,
+  createHotCrossBunsSong,
+  createYankeeDoodleSong,
+  createLondonBridgeSong,
+  createRowYourBoatSong,
+  createOldMacDonaldSong,
+  createAmazingGraceSong,
+  createGreensleevesSong,
+  createSaintsGoMarchingSong,
+  createDannyBoySong,
+  createSimpleGiftsSong,
+  createBachPreludeSong,
+  createTurkishMarchSong,
+  createChopinNocturneSong,
+  createClairDeLuneSong,
   getNotesAtTime
 } from '../../services/midiParser';
 import audioService from '../../services/audioService';
@@ -251,6 +265,34 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
         songData = createMoonlightSonataSong();
       } else if (song.midiFile === 'hungarian') {
         songData = createHungarianDanceSong();
+      } else if (song.midiFile === 'hot-cross-buns') {
+        songData = createHotCrossBunsSong();
+      } else if (song.midiFile === 'yankee-doodle') {
+        songData = createYankeeDoodleSong();
+      } else if (song.midiFile === 'london-bridge') {
+        songData = createLondonBridgeSong();
+      } else if (song.midiFile === 'row-your-boat') {
+        songData = createRowYourBoatSong();
+      } else if (song.midiFile === 'old-macdonald') {
+        songData = createOldMacDonaldSong();
+      } else if (song.midiFile === 'amazing-grace') {
+        songData = createAmazingGraceSong();
+      } else if (song.midiFile === 'greensleeves') {
+        songData = createGreensleevesSong();
+      } else if (song.midiFile === 'saints-go-marching') {
+        songData = createSaintsGoMarchingSong();
+      } else if (song.midiFile === 'danny-boy') {
+        songData = createDannyBoySong();
+      } else if (song.midiFile === 'simple-gifts') {
+        songData = createSimpleGiftsSong();
+      } else if (song.midiFile === 'bach-prelude') {
+        songData = createBachPreludeSong();
+      } else if (song.midiFile === 'turkish-march') {
+        songData = createTurkishMarchSong();
+      } else if (song.midiFile === 'chopin-nocturne') {
+        songData = createChopinNocturneSong();
+      } else if (song.midiFile === 'clair-de-lune') {
+        songData = createClairDeLuneSong();
       } else {
         // Load actual MIDI file
         songData = await parseMidiFile(song.midiFile);

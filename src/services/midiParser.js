@@ -764,6 +764,897 @@ export function createHungarianDanceSong() {
 }
 
 /**
+ * Create Hot Cross Buns song
+ * @returns {Object} Song data for Hot Cross Buns
+ */
+export function createHotCrossBunsSong() {
+  const notes = [
+    // Hot cross buns
+    { note: 'E4', midi: 64, time: 0.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 0.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 1.0,  duration: 1.0, velocity: 0.8 },
+    // Hot cross buns
+    { note: 'E4', midi: 64, time: 2.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 2.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 3.0,  duration: 1.0, velocity: 0.8 },
+    // One a penny, two a penny
+    { note: 'C4', midi: 60, time: 4.0,  duration: 0.25, velocity: 0.75 },
+    { note: 'C4', midi: 60, time: 4.25, duration: 0.25, velocity: 0.75 },
+    { note: 'C4', midi: 60, time: 4.5,  duration: 0.25, velocity: 0.75 },
+    { note: 'C4', midi: 60, time: 4.75, duration: 0.25, velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 5.0,  duration: 0.25, velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 5.25, duration: 0.25, velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 5.5,  duration: 0.25, velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 5.75, duration: 0.25, velocity: 0.75 },
+    // Hot cross buns
+    { note: 'E4', midi: 64, time: 6.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 6.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 7.0,  duration: 1.0, velocity: 0.8 },
+  ];
+
+  return {
+    name: 'Hot Cross Buns',
+    duration: 8.0,
+    tempo: 120,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'beginner',
+  };
+}
+
+/**
+ * Create Yankee Doodle song
+ * @returns {Object} Song data for Yankee Doodle
+ */
+export function createYankeeDoodleSong() {
+  const notes = [
+    // Yan-kee Doo-dle went to town
+    { note: 'C4', midi: 60, time: 0.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 0.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 1.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 1.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 2.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 2.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 3.0,  duration: 1.0, velocity: 0.8 },
+    // A-ri-ding on a po-ny
+    { note: 'C4', midi: 60, time: 4.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 4.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 5.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 5.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 6.0,  duration: 1.0, velocity: 0.8 },
+    // Stuck a fea-ther in his cap
+    { note: 'E4', midi: 64, time: 7.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 7.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 8.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 8.5,  duration: 1.0, velocity: 0.8 },
+    // And called it mac-a-ro-ni
+    { note: 'G4', midi: 67, time: 9.5,  duration: 0.25, velocity: 0.75 },
+    { note: 'F4', midi: 65, time: 9.75, duration: 0.25, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 10.0, duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 10.5, duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 11.0, duration: 1.0, velocity: 0.8 },
+    // Chorus: Yan-kee Doo-dle keep it up
+    { note: 'G4', midi: 67, time: 12.0, duration: 0.5, velocity: 0.85 },
+    { note: 'F4', midi: 65, time: 12.5, duration: 0.5, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 13.0, duration: 0.5, velocity: 0.85 },
+    { note: 'D4', midi: 62, time: 13.5, duration: 0.5, velocity: 0.85 },
+    // Yan-kee Doo-dle dan-dy
+    { note: 'C4', midi: 60, time: 14.0, duration: 0.5, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 14.5, duration: 0.5, velocity: 0.85 },
+    { note: 'G4', midi: 67, time: 15.0, duration: 0.5, velocity: 0.85 },
+    { note: 'G4', midi: 67, time: 15.5, duration: 0.5, velocity: 0.85 },
+    // Mind the mu-sic and the step
+    { note: 'G4', midi: 67, time: 16.0, duration: 0.5, velocity: 0.85 },
+    { note: 'F4', midi: 65, time: 16.5, duration: 0.5, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 17.0, duration: 0.5, velocity: 0.85 },
+    { note: 'D4', midi: 62, time: 17.5, duration: 0.5, velocity: 0.85 },
+    // And with the girls be han-dy
+    { note: 'E4', midi: 64, time: 18.0, duration: 0.5, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 18.5, duration: 0.5, velocity: 0.85 },
+    { note: 'D4', midi: 62, time: 19.0, duration: 0.5, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 19.5, duration: 0.5, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 20.0, duration: 2.0, velocity: 0.8 },
+  ];
+
+  return {
+    name: 'Yankee Doodle',
+    duration: 22.0,
+    tempo: 120,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'beginner',
+  };
+}
+
+/**
+ * Create London Bridge song
+ * @returns {Object} Song data for London Bridge
+ */
+export function createLondonBridgeSong() {
+  const notes = [
+    // Lon-don Bridge is fall-ing down
+    { note: 'G4', midi: 67, time: 0.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 0.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 1.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 1.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 2.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 2.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 3.0,  duration: 1.0, velocity: 0.8 },
+    // Fall-ing down, fall-ing down
+    { note: 'D4', midi: 62, time: 4.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 4.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 5.0,  duration: 1.0, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 6.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 6.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 7.0,  duration: 1.0, velocity: 0.8 },
+    // Lon-don Bridge is fall-ing down
+    { note: 'G4', midi: 67, time: 8.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 8.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 9.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 9.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 10.0, duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 10.5, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 11.0, duration: 1.0, velocity: 0.8 },
+    // My fair la-dy
+    { note: 'D4', midi: 62, time: 12.0, duration: 1.0, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 13.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 13.5, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 14.0, duration: 2.0, velocity: 0.8 },
+  ];
+
+  return {
+    name: 'London Bridge',
+    duration: 16.0,
+    tempo: 120,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'beginner',
+  };
+}
+
+/**
+ * Create Row Row Row Your Boat song
+ * @returns {Object} Song data for Row Row Row Your Boat
+ */
+export function createRowYourBoatSong() {
+  const notes = [
+    // Row, row, row your boat
+    { note: 'C4', midi: 60, time: 0.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 0.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 1.0,  duration: 0.375, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 1.375, duration: 0.125, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 1.5,  duration: 1.0, velocity: 0.8 },
+    // Gent-ly down the stream
+    { note: 'E4', midi: 64, time: 2.5,  duration: 0.375, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 2.875, duration: 0.125, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 3.0,  duration: 0.375, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 3.375, duration: 0.125, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 3.5,  duration: 1.5, velocity: 0.8 },
+    // Mer-ri-ly, mer-ri-ly, mer-ri-ly, mer-ri-ly
+    { note: 'C5', midi: 72, time: 5.0,  duration: 0.25, velocity: 0.75 },
+    { note: 'C5', midi: 72, time: 5.25, duration: 0.25, velocity: 0.75 },
+    { note: 'C5', midi: 72, time: 5.5,  duration: 0.25, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 5.75, duration: 0.25, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 6.0,  duration: 0.25, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 6.25, duration: 0.25, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 6.5,  duration: 0.25, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 6.75, duration: 0.25, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 7.0,  duration: 0.25, velocity: 0.75 },
+    { note: 'C4', midi: 60, time: 7.25, duration: 0.25, velocity: 0.75 },
+    { note: 'C4', midi: 60, time: 7.5,  duration: 0.25, velocity: 0.75 },
+    { note: 'C4', midi: 60, time: 7.75, duration: 0.25, velocity: 0.75 },
+    // Life is but a dream
+    { note: 'G4', midi: 67, time: 8.0,  duration: 0.375, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 8.375, duration: 0.125, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 8.5,  duration: 0.375, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 8.875, duration: 0.125, velocity: 0.75 },
+    { note: 'C4', midi: 60, time: 9.0,  duration: 1.0, velocity: 0.8 },
+  ];
+
+  return {
+    name: 'Row Row Row Your Boat',
+    duration: 10.0,
+    tempo: 120,
+    timeSignature: { timeSignature: [3, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'beginner',
+  };
+}
+
+/**
+ * Create Old MacDonald Had a Farm song
+ * @returns {Object} Song data for Old MacDonald
+ */
+export function createOldMacDonaldSong() {
+  const notes = [
+    // Old Mac-Don-ald had a farm
+    { note: 'G4', midi: 67, time: 0.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 0.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 1.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 1.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 2.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 2.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 3.0,  duration: 1.0, velocity: 0.8 },
+    // E-I-E-I-O
+    { note: 'B4', midi: 71, time: 4.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'B4', midi: 71, time: 4.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 5.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 5.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 6.0,  duration: 1.0, velocity: 0.8 },
+    // And on his farm he had some chicks
+    { note: 'G4', midi: 67, time: 7.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 7.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 8.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 8.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 9.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 9.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 10.0, duration: 1.0, velocity: 0.8 },
+    // E-I-E-I-O
+    { note: 'B4', midi: 71, time: 11.0, duration: 0.5, velocity: 0.8 },
+    { note: 'B4', midi: 71, time: 11.5, duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 12.0, duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 12.5, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 13.0, duration: 1.0, velocity: 0.8 },
+    // With a chick-chick here, chick-chick there
+    { note: 'D4', midi: 62, time: 14.0, duration: 0.5, velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 14.5, duration: 0.5, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 15.0, duration: 0.5, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 15.5, duration: 0.5, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 16.0, duration: 0.5, velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 16.5, duration: 0.5, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 17.0, duration: 0.5, velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 17.5, duration: 0.5, velocity: 0.75 },
+    // Old Mac-Don-ald had a farm, E-I-E-I-O
+    { note: 'G4', midi: 67, time: 18.0, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 18.5, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 19.0, duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 19.5, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 20.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 20.5, duration: 0.5, velocity: 0.8 },
+    { note: 'D4', midi: 62, time: 21.0, duration: 0.5, velocity: 0.8 },
+    { note: 'B4', midi: 71, time: 21.5, duration: 0.5, velocity: 0.8 },
+    { note: 'B4', midi: 71, time: 22.0, duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 22.5, duration: 0.5, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 23.0, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 23.5, duration: 1.5, velocity: 0.8 },
+  ];
+
+  return {
+    name: 'Old MacDonald Had a Farm',
+    duration: 25.0,
+    tempo: 120,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'beginner',
+  };
+}
+
+/**
+ * Create Amazing Grace song
+ * @returns {Object} Song data for Amazing Grace
+ */
+export function createAmazingGraceSong() {
+  // 3/4 time at 80 BPM: quarter = 0.75s, half = 1.5s, dotted half = 2.25s
+  const q = 0.75;
+  const h = 1.5;
+  const dh = 2.25;
+  const notes = [
+    // A-maz-ing grace how sweet the sound
+    { note: 'C4', midi: 60, time: 0*q,   duration: q,  velocity: 0.75 }, // pickup
+    { note: 'F4', midi: 65, time: 1*q,   duration: h,  velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 3*q,   duration: q,  velocity: 0.75 },
+    { note: 'C5', midi: 72, time: 4*q,   duration: h,  velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 6*q,   duration: q,  velocity: 0.75 },
+    { note: 'C5', midi: 72, time: 7*q,   duration: h,  velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 9*q,   duration: q,  velocity: 0.75 },
+    { note: 'F4', midi: 65, time: 10*q,  duration: dh, velocity: 0.8  },
+    // That saved a wretch like me
+    { note: 'F4', midi: 65, time: 13*q,  duration: q,  velocity: 0.75 },
+    { note: 'A4', midi: 69, time: 14*q,  duration: h,  velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 16*q,  duration: q,  velocity: 0.75 },
+    { note: 'A4', midi: 69, time: 17*q,  duration: h,  velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 19*q,  duration: dh, velocity: 0.8  },
+    // I once was lost but now am found
+    { note: 'C4', midi: 60, time: 22*q,  duration: q,  velocity: 0.75 },
+    { note: 'F4', midi: 65, time: 23*q,  duration: h,  velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 25*q,  duration: q,  velocity: 0.75 },
+    { note: 'C5', midi: 72, time: 26*q,  duration: h,  velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 28*q,  duration: q,  velocity: 0.75 },
+    { note: 'C5', midi: 72, time: 29*q,  duration: h,  velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 31*q,  duration: q,  velocity: 0.75 },
+    { note: 'F4', midi: 65, time: 32*q,  duration: dh, velocity: 0.8  },
+    // Was blind but now I see
+    { note: 'F4', midi: 65, time: 35*q,  duration: q,  velocity: 0.75 },
+    { note: 'G4', midi: 67, time: 36*q,  duration: h,  velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 38*q,  duration: q,  velocity: 0.75 },
+    { note: 'F4', midi: 65, time: 39*q,  duration: dh, velocity: 0.8  },
+  ];
+
+  return {
+    name: 'Amazing Grace',
+    duration: Math.round((39 + 3) * q * 100) / 100,
+    tempo: 80,
+    timeSignature: { timeSignature: [3, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'intermediate',
+  };
+}
+
+/**
+ * Create Greensleeves song
+ * @returns {Object} Song data for Greensleeves
+ */
+export function createGreensleevesSong() {
+  // 3/4 time at 100 BPM: q=0.6s, e=0.3s, dq=0.9s, dh=1.8s
+  // All times are explicit and sequential (each = previous time + previous duration)
+  const notes = [
+    // VERSE — "Alas my love, you do me wrong..."
+    { note: 'A3',  midi: 57, time: 0.0,  duration: 0.6, velocity: 0.75 }, // pickup
+    { note: 'C4',  midi: 60, time: 0.6,  duration: 0.9, velocity: 0.80 },
+    { note: 'D4',  midi: 62, time: 1.5,  duration: 0.3, velocity: 0.75 },
+    { note: 'E4',  midi: 64, time: 1.8,  duration: 0.6, velocity: 0.80 },
+    { note: 'F4',  midi: 65, time: 2.4,  duration: 0.6, velocity: 0.78 },
+    { note: 'E4',  midi: 64, time: 3.0,  duration: 0.9, velocity: 0.80 },
+    { note: 'C4',  midi: 60, time: 3.9,  duration: 0.3, velocity: 0.75 },
+    { note: 'D4',  midi: 62, time: 4.2,  duration: 0.9, velocity: 0.80 },
+    { note: 'B3',  midi: 59, time: 5.1,  duration: 0.3, velocity: 0.75 },
+    { note: 'G#3', midi: 56, time: 5.4,  duration: 1.8, velocity: 0.80 }, // held
+    { note: 'B3',  midi: 59, time: 7.2,  duration: 0.6, velocity: 0.75 },
+    { note: 'A3',  midi: 57, time: 7.8,  duration: 0.9, velocity: 0.80 },
+    { note: 'G3',  midi: 55, time: 8.7,  duration: 0.3, velocity: 0.75 },
+    { note: 'A3',  midi: 57, time: 9.0,  duration: 0.9, velocity: 0.80 },
+    { note: 'B3',  midi: 59, time: 9.9,  duration: 0.3, velocity: 0.75 },
+    { note: 'C4',  midi: 60, time: 10.2, duration: 1.8, velocity: 0.80 }, // held
+    { note: 'A3',  midi: 57, time: 12.0, duration: 1.8, velocity: 0.80 }, // held — end verse
+    // REFRAIN — "Greensleeves was all my joy..."
+    { note: 'C4',  midi: 60, time: 13.8, duration: 0.9, velocity: 0.85 },
+    { note: 'D4',  midi: 62, time: 14.7, duration: 0.3, velocity: 0.80 },
+    { note: 'E4',  midi: 64, time: 15.0, duration: 0.6, velocity: 0.85 },
+    { note: 'F4',  midi: 65, time: 15.6, duration: 0.6, velocity: 0.82 },
+    { note: 'E4',  midi: 64, time: 16.2, duration: 0.9, velocity: 0.85 },
+    { note: 'C4',  midi: 60, time: 17.1, duration: 0.3, velocity: 0.80 },
+    { note: 'D4',  midi: 62, time: 17.4, duration: 0.9, velocity: 0.85 },
+    { note: 'B3',  midi: 59, time: 18.3, duration: 0.3, velocity: 0.80 },
+    { note: 'G#3', midi: 56, time: 18.6, duration: 1.8, velocity: 0.85 }, // held
+    { note: 'B3',  midi: 59, time: 20.4, duration: 0.6, velocity: 0.80 },
+    { note: 'A3',  midi: 57, time: 21.0, duration: 0.9, velocity: 0.85 },
+    { note: 'G3',  midi: 55, time: 21.9, duration: 0.3, velocity: 0.80 },
+    { note: 'A3',  midi: 57, time: 22.2, duration: 0.9, velocity: 0.85 },
+    { note: 'B3',  midi: 59, time: 23.1, duration: 0.3, velocity: 0.80 },
+    { note: 'C4',  midi: 60, time: 23.4, duration: 1.8, velocity: 0.85 }, // held
+    { note: 'A3',  midi: 57, time: 25.2, duration: 1.8, velocity: 0.90 }, // final held
+  ];
+
+  return {
+    name: 'Greensleeves',
+    duration: 27.0,
+    tempo: 100,
+    timeSignature: { timeSignature: [3, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'intermediate',
+  };
+}
+
+/**
+ * Create When the Saints Go Marching In song
+ * @returns {Object} Song data for When the Saints Go Marching In
+ */
+export function createSaintsGoMarchingSong() {
+  // 4/4 time at 120 BPM: q=0.5s, e=0.25s, h=1.0s, dh=1.5s
+  const notes = [
+    // Oh when the saints (pickup)
+    { note: 'C4', midi: 60, time: 0.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 0.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 1.0,  duration: 0.5, velocity: 0.8 },
+    // go marching in
+    { note: 'G4', midi: 67, time: 1.5,  duration: 2.0, velocity: 0.85 },
+    // Oh when the saints go marching in
+    { note: 'C4', midi: 60, time: 3.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 4.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 4.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 5.0,  duration: 2.0, velocity: 0.85 },
+    // Oh Lord I want to be in that number
+    { note: 'C4', midi: 60, time: 7.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 7.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 8.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 8.5,  duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 9.0,  duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 9.5,  duration: 1.0, velocity: 0.85 },
+    { note: 'D4', midi: 62, time: 10.5, duration: 1.0, velocity: 0.85 },
+    // When the saints go marching in
+    { note: 'C4', midi: 60, time: 11.5, duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 12.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 12.5, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 13.0, duration: 1.0, velocity: 0.85 },
+    { note: 'F4', midi: 65, time: 14.0, duration: 2.0, velocity: 0.85 },
+    // Second verse — Oh when the sun...
+    { note: 'C4', midi: 60, time: 16.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 16.5, duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 17.0, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 17.5, duration: 2.0, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 19.5, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 20.0, duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 20.5, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 21.0, duration: 2.0, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 23.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 23.5, duration: 0.5, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 24.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 24.5, duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 25.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 25.5, duration: 1.0, velocity: 0.85 },
+    { note: 'D4', midi: 62, time: 26.5, duration: 1.0, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 27.5, duration: 0.5, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 28.0, duration: 0.5, velocity: 0.8 },
+    { note: 'E4', midi: 64, time: 28.5, duration: 0.5, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 29.0, duration: 1.0, velocity: 0.85 },
+    { note: 'F4', midi: 65, time: 30.0, duration: 2.0, velocity: 0.9 },
+  ];
+
+  return {
+    name: 'When the Saints Go Marching In',
+    duration: 32.0,
+    tempo: 120,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'intermediate',
+  };
+}
+
+/**
+ * Create Danny Boy song (Londonderry Air)
+ * @returns {Object} Song data for Danny Boy
+ */
+export function createDannyBoySong() {
+  // 4/4 time at 72 BPM: q=0.833s, e=0.417s, h=1.667s, dq=1.25s, dh=2.5s
+  // Using rounded values: q=0.83, e=0.42, h=1.67, dq=1.25, dh=2.5
+  const notes = [
+    // Oh Dan-ny boy, the pipes the pipes are call-ing
+    { note: 'G4', midi: 67, time: 0.0,  duration: 0.42, velocity: 0.75 }, // pickup
+    { note: 'C5', midi: 72, time: 0.42, duration: 1.25, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 1.67, duration: 0.42, velocity: 0.75 },
+    { note: 'D5', midi: 74, time: 2.09, duration: 0.83, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 2.92, duration: 0.83, velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 3.75, duration: 1.67, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 5.42, duration: 0.83, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 6.25, duration: 1.25, velocity: 0.78 },
+    // From glen to glen and down the moun-tain side
+    { note: 'G4', midi: 67, time: 7.5,  duration: 0.42, velocity: 0.75 },
+    { note: 'A4', midi: 69, time: 7.92, duration: 0.83, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 8.75, duration: 1.25, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 10.0, duration: 0.42, velocity: 0.75 },
+    { note: 'D5', midi: 74, time: 10.42, duration: 0.83, velocity: 0.8  },
+    { note: 'E5', midi: 76, time: 11.25, duration: 0.83, velocity: 0.82 },
+    { note: 'D5', midi: 74, time: 12.08, duration: 1.67, velocity: 0.82 },
+    { note: 'C5', midi: 72, time: 13.75, duration: 0.83, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 14.58, duration: 2.5,  velocity: 0.8  },
+    // The sum-mer's gone, and all the ro-ses fall-ing
+    { note: 'G4', midi: 67, time: 17.08, duration: 0.42, velocity: 0.75 },
+    { note: 'C5', midi: 72, time: 17.5,  duration: 1.25, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 18.75, duration: 0.42, velocity: 0.75 },
+    { note: 'D5', midi: 74, time: 19.17, duration: 0.83, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 20.0,  duration: 0.83, velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 20.83, duration: 1.67, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 22.5,  duration: 0.83, velocity: 0.75 },
+    { note: 'E4', midi: 64, time: 23.33, duration: 1.25, velocity: 0.78 },
+    // 'Tis you, 'tis you must go and I must bide
+    { note: 'G4', midi: 67, time: 24.58, duration: 0.42, velocity: 0.75 },
+    { note: 'A4', midi: 69, time: 25.0,  duration: 0.83, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 25.83, duration: 0.83, velocity: 0.8  },
+    { note: 'D5', midi: 74, time: 26.66, duration: 0.83, velocity: 0.82 },
+    { note: 'E5', midi: 76, time: 27.49, duration: 0.83, velocity: 0.85 },
+    { note: 'D5', midi: 74, time: 28.32, duration: 1.25, velocity: 0.82 },
+    { note: 'C5', midi: 72, time: 29.57, duration: 0.42, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 29.99, duration: 3.33, velocity: 0.85 }, // final held
+  ];
+
+  return {
+    name: 'Danny Boy',
+    duration: 33.32,
+    tempo: 72,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'intermediate',
+  };
+}
+
+/**
+ * Create Simple Gifts song (Shaker hymn)
+ * @returns {Object} Song data for Simple Gifts
+ */
+export function createSimpleGiftsSong() {
+  // 4/4 time at 100 BPM: q=0.6s, e=0.3s, h=1.2s, dq=0.9s
+  const notes = [
+    // 'Tis the gift to be simple
+    { note: 'C4', midi: 60, time: 0.0,  duration: 0.6, velocity: 0.8 },
+    { note: 'C4', midi: 60, time: 0.6,  duration: 0.6, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 1.2,  duration: 0.6, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 1.8,  duration: 0.6, velocity: 0.8 },
+    // 'tis the gift to be free
+    { note: 'G4', midi: 67, time: 2.4,  duration: 0.6, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 3.0,  duration: 0.6, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 3.6,  duration: 1.2, velocity: 0.85 },
+    // 'Tis the gift to come down where we ought to be
+    { note: 'A4', midi: 69, time: 4.8,  duration: 0.6, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 5.4,  duration: 0.6, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 6.0,  duration: 0.6, velocity: 0.8 },
+    { note: 'F4', midi: 65, time: 6.6,  duration: 0.6, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 7.2,  duration: 0.6, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 7.8,  duration: 0.6, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 8.4,  duration: 0.6, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 9.0,  duration: 0.6, velocity: 0.8 },
+    // And when we find ourselves in the place just right
+    { note: 'C5', midi: 72, time: 9.6,  duration: 0.6, velocity: 0.85 },
+    { note: 'C5', midi: 72, time: 10.2, duration: 0.6, velocity: 0.85 },
+    { note: 'A4', midi: 69, time: 10.8, duration: 0.6, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 11.4, duration: 0.6, velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 12.0, duration: 0.6, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 12.6, duration: 0.6, velocity: 0.8  },
+    // 'twill be in the valley of love and delight
+    { note: 'A4', midi: 69, time: 13.2, duration: 0.6, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 13.8, duration: 0.6, velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 14.4, duration: 1.2, velocity: 0.85 },
+    // When true simplicity is gain'd
+    { note: 'F4', midi: 65, time: 15.6, duration: 0.6, velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 16.2, duration: 0.6, velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 16.8, duration: 0.6, velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 17.4, duration: 0.6, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 18.0, duration: 0.6, velocity: 0.85 },
+    { note: 'A4', midi: 69, time: 18.6, duration: 0.6, velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 19.2, duration: 1.2, velocity: 0.85 },
+    // To bow and to bend we shan't be asham'd
+    { note: 'G4', midi: 67, time: 20.4, duration: 0.6, velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 21.0, duration: 0.6, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 21.6, duration: 0.6, velocity: 0.8  },
+    { note: 'A4', midi: 69, time: 22.2, duration: 0.6, velocity: 0.8  },
+    { note: 'C5', midi: 72, time: 22.8, duration: 0.6, velocity: 0.85 },
+    { note: 'C5', midi: 72, time: 23.4, duration: 0.6, velocity: 0.85 },
+    // To turn, turn will be our delight
+    { note: 'A4', midi: 69, time: 24.0, duration: 0.6, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 24.6, duration: 0.6, velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 25.2, duration: 0.6, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 25.8, duration: 0.6, velocity: 0.8  },
+    // Till by turning, turning we come 'round right
+    { note: 'A4', midi: 69, time: 26.4, duration: 0.6, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 27.0, duration: 0.6, velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 27.6, duration: 1.2, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 28.8, duration: 0.6, velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 29.4, duration: 2.4, velocity: 0.9  }, // final held
+  ];
+
+  return {
+    name: 'Simple Gifts',
+    duration: 31.8,
+    tempo: 100,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'intermediate',
+  };
+}
+
+/**
+ * Create Bach Prelude in C Major (BWV 846) — opening arpeggios
+ * @returns {Object} Song data for Bach Prelude
+ */
+export function createBachPreludeSong() {
+  // 4/4 at 72 BPM: each 16th note = 60/(72*4) = 0.208s ≈ 0.21s
+  // Each measure = 16 sixteenth notes = 3.33s
+  // Pattern: each chord is broken into 5 notes: bass, then 4 repeating upper notes
+  // C major chord: C2 E3 G3 C4 E4 (repeated pattern)
+  const s = 0.21; // sixteenth note duration
+
+  function addMeasure(chordNotes, startTime) {
+    // Bach's pattern: note[0](bass), note[1], note[2], note[3], note[4],
+    //                 note[2], note[3], note[4], note[2], note[3], note[4],
+    //                 note[2], note[3], note[4], note[2], note[3]
+    // Simplified: bass(2s), then upper 4 notes cycling for 14 sixteenths
+    const [bass, n1, n2, n3, n4] = chordNotes;
+    const pattern = [n1, n2, n3, n4, n2, n3, n4, n2, n3, n4, n2, n3, n4, n2, n3, n4];
+    const out = [];
+    out.push({ note: midiToNoteName(bass), midi: bass, time: startTime, duration: s * 2, velocity: 0.55 });
+    pattern.forEach((midi, i) => {
+      out.push({ note: midiToNoteName(midi), midi, time: startTime + s * i, duration: s, velocity: 0.45 });
+    });
+    return out;
+  }
+
+  // BWV 846 chord progression (first 8 measures):
+  // m1: C major  [36, 52, 55, 60, 64] (C2 E3 G3 C4 E4)
+  // m2: C major  [36, 52, 57, 60, 64] (C2 A3 variation)
+  // m3: D minor  [38, 53, 57, 62, 65] (D2 F3 A3 D4 F4)
+  // m4: G dom7   [43, 50, 55, 59, 65] (G2 D3 G3 B3 F4)
+  // m5: C major  [36, 52, 55, 60, 64]
+  // m6: Am       [33, 52, 57, 60, 64] (A1 E3 A3 C4 E4)
+  // m7: D7       [38, 50, 54, 60, 65] (D2 D3 F#3 C4 F4)
+  // m8: G major  [43, 50, 55, 59, 67] (G2 D3 G3 B3 G4)
+
+  const chords = [
+    [36, 52, 55, 60, 64], // C maj
+    [36, 52, 57, 60, 64], // C maj sus/add9
+    [38, 53, 57, 62, 65], // D min
+    [43, 50, 55, 59, 65], // G7
+    [36, 52, 55, 60, 64], // C maj
+    [33, 52, 57, 60, 64], // A min
+    [38, 50, 54, 60, 65], // D7
+    [43, 50, 55, 59, 67], // G maj
+  ];
+
+  const measureLen = s * 16; // 16 sixteenth notes per measure
+  const notes = [];
+
+  chords.forEach((chord, i) => {
+    const measureNotes = addMeasure(chord, i * measureLen);
+    measureNotes.forEach(n => notes.push(n));
+  });
+
+  // Sort by time
+  notes.sort((a, b) => a.time - b.time);
+
+  const duration = Math.round(chords.length * measureLen * 100) / 100;
+
+  return {
+    name: 'Bach Prelude in C Major',
+    duration,
+    tempo: 72,
+    timeSignature: { timeSignature: [4, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'advanced',
+  };
+}
+
+/**
+ * Create Turkish March (Mozart Rondo alla Turca, K. 331)
+ * @returns {Object} Song data for Turkish March
+ */
+export function createTurkishMarchSong() {
+  // 2/4 time at 160 BPM: q=0.375s, e=0.1875s, dq=0.5625s
+  // Using e=0.19s, q=0.38s for readability (slight rounding)
+  const e = 0.19;
+  const q = 0.38;
+
+  const notes = [
+    // Section A — opening 8-bar theme (A minor)
+    // Bar 1-2: B4 A4 / B4 A4 B4 E4 D4 C4
+    { note: 'B4', midi: 71, time: 0.0,  duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 0.19, duration: e, velocity: 0.80 },
+    { note: 'B4', midi: 71, time: 0.38, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 0.57, duration: e, velocity: 0.80 },
+    { note: 'B4', midi: 71, time: 0.76, duration: e, velocity: 0.80 },
+    { note: 'E4', midi: 64, time: 0.95, duration: e, velocity: 0.80 },
+    { note: 'D4', midi: 62, time: 1.14, duration: e, velocity: 0.80 },
+    { note: 'C4', midi: 60, time: 1.33, duration: e, velocity: 0.80 },
+    // Bar 3-4: A4 C4 E4 A4 / B4 E4 G#4 B4
+    { note: 'A3', midi: 57, time: 1.52, duration: e, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 1.71, duration: e, velocity: 0.80 },
+    { note: 'E4', midi: 64, time: 1.90, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 2.09, duration: q, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 2.47, duration: e, velocity: 0.80 },
+    { note: 'G#4', midi: 68, time: 2.66, duration: e, velocity: 0.80 },
+    { note: 'B4', midi: 71, time: 2.85, duration: q, velocity: 0.85 },
+    // Bar 5-6: B4 A4 B4 A4 B4 E4 D4 C4
+    { note: 'B4', midi: 71, time: 3.23, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 3.42, duration: e, velocity: 0.80 },
+    { note: 'B4', midi: 71, time: 3.61, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 3.80, duration: e, velocity: 0.80 },
+    { note: 'B4', midi: 71, time: 3.99, duration: e, velocity: 0.80 },
+    { note: 'E4', midi: 64, time: 4.18, duration: e, velocity: 0.80 },
+    { note: 'D4', midi: 62, time: 4.37, duration: e, velocity: 0.80 },
+    { note: 'C4', midi: 60, time: 4.56, duration: e, velocity: 0.80 },
+    // Bar 7-8: A3 C4 E4 A4 / E4 A4 C5 A4 E4
+    { note: 'A3', midi: 57, time: 4.75, duration: e, velocity: 0.85 },
+    { note: 'C4', midi: 60, time: 4.94, duration: e, velocity: 0.80 },
+    { note: 'E4', midi: 64, time: 5.13, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 5.32, duration: e, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 5.51, duration: e, velocity: 0.80 },
+    { note: 'C4', midi: 60, time: 5.70, duration: e, velocity: 0.80 },
+    { note: 'A3', midi: 57, time: 5.89, duration: q, velocity: 0.85 },
+    // Section B — A major (bright contrasting section)
+    // Bar 9-10: A4 G#4 A4 E4 / A4 G#4 A4 B4
+    { note: 'A4', midi: 69, time: 6.27, duration: e, velocity: 0.82 },
+    { note: 'G#4', midi: 68, time: 6.46, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 6.65, duration: e, velocity: 0.82 },
+    { note: 'E4', midi: 64, time: 6.84, duration: q, velocity: 0.85 },
+    { note: 'A4', midi: 69, time: 7.22, duration: e, velocity: 0.82 },
+    { note: 'G#4', midi: 68, time: 7.41, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 7.60, duration: e, velocity: 0.82 },
+    { note: 'B4', midi: 71, time: 7.79, duration: q, velocity: 0.85 },
+    // Bar 11-12: C5 B4 A4 G#4 / A4 E4 A4 C5
+    { note: 'C5', midi: 72, time: 8.17, duration: e, velocity: 0.85 },
+    { note: 'B4', midi: 71, time: 8.36, duration: e, velocity: 0.82 },
+    { note: 'A4', midi: 69, time: 8.55, duration: e, velocity: 0.82 },
+    { note: 'G#4', midi: 68, time: 8.74, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 8.93, duration: e, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 9.12, duration: e, velocity: 0.80 },
+    { note: 'C4', midi: 60, time: 9.31, duration: e, velocity: 0.80 },
+    { note: 'A3', midi: 57, time: 9.50, duration: e, velocity: 0.80 },
+    // Bar 13-14: A4 G#4 A4 E4 / A4 G#4 A4 B4
+    { note: 'A4', midi: 69, time: 9.69, duration: e, velocity: 0.82 },
+    { note: 'G#4', midi: 68, time: 9.88, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 10.07, duration: e, velocity: 0.82 },
+    { note: 'E4', midi: 64, time: 10.26, duration: q, velocity: 0.85 },
+    { note: 'A4', midi: 69, time: 10.64, duration: e, velocity: 0.82 },
+    { note: 'G#4', midi: 68, time: 10.83, duration: e, velocity: 0.80 },
+    { note: 'A4', midi: 69, time: 11.02, duration: e, velocity: 0.82 },
+    { note: 'B4', midi: 71, time: 11.21, duration: q, velocity: 0.85 },
+    // Bar 15-16: C5 B4 A4 E4 / A4 (cadence)
+    { note: 'C5', midi: 72, time: 11.59, duration: e, velocity: 0.88 },
+    { note: 'B4', midi: 71, time: 11.78, duration: e, velocity: 0.85 },
+    { note: 'A4', midi: 69, time: 11.97, duration: e, velocity: 0.85 },
+    { note: 'E4', midi: 64, time: 12.16, duration: e, velocity: 0.82 },
+    { note: 'A4', midi: 69, time: 12.35, duration: q * 2, velocity: 0.9 }, // final
+  ];
+
+  return {
+    name: 'Turkish March',
+    duration: 13.11,
+    tempo: 160,
+    timeSignature: { timeSignature: [2, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'advanced',
+  };
+}
+
+/**
+ * Create Chopin Nocturne Op. 9 No. 2 — opening phrase
+ * @returns {Object} Song data for Chopin Nocturne
+ */
+export function createChopinNocturneSong() {
+  // 12/8 time at 66 BPM: dotted quarter = 60/66 ≈ 0.909s, eighth = 0.303s
+  // Using e=0.30s, dq=0.91s, q=0.61s
+  const e = 0.30;
+
+  const notes = [
+    // Phrase 1 — Eb major, lyrical opening
+    // B4 (starts, flowing ornamental melody)
+    { note: 'Bb4', midi: 70, time: 0.0,  duration: 0.91, velocity: 0.72 },
+    { note: 'C5',  midi: 72, time: 0.91, duration: 0.61, velocity: 0.70 },
+    { note: 'Bb4', midi: 70, time: 1.52, duration: 0.30, velocity: 0.68 },
+    { note: 'Ab4', midi: 68, time: 1.82, duration: 0.30, velocity: 0.68 },
+    { note: 'G4',  midi: 67, time: 2.12, duration: 0.61, velocity: 0.70 },
+    { note: 'Ab4', midi: 68, time: 2.73, duration: 0.91, velocity: 0.72 },
+    { note: 'G4',  midi: 67, time: 3.64, duration: 0.61, velocity: 0.70 },
+    { note: 'F4',  midi: 65, time: 4.25, duration: 0.30, velocity: 0.68 },
+    { note: 'Eb4', midi: 63, time: 4.55, duration: 0.30, velocity: 0.68 },
+    { note: 'F4',  midi: 65, time: 4.85, duration: 1.82, velocity: 0.72 }, // held
+
+    // Phrase 2 — ascending answer
+    { note: 'F4',  midi: 65, time: 6.67, duration: 0.91, velocity: 0.72 },
+    { note: 'G4',  midi: 67, time: 7.58, duration: 0.61, velocity: 0.70 },
+    { note: 'Ab4', midi: 68, time: 8.19, duration: 0.30, velocity: 0.68 },
+    { note: 'Bb4', midi: 70, time: 8.49, duration: 0.30, velocity: 0.70 },
+    { note: 'C5',  midi: 72, time: 8.79, duration: 0.61, velocity: 0.72 },
+    { note: 'Db5', midi: 73, time: 9.40, duration: 0.91, velocity: 0.75 },
+    { note: 'C5',  midi: 72, time: 10.31, duration: 0.61, velocity: 0.72 },
+    { note: 'Bb4', midi: 70, time: 10.92, duration: 0.30, velocity: 0.70 },
+    { note: 'Ab4', midi: 68, time: 11.22, duration: 0.30, velocity: 0.68 },
+    { note: 'Bb4', midi: 70, time: 11.52, duration: 1.82, velocity: 0.72 }, // held
+
+    // Phrase 3 — ornamental development
+    { note: 'Bb4', midi: 70, time: 13.34, duration: 0.61, velocity: 0.72 },
+    { note: 'C5',  midi: 72, time: 13.95, duration: 0.30, velocity: 0.70 },
+    { note: 'Db5', midi: 73, time: 14.25, duration: 0.30, velocity: 0.72 },
+    { note: 'Eb5', midi: 75, time: 14.55, duration: 0.61, velocity: 0.75 },
+    { note: 'F5',  midi: 77, time: 15.16, duration: 0.91, velocity: 0.78 },
+    { note: 'Eb5', midi: 75, time: 16.07, duration: 0.61, velocity: 0.75 },
+    { note: 'Db5', midi: 73, time: 16.68, duration: 0.30, velocity: 0.72 },
+    { note: 'C5',  midi: 72, time: 16.98, duration: 0.30, velocity: 0.70 },
+    { note: 'Db5', midi: 73, time: 17.28, duration: 0.61, velocity: 0.72 },
+    { note: 'C5',  midi: 72, time: 17.89, duration: 0.61, velocity: 0.70 },
+    { note: 'Bb4', midi: 70, time: 18.50, duration: 0.61, velocity: 0.70 },
+    { note: 'Ab4', midi: 68, time: 19.11, duration: 1.82, velocity: 0.72 }, // held
+
+    // Phrase 4 — closing cadence
+    { note: 'Bb4', midi: 70, time: 20.93, duration: 0.91, velocity: 0.72 },
+    { note: 'G4',  midi: 67, time: 21.84, duration: 0.61, velocity: 0.70 },
+    { note: 'Ab4', midi: 68, time: 22.45, duration: 0.61, velocity: 0.70 },
+    { note: 'F4',  midi: 65, time: 23.06, duration: 0.61, velocity: 0.70 },
+    { note: 'Eb4', midi: 63, time: 23.67, duration: 0.91, velocity: 0.72 },
+    { note: 'F4',  midi: 65, time: 24.58, duration: 0.61, velocity: 0.70 },
+    { note: 'Eb4', midi: 63, time: 25.19, duration: 0.61, velocity: 0.70 },
+    { note: 'D4',  midi: 62, time: 25.80, duration: 0.61, velocity: 0.68 },
+    { note: 'Eb4', midi: 63, time: 26.41, duration: 3.64, velocity: 0.75 }, // final held
+  ];
+
+  return {
+    name: 'Nocturne Op. 9 No. 2',
+    duration: 30.05,
+    tempo: 66,
+    timeSignature: { timeSignature: [12, 8] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'advanced',
+  };
+}
+
+/**
+ * Create Clair de Lune — Debussy, opening theme
+ * @returns {Object} Song data for Clair de Lune
+ */
+export function createClairDeLuneSong() {
+  // 9/8 time at 56 BPM: dotted quarter = 60/56 ≈ 1.071s, eighth = 0.357s
+  // Using e=0.36s, dq=1.07s, q=0.71s
+  const e = 0.36;
+  const dq = 1.07;
+  const q = 0.71;
+
+  const notes = [
+    // Opening — Db major, very slow and impressionistic
+    // Phrase 1: high melody with long notes
+    { note: 'Ab4', midi: 68, time: 0.0,   duration: dq,    velocity: 0.62 },
+    { note: 'Gb4', midi: 66, time: dq,    duration: q,     velocity: 0.60 },
+    { note: 'F4',  midi: 65, time: dq+q,  duration: e,     velocity: 0.58 },
+    { note: 'Eb4', midi: 63, time: dq+q+e, duration: e,    velocity: 0.58 },
+    { note: 'Db4', midi: 61, time: dq+q+2*e, duration: dq, velocity: 0.62 },
+    { note: 'Eb4', midi: 63, time: 2*dq+q+2*e, duration: q, velocity: 0.60 },
+    { note: 'F4',  midi: 65, time: 2*dq+2*q+2*e, duration: e, velocity: 0.60 },
+    { note: 'Gb4', midi: 66, time: 2*dq+2*q+3*e, duration: dq, velocity: 0.62 },
+    { note: 'Ab4', midi: 68, time: 3*dq+2*q+3*e, duration: q, velocity: 0.62 },
+    { note: 'Bb4', midi: 70, time: 3*dq+3*q+3*e, duration: dq, velocity: 0.65 },
+
+    // Phrase 2 — climbing
+    { note: 'Db5', midi: 73, time: 4*dq+3*q+3*e, duration: dq,   velocity: 0.68 },
+    { note: 'Bb4', midi: 70, time: 5*dq+3*q+3*e, duration: q,    velocity: 0.65 },
+    { note: 'Ab4', midi: 68, time: 5*dq+4*q+3*e, duration: e,    velocity: 0.63 },
+    { note: 'Gb4', midi: 66, time: 5*dq+4*q+4*e, duration: e,    velocity: 0.62 },
+    { note: 'F4',  midi: 65, time: 5*dq+4*q+5*e, duration: dq,   velocity: 0.62 },
+    { note: 'Ab4', midi: 68, time: 6*dq+4*q+5*e, duration: q,    velocity: 0.65 },
+    { note: 'Gb4', midi: 66, time: 6*dq+5*q+5*e, duration: dq,   velocity: 0.63 },
+    { note: 'Eb4', midi: 63, time: 7*dq+5*q+5*e, duration: q,    velocity: 0.62 },
+    { note: 'Db4', midi: 61, time: 7*dq+6*q+5*e, duration: 2*dq, velocity: 0.65 }, // held
+
+    // Phrase 3 — higher register
+    { note: 'Eb5', midi: 75, time: 9*dq+6*q+5*e,  duration: dq,   velocity: 0.68 },
+    { note: 'Db5', midi: 73, time: 10*dq+6*q+5*e, duration: q,    velocity: 0.65 },
+    { note: 'Bb4', midi: 70, time: 10*dq+7*q+5*e, duration: e,    velocity: 0.63 },
+    { note: 'Ab4', midi: 68, time: 10*dq+7*q+6*e, duration: e,    velocity: 0.62 },
+    { note: 'Gb4', midi: 66, time: 10*dq+7*q+7*e, duration: dq,   velocity: 0.62 },
+    { note: 'Ab4', midi: 68, time: 11*dq+7*q+7*e, duration: q,    velocity: 0.65 },
+    { note: 'Gb4', midi: 66, time: 11*dq+8*q+7*e, duration: q,    velocity: 0.63 },
+    { note: 'Eb4', midi: 63, time: 11*dq+9*q+7*e, duration: q,    velocity: 0.62 },
+    { note: 'Db4', midi: 61, time: 11*dq+10*q+7*e, duration: 3*dq, velocity: 0.65 }, // final held
+  ];
+
+  // Compute total duration from last note
+  const last = notes[notes.length - 1];
+  const duration = Math.round((last.time + last.duration) * 10) / 10;
+
+  return {
+    name: 'Clair de Lune',
+    duration,
+    tempo: 56,
+    timeSignature: { timeSignature: [9, 8] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'advanced',
+  };
+}
+
+/**
  * Get notes that should be playing at a specific time
  * @param {Array} notes - Array of note objects
  * @param {number} currentTime - Current playback time in seconds

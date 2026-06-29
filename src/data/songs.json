@@ -98,6 +98,160 @@
       "unlocked": true,
       "preview": "Brahms' energetic dance",
       "description": "Fast-paced and dramatic piece with rapid note sequences and dynamic contrasts. A challenging test of technique!"
+    },
+    {
+      "id": "hot-cross-buns",
+      "title": "Hot Cross Buns",
+      "difficulty": "beginner",
+      "order": 10,
+      "midiFile": "hot-cross-buns",
+      "triviaQuestionId": "q10",
+      "unlocked": true,
+      "preview": "3-note beginner starter",
+      "description": "A classic nursery rhyme built on just three notes — the perfect first song for new pianists."
+    },
+    {
+      "id": "yankee-doodle",
+      "title": "Yankee Doodle",
+      "difficulty": "beginner",
+      "order": 11,
+      "midiFile": "yankee-doodle",
+      "triviaQuestionId": "q11",
+      "unlocked": true,
+      "preview": "Lively American folk tune",
+      "description": "An upbeat patriotic melody with a fun chorus — great for building finger speed and rhythm."
+    },
+    {
+      "id": "london-bridge",
+      "title": "London Bridge",
+      "difficulty": "beginner",
+      "order": 12,
+      "midiFile": "london-bridge",
+      "triviaQuestionId": "q12",
+      "unlocked": true,
+      "preview": "Classic children's melody",
+      "description": "A gentle stepwise melody ideal for beginners, introducing small skips and a satisfying phrase structure."
+    },
+    {
+      "id": "row-your-boat",
+      "title": "Row Row Row Your Boat",
+      "difficulty": "beginner",
+      "order": 13,
+      "midiFile": "row-your-boat",
+      "triviaQuestionId": "q13",
+      "unlocked": true,
+      "preview": "Simple round melody",
+      "description": "A cheerful tune in 3/4 time that introduces dotted rhythms and ascending runs up to high C."
+    },
+    {
+      "id": "old-macdonald",
+      "title": "Old MacDonald Had a Farm",
+      "difficulty": "beginner",
+      "order": 14,
+      "midiFile": "old-macdonald",
+      "triviaQuestionId": "q14",
+      "unlocked": true,
+      "preview": "Well-known children's song",
+      "description": "A fun tune with repeated phrases and a memorable refrain — great practice for recognizing patterns on the keyboard."
+    },
+    {
+      "id": "amazing-grace",
+      "title": "Amazing Grace",
+      "difficulty": "intermediate",
+      "order": 15,
+      "midiFile": "amazing-grace",
+      "triviaQuestionId": "q15",
+      "unlocked": true,
+      "preview": "Flowing hymn in 3/4",
+      "description": "A timeless hymn with wide melodic leaps and long phrases in waltz time, perfect for developing expressive playing."
+    },
+    {
+      "id": "greensleeves",
+      "title": "Greensleeves",
+      "difficulty": "intermediate",
+      "order": 16,
+      "midiFile": "greensleeves",
+      "triviaQuestionId": "q16",
+      "unlocked": true,
+      "preview": "English Renaissance folk song",
+      "description": "An elegant 3/4 melody in A minor with characteristic dotted rhythms and a beautiful refrain — great for musicality."
+    },
+    {
+      "id": "saints-go-marching",
+      "title": "When the Saints Go Marching In",
+      "difficulty": "intermediate",
+      "order": 17,
+      "midiFile": "saints-go-marching",
+      "triviaQuestionId": "q17",
+      "unlocked": true,
+      "preview": "Upbeat gospel/jazz standard",
+      "description": "A joyful New Orleans anthem with a driving quarter-note pulse — excellent for building rhythmic confidence."
+    },
+    {
+      "id": "danny-boy",
+      "title": "Danny Boy",
+      "difficulty": "intermediate",
+      "order": 18,
+      "midiFile": "danny-boy",
+      "triviaQuestionId": "q18",
+      "unlocked": true,
+      "preview": "Irish folk melody, slow and lyrical",
+      "description": "The Londonderry Air is one of the most beautiful melodies in the folk tradition — its long, arching phrases reward expressive phrasing."
+    },
+    {
+      "id": "simple-gifts",
+      "title": "Simple Gifts",
+      "difficulty": "intermediate",
+      "order": 19,
+      "midiFile": "simple-gifts",
+      "triviaQuestionId": "q19",
+      "unlocked": true,
+      "preview": "Shaker hymn, Copland's Appalachian Spring",
+      "description": "A beloved Shaker melody made famous by Copland — its stepwise motion and clear phrasing make it deeply satisfying to play."
+    },
+    {
+      "id": "bach-prelude",
+      "title": "Bach Prelude in C Major",
+      "difficulty": "advanced",
+      "order": 20,
+      "midiFile": "bach-prelude",
+      "triviaQuestionId": "q20",
+      "unlocked": true,
+      "preview": "Arpeggiated broken chords, BWV 846",
+      "description": "The opening prelude from Bach's Well-Tempered Clavier — a cascading sequence of broken chords that demands evenness and control."
+    },
+    {
+      "id": "turkish-march",
+      "title": "Turkish March",
+      "difficulty": "advanced",
+      "order": 21,
+      "midiFile": "turkish-march",
+      "triviaQuestionId": "q21",
+      "unlocked": true,
+      "preview": "Mozart's Rondo alla Turca, K. 331",
+      "description": "Mozart's energetic march features rapid repeated notes, quick runs, and a brilliant A major section that demands crisp articulation."
+    },
+    {
+      "id": "chopin-nocturne",
+      "title": "Nocturne Op. 9 No. 2",
+      "difficulty": "advanced",
+      "order": 22,
+      "midiFile": "chopin-nocturne",
+      "triviaQuestionId": "q22",
+      "unlocked": true,
+      "preview": "Chopin's famous Eb major nocturne",
+      "description": "The opening of Chopin's most beloved nocturne — a singing, ornamented melody in Eb major that requires sensitivity and tonal control."
+    },
+    {
+      "id": "clair-de-lune",
+      "title": "Clair de Lune",
+      "difficulty": "advanced",
+      "order": 23,
+      "midiFile": "clair-de-lune",
+      "triviaQuestionId": "q23",
+      "unlocked": true,
+      "preview": "Debussy's impressionist masterpiece",
+      "description": "The opening theme of Debussy's Clair de Lune — a slow, atmospheric melody in Db major that demands delicate touch and careful voicing."
     }
   ]
 }
