@@ -74,6 +74,7 @@
   background: #0f0f1e;
   border-radius: 8px;
   box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
+  touch-action: pan-x;
 }
 
 /* Hide scrollbar for cleaner look but keep functionality */
@@ -111,6 +112,7 @@
   user-select: none;
   transition: all 0.05s ease;
   border: 1px solid #000;
+  touch-action: none;
 }
 
 .piano-key:active {
