@@ -3,11 +3,12 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   position: relative;
   z-index: 1;
 }
@@ -15,36 +16,36 @@
 /* Audio Notice */
 .audio-notice {
   text-align: center;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(76, 175, 80, 0.05) 100%);
-  border: 2px solid rgba(76, 175, 80, 0.3);
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  padding: var(--space-5);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
 }
 
 .audio-notice p {
-  margin: 0 0 1rem 0;
-  color: #81c784;
+  margin: 0 0 var(--space-4) 0;
+  color: var(--accent);
   font-size: 1.1rem;
   font-weight: 600;
 }
 
 .start-audio-btn {
-  padding: 1rem 2rem;
+  padding: var(--space-4) var(--space-6);
   font-size: 1.2rem;
   font-weight: 600;
-  color: #fff;
-  background: linear-gradient(90deg, #4caf50 0%, #45a049 100%);
+  color: var(--on-accent);
+  background: var(--accent);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+  box-shadow: var(--shadow-md);
 }
 
 .start-audio-btn:hover {
+  background: var(--accent-hi);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
 }
 
 .start-audio-btn:active {
@@ -52,7 +53,7 @@
 }
 
 .audio-status {
-  color: #4caf50;
+  color: var(--accent);
   font-weight: 600;
   animation: fadeIn 0.5s ease;
 }
@@ -70,9 +71,9 @@
 .piano-scroll {
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 20px 10px;
-  background: #0f0f1e;
-  border-radius: 8px;
+  padding: var(--space-5) var(--space-3);
+  background: var(--bg);
+  border-radius: var(--radius-md);
   box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
   touch-action: pan-x;
 }
@@ -83,17 +84,17 @@
 }
 
 .piano-scroll::-webkit-scrollbar-track {
-  background: #1a1a2e;
-  border-radius: 4px;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
 }
 
 .piano-scroll::-webkit-scrollbar-thumb {
-  background: #3a3a5a;
-  border-radius: 4px;
+  background: var(--border);
+  border-radius: var(--radius-sm);
 }
 
 .piano-scroll::-webkit-scrollbar-thumb:hover {
-  background: #4a4a6a;
+  background: var(--text-faint);
 }
 
 /* Piano keyboard layout */
@@ -102,7 +103,7 @@
   position: relative;
   height: 200px;
   min-width: fit-content;
-  padding: 0 10px;
+  padding: 0 var(--space-3);
 }
 
 /* Base key styles */
@@ -124,7 +125,7 @@
   opacity: 0.5;
 }
 
-/* White keys */
+/* White keys — physical key faces stay literal white */
 .white-key {
   width: 50px;
   height: 200px;
@@ -143,40 +144,48 @@
 
 .white-key.pressed,
 .white-key.highlighted.pressed {
-  background: linear-gradient(to bottom, #2e7d32 0%, #1b5e20 100%) !important;
+  background: linear-gradient(to bottom, var(--accent-hi) 0%, var(--accent) 100%) !important;
   box-shadow:
-    0 0 25px rgba(46, 125, 50, 0.8),
+    0 0 25px color-mix(in srgb, var(--accent) 80%, transparent),
     inset 0 4px 8px rgba(0, 0, 0, 0.3) !important;
   transform: translateY(2px) !important;
   animation: none !important;
 }
 
-/* White key highlight priorities */
+/* White key highlight priorities — copper tints on the white key */
 .white-key.highlighted.priority-1 {
-  background: linear-gradient(to bottom, #a5d6a7 0%, #81c784 100%);
+  background: linear-gradient(to bottom, var(--accent-hi) 0%, var(--accent) 100%);
   box-shadow:
-    0 0 30px rgba(165, 214, 167, 0.9),
+    0 0 30px color-mix(in srgb, var(--accent) 85%, transparent),
     inset 0 -4px 8px rgba(0, 0, 0, 0.1);
   animation: pulse 0.6s ease-in-out infinite;
 }
 
 .white-key.highlighted.priority-2 {
-  background: linear-gradient(to bottom, #c8e6c9 0%, #a5d6a7 100%);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent) 45%, #ffffff) 0%,
+    color-mix(in srgb, var(--accent) 60%, #ffffff) 100%
+  );
   box-shadow:
-    0 0 20px rgba(200, 230, 201, 0.7),
+    0 0 20px color-mix(in srgb, var(--accent) 55%, transparent),
     inset 0 -4px 8px rgba(0, 0, 0, 0.08);
 }
 
 .white-key.highlighted.priority-3,
 .white-key.highlighted.priority-4,
 .white-key.highlighted.priority-5 {
-  background: linear-gradient(to bottom, #e8f5e9 0%, #c8e6c9 100%);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent) 18%, #ffffff) 0%,
+    color-mix(in srgb, var(--accent) 32%, #ffffff) 100%
+  );
   box-shadow:
-    0 0 15px rgba(232, 245, 233, 0.5),
+    0 0 15px color-mix(in srgb, var(--accent) 35%, transparent),
     inset 0 -4px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Black keys */
+/* Black keys — physical key faces stay literal black */
 .black-key {
   width: 30px;
   height: 120px;
@@ -196,40 +205,48 @@
 
 .black-key.pressed,
 .black-key.highlighted.pressed {
-  background: linear-gradient(to bottom, #2e7d32 0%, #1b5e20 100%) !important;
+  background: linear-gradient(to bottom, var(--accent-hi) 0%, var(--accent) 100%) !important;
   box-shadow:
-    0 0 25px rgba(46, 125, 50, 0.8),
+    0 0 25px color-mix(in srgb, var(--accent) 80%, transparent),
     inset 0 2px 6px rgba(0, 0, 0, 0.5) !important;
   transform: translateY(2px) !important;
   animation: none !important;
 }
 
-/* Black key highlight priorities */
+/* Black key highlight priorities — amber tints stay legible on the black key */
 .black-key.highlighted.priority-1 {
-  background: linear-gradient(to bottom, #ffeb3b 0%, #fdd835 100%);
+  background: linear-gradient(to bottom, var(--warning) 0%, color-mix(in srgb, var(--warning) 80%, #000) 100%);
   box-shadow:
-    0 0 30px rgba(255, 235, 59, 0.9),
+    0 0 30px color-mix(in srgb, var(--warning) 85%, transparent),
     inset 0 -2px 4px rgba(0, 0, 0, 0.2);
   animation: pulse 0.6s ease-in-out infinite;
 }
 
 .black-key.highlighted.priority-2 {
-  background: linear-gradient(to bottom, #fff176 0%, #ffeb3b 100%);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--warning) 70%, #000) 0%,
+    var(--warning) 100%
+  );
   box-shadow:
-    0 0 20px rgba(255, 241, 118, 0.7),
+    0 0 20px color-mix(in srgb, var(--warning) 60%, transparent),
     inset 0 -2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .black-key.highlighted.priority-3,
 .black-key.highlighted.priority-4,
 .black-key.highlighted.priority-5 {
-  background: linear-gradient(to bottom, #fff9c4 0%, #fff176 100%);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--warning) 45%, #000) 0%,
+    color-mix(in srgb, var(--warning) 65%, #000) 100%
+  );
   box-shadow:
-    0 0 15px rgba(255, 249, 196, 0.5),
+    0 0 15px color-mix(in srgb, var(--warning) 40%, transparent),
     inset 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Key labels (C notes) */
+/* Key labels (C notes) — sit on the physical keys, kept literal for on-key contrast */
 .key-label {
   position: absolute;
   bottom: 8px;
@@ -263,6 +280,7 @@
   animation: feedbackPop 0.3s ease;
 }
 
+/* Feedback text sits over the physical keys — tuned literals keep it legible */
 .white-key .key-feedback {
   color: #1b5e20;
 }
@@ -278,7 +296,7 @@
 }
 
 .key-feedback.good {
-  color: #2196F3;
+  color: #2196f3;
 }
 
 .key-feedback.ok {
@@ -319,19 +337,19 @@
 /* Piano info section */
 .piano-info {
   text-align: center;
-  color: #fff;
-  padding: 0.5rem;
+  color: var(--text);
+  padding: var(--space-2);
 }
 
 .piano-info p {
-  margin: 0.25rem 0;
+  margin: var(--space-1) 0;
   font-size: 0.95rem;
 }
 
 .active-notes {
-  color: #4caf50;
+  color: var(--accent);
   font-weight: 600;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono);
 }
 
 /* Responsive design */

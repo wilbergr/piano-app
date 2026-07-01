@@ -1,25 +1,24 @@
 /* Music Staff Container */
 .music-staff-container {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  padding: 1rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
   position: relative;
   z-index: 1;
   overflow-x: auto;
 }
 
-/* The staff itself */
+/* The staff itself — white sheet-music paper stays literal */
 .music-staff {
   width: 100%;
   min-height: 200px;
   max-height: 600px;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 6px;
-  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
@@ -27,12 +26,12 @@
 /* Staff info text */
 .staff-info {
   text-align: center;
-  margin-top: 0.5rem;
+  margin-top: var(--space-2);
 }
 
 .staff-info p {
   margin: 0;
-  color: #81c784;
+  color: var(--accent);
   font-size: 0.85rem;
   font-weight: 600;
 }
@@ -50,23 +49,23 @@
 }
 
 .music-staff-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
 }
 
 .music-staff-container::-webkit-scrollbar-thumb {
-  background: rgba(76, 175, 80, 0.5);
-  border-radius: 3px;
+  background: color-mix(in srgb, var(--accent) 50%, transparent);
+  border-radius: var(--radius-sm);
 }
 
 .music-staff-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(76, 175, 80, 0.7);
+  background: color-mix(in srgb, var(--accent) 70%, transparent);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .music-staff-container {
-    padding: 0.75rem;
+    padding: var(--space-3);
   }
 
   .music-staff {
