@@ -34,6 +34,52 @@
   gap: var(--space-2);
 }
 
+/* Mode segmented control (Demo / Practice / Challenge radiogroup).
+   Mirrors guitar-app's .segmented-control pill styling. */
+.segmented-control {
+  display: inline-flex;
+  gap: var(--space-1);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1);
+  width: fit-content;
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.segment:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.segment.active {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.segment svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+
 .current-song-info {
   display: flex;
   align-items: center;
@@ -48,28 +94,40 @@
   font-size: 1.1rem;
 }
 
-/* Difficulty badges */
+/* Difficulty badges — tinted status chips (status-colored text on a translucent
+   status wash) so they read correctly in both themes; no raw fills. */
 .difficulty-badge {
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-md);
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
+  border: 1px solid transparent;
 }
 
 .difficulty-badge.beginner {
-  background: var(--success);
-  color: #fff;
+  background: color-mix(in srgb, var(--success) 15%, transparent);
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success) 45%, transparent);
 }
 
 .difficulty-badge.intermediate {
-  background: var(--warning);
-  color: #fff;
+  background: color-mix(in srgb, var(--warning) 15%, transparent);
+  color: var(--warning);
+  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
 }
 
 .difficulty-badge.advanced {
-  background: var(--danger);
-  color: #fff;
+  background: color-mix(in srgb, var(--danger) 15%, transparent);
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 45%, transparent);
+}
+
+/* Uploaded-MIDI songs get difficulty "custom" */
+.difficulty-badge.custom {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 /* Song List */
@@ -97,10 +155,12 @@
 }
 
 .upload-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   padding: var(--space-4) var(--space-6);
-  background: linear-gradient(90deg, #2196f3 0%, #1976d2 100%);
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
   border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 600;
@@ -293,6 +353,16 @@
   cursor: not-allowed;
 }
 
+/* Lucide icons inside transport/header buttons size to the button font and
+   inherit its color (stroke="currentColor"). */
+.control-btn svg,
+.play-icon-btn svg,
+.reset-icon-btn svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
 .play-btn {
   width: 44px;
   height: 44px;
@@ -356,6 +426,10 @@
 
 /* Back Button */
 .back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
   min-height: 44px;
   border-radius: var(--radius-sm);
@@ -431,75 +505,46 @@
 }
 
 .stat-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
   background: var(--surface-2);
   padding: var(--space-1);
   border-radius: var(--radius-sm);
-  text-align: center;
   font-size: 0.75rem;
   font-weight: 600;
+  font-family: var(--font-mono);
 }
 
+.stat-mini svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+
+/* Tinted status chips: status-colored icon+count on a translucent status wash
+   (theme-safe; replaces the old white-on-status fills). */
 .stat-mini.perfect {
-  background: var(--success);
-  color: #fff;
+  background: color-mix(in srgb, var(--success) 15%, transparent);
+  color: var(--success);
 }
 
+/* The "good" state stays literal blue by convention — no token maps to it. */
 .stat-mini.good {
-  background: #2196f3;
-  color: #fff;
+  background: color-mix(in srgb, #2196f3 15%, transparent);
+  color: #2196f3;
 }
 
 .stat-mini.ok {
-  background: var(--warning);
-  color: #fff;
+  background: color-mix(in srgb, var(--warning) 15%, transparent);
+  color: var(--warning);
 }
 
 .stat-mini.missed,
 .stat-mini.wrong {
-  background: var(--danger);
-  color: #fff;
-}
-
-/* Feedback Message */
-.feedback-message {
-  text-align: center;
-  padding: var(--space-4);
-  border-radius: var(--radius-md);
-  font-size: 1.2rem;
-  font-weight: 700;
-  animation: fadeInScale 0.3s ease;
-}
-
-.feedback-message.perfect {
-  background: var(--success);
-  color: #fff;
-}
-
-.feedback-message.good {
-  background: #2196f3;
-  color: #fff;
-}
-
-.feedback-message.ok {
-  background: var(--warning);
-  color: #fff;
-}
-
-.feedback-message.late,
-.feedback-message.wrong {
-  background: var(--danger);
-  color: #fff;
-}
-
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  background: color-mix(in srgb, var(--danger) 15%, transparent);
+  color: var(--danger);
 }
 
 /* Results Modal */
@@ -740,6 +785,11 @@
     font-size: 0.8rem;
   }
 
+  .segment {
+    padding: 0 var(--space-3);
+    font-size: 0.8rem;
+  }
+
   .start-hint {
     font-size: 0.75rem;
   }
@@ -949,10 +999,11 @@
   transform: scale(0.95);
 }
 
-/* Reset icon button next to click track */
+/* Reset icon button next to click track. --bg as foreground gives dark-on-amber
+   in dark theme and near-white-on-brown in light — both clear contrast. */
 .reset-icon-btn {
   background: var(--warning);
-  color: #fff;
+  color: var(--bg);
   border: none;
   border-radius: 50%;
   width: 44px;

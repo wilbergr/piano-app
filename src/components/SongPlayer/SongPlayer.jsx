@@ -1,4 +1,21 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import {
+  ArrowLeft,
+  CircleSlash,
+  CircleX,
+  Eye,
+  FolderOpen,
+  GraduationCap,
+  Pause,
+  Play,
+  RotateCcw,
+  SkipBack,
+  Square,
+  Star,
+  ThumbsUp,
+  Trophy,
+  Volume2,
+} from 'lucide-react';
 import * as Tone from 'tone';
 import {
   parseMidiFile,
@@ -33,11 +50,18 @@ import songsData from '../../data/songs.json';
 import MusicStaff from '../MusicStaff/MusicStaff';
 import './SongPlayer.css';
 
+// Demo / Practice / Challenge options for the mode radiogroup.
+const MODE_SEGMENTS = [
+  { val: 'demo', label: 'Demo', Icon: Eye },
+  { val: 'practice', label: 'Practice', Icon: GraduationCap },
+  { val: 'challenge', label: 'Challenge', Icon: Trophy },
+];
+
 /**
  * Song Player Component
  * Handles song loading, playback, and mode management
  */
-function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeedback, onShowResults, onRegisterReset }) {
+function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeedback, onShowResults, onRegisterReset, onNotify }) {
   const [songs] = useState(songsData.songs);
   const [selectedSong, setSelectedSong] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
@@ -56,6 +80,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
 
   const animationFrameRef = useRef(null);
   const startTimeRef = useRef(null);
+  const segmentRefs = useRef([]);
   const pausedTimeRef = useRef(0);
   const lastStateUpdateRef = useRef(0); // Track last time we updated state
   const metronomeIntervalRef = useRef(null);
@@ -226,13 +251,13 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       console.log('Uploaded MIDI loaded:', songData);
     } catch (error) {
       console.error('Error loading MIDI file:', error);
-      alert('Failed to load MIDI file. Please make sure it is a valid MIDI file.');
+      onNotify?.('Failed to load MIDI file. Please make sure it is a valid MIDI file.', 'danger');
     } finally {
       setIsLoading(false);
       // Reset file input
       event.target.value = '';
     }
-  }, []);
+  }, [onNotify]);
 
   // Load a song
   const loadSong = useCallback(async (songId) => {
@@ -325,7 +350,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       console.log('Song loaded:', songData);
     } catch (error) {
       console.error('Error loading song:', error);
-      alert('Failed to load song. Using test song instead.');
+      onNotify?.('Failed to load song. Using the C Major Scale instead.', 'danger');
       // Fall back to test song
       const testSong = createTestSong();
       testSong.id = 'test-scale';
@@ -335,7 +360,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
     } finally {
       setIsLoading(false);
     }
-  }, [songs]);
+  }, [songs, onNotify]);
 
   // Handle user key press in practice/challenge mode
   const handleUserKeyPress = useCallback(async (note) => {
@@ -632,6 +657,26 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
     }
   };
 
+  // Mode segmented control (radiogroup): click or Arrow keys change mode.
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    // Reset speed to 1x for practice/challenge modes
+    if (newMode === 'practice' || newMode === 'challenge') {
+      setPlaybackSpeed(1.0);
+    }
+    resetSong();
+  };
+
+  const handleSegmentKeyDown = (e, idx) => {
+    let nextIdx = null;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextIdx = (idx + 1) % MODE_SEGMENTS.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextIdx = (idx - 1 + MODE_SEGMENTS.length) % MODE_SEGMENTS.length;
+    else return;
+    e.preventDefault();
+    handleModeChange(MODE_SEGMENTS[nextIdx].val);
+    segmentRefs.current[nextIdx]?.focus();
+  };
+
   // Speed control
   const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
 
@@ -683,28 +728,28 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
 
       <div className="player-header">
         <div className="header-top">
-          {/* Mode selector dropdown - only show when song is selected */}
+          {/* Mode segmented control - only show when song is selected */}
           {currentSong && (
-            <div className="control-group mode-in-header">
-              <label htmlFor="mode-select">Mode:</label>
-              <select
-                id="mode-select"
-                className="control-select"
-                value={mode}
-                onChange={(e) => {
-                  const newMode = e.target.value;
-                  setMode(newMode);
-                  // Reset speed to 1x for practice/challenge modes
-                  if (newMode === 'practice' || newMode === 'challenge') {
-                    setPlaybackSpeed(1.0);
-                  }
-                  resetSong();
-                }}
-              >
-                <option value="demo">Demo</option>
-                <option value="practice">Practice</option>
-                <option value="challenge">Challenge</option>
-              </select>
+            <div className="segmented-control" role="radiogroup" aria-label="Playback mode">
+              {MODE_SEGMENTS.map((seg, idx) => {
+                const checked = mode === seg.val;
+                const { Icon } = seg;
+                return (
+                  <button
+                    key={seg.val}
+                    type="button"
+                    role="radio"
+                    aria-checked={checked}
+                    tabIndex={checked ? 0 : -1}
+                    ref={(el) => { segmentRefs.current[idx] = el; }}
+                    className={`segment ${checked ? 'active' : ''}`}
+                    onClick={() => handleModeChange(seg.val)}
+                    onKeyDown={(e) => handleSegmentKeyDown(e, idx)}
+                  >
+                    <Icon aria-hidden="true" /> {seg.label}
+                  </button>
+                );
+              })}
             </div>
           )}
           {/* Speed control dropdown - only show in demo mode when song is selected */}
@@ -733,15 +778,16 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
                   checked={metronomeEnabled}
                   onChange={(e) => setMetronomeEnabled(e.target.checked)}
                 />
-                🔊 Click Track
+                <Volume2 className="inline-icon" aria-hidden="true" /> Click Track
               </label>
               {!isPlaying && !countingIn && currentTime === 0 && (
                 <button
                   onClick={startCountIn}
                   className="play-icon-btn"
                   title="Start with count-in"
+                  aria-label="Start with count-in"
                 >
-                  ▶
+                  <Play aria-hidden="true" />
                 </button>
               )}
               {isPlaying && (
@@ -749,8 +795,9 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
                   onClick={resetSong}
                   className="reset-icon-btn"
                   title="Reset"
+                  aria-label="Reset"
                 >
-                  🔄
+                  <RotateCcw aria-hidden="true" />
                 </button>
               )}
             </div>
@@ -803,7 +850,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
           <div className="upload-section">
             <h3>Or Upload Your Own MIDI File:</h3>
             <label htmlFor="midi-upload" className="upload-btn">
-              📁 Choose MIDI File
+              <FolderOpen className="inline-icon" aria-hidden="true" /> Choose MIDI File
               <input
                 id="midi-upload"
                 type="file"
@@ -836,18 +883,19 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
           <div className="controls-row">
             {mode === 'demo' ? (
               <div className="main-controls">
-                <button onClick={resetSong} className="control-btn" title="Reset">
-                  ⏮
+                <button onClick={resetSong} className="control-btn" title="Restart" aria-label="Restart">
+                  <SkipBack aria-hidden="true" />
                 </button>
                 <button
                   onClick={togglePlayback}
                   className="control-btn play-btn"
                   disabled={isLoading}
+                  aria-label={isPlaying ? 'Pause' : 'Play'}
                 >
-                  {isPlaying ? '⏸' : '▶'}
+                  {isPlaying ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
                 </button>
-                <button onClick={resetSong} className="control-btn" title="Stop">
-                  ⏹
+                <button onClick={resetSong} className="control-btn" title="Stop" aria-label="Stop">
+                  <Square aria-hidden="true" />
                 </button>
               </div>
             ) : (
@@ -873,10 +921,18 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
                     <span className="stat-value">{Math.round(performanceTracker.getAccuracy())}%</span>
                   </div>
                   <div className="stat-grid">
-                    <span className="stat-mini perfect">🌟 {performanceTracker.results.perfect}</span>
-                    <span className="stat-mini good">👍 {performanceTracker.results.good}</span>
-                    <span className="stat-mini missed">✗ {performanceTracker.results.missed}</span>
-                    <span className="stat-mini wrong">❌ {performanceTracker.results.wrong}</span>
+                    <span className="stat-mini perfect">
+                      <Star aria-hidden="true" /><span className="sr-only">Perfect</span> {performanceTracker.results.perfect}
+                    </span>
+                    <span className="stat-mini good">
+                      <ThumbsUp aria-hidden="true" /><span className="sr-only">Good</span> {performanceTracker.results.good}
+                    </span>
+                    <span className="stat-mini missed">
+                      <CircleSlash aria-hidden="true" /><span className="sr-only">Missed</span> {performanceTracker.results.missed}
+                    </span>
+                    <span className="stat-mini wrong">
+                      <CircleX aria-hidden="true" /><span className="sr-only">Wrong</span> {performanceTracker.results.wrong}
+                    </span>
                   </div>
                 </div>
               )}
@@ -887,7 +943,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
             resetSong();
             setCurrentSong(null);
           }} className="back-btn">
-            ← Back to Song List
+            <ArrowLeft className="inline-icon" aria-hidden="true" /> Back to Song List
           </button>
         </div>
       )}

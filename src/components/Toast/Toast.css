@@ -1,0 +1,98 @@
+/* Fixed, bottom-centered notice. Sits above the results modal (z 9999) so
+   completion/error notices stay visible alongside it. */
+.toast-stack {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 10000;
+}
+
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  max-width: min(90vw, 420px);
+}
+
+.toast-message {
+  min-width: 0;
+}
+
+.toast-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  /* Icon carries the tone color; message text stays --text for contrast. */
+  color: var(--accent);
+}
+
+.toast-success {
+  border-color: var(--success);
+}
+
+.toast-success .toast-icon {
+  color: var(--success);
+}
+
+.toast-danger {
+  border-color: var(--danger);
+}
+
+.toast-danger .toast-icon {
+  color: var(--danger);
+}
+
+.toast-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.toast-dismiss:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.toast-dismiss svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toast {
+    animation: toastIn 200ms ease;
+  }
+
+  @keyframes toastIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

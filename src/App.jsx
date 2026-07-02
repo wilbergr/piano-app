@@ -1,6 +1,24 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import {
+  Piano as PianoIcon,
+  CircleHelp,
+  X,
+  Music,
+  Gamepad2,
+  Play,
+  Zap,
+  Check,
+  Hourglass,
+  Lightbulb,
+  PartyPopper,
+  Star,
+  ThumbsUp,
+  CircleSlash,
+  CircleX,
+} from 'lucide-react';
 import Piano from './components/Piano/Piano';
 import SongPlayer from './components/SongPlayer/SongPlayer';
+import Toast from './components/Toast/Toast';
 import audioService from './services/audioService';
 import './App.css';
 import './components/SongPlayer/SongPlayer.css';
@@ -38,7 +56,15 @@ function App() {
   const [keyFeedback, setKeyFeedback] = useState(null);
   const [performanceResults, setPerformanceResults] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
+  const [toast, setToast] = useState(null);
   const userKeyPressHandlerRef = useRef(null);
+
+  // In-app notification (replaces browser alert())
+  const showToast = useCallback((message, tone = 'default') => {
+    setToast({ message, tone, id: Date.now() });
+  }, []);
+
+  const dismissToast = useCallback(() => setToast(null), []);
 
   // Handle key highlighting from song player
   // keys can be an array of strings ['C4', 'E4'] or array of objects [{note: 'C4', priority: 1}]
@@ -69,8 +95,8 @@ function App() {
   const handleSongComplete = useCallback((song) => {
     console.log('Song completed:', song);
     // TODO: Show trivia modal
-    alert(`Song "${song.title || song.name}" completed! Trivia coming soon.`);
-  }, []);
+    showToast(`Song "${song.title || song.name}" completed! Trivia coming soon.`, 'success');
+  }, [showToast]);
 
   // Receive the key press handler from SongPlayer
   const setUserKeyPressHandler = useCallback((handler) => {
@@ -88,7 +114,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <div className="app-title">
-          <span aria-hidden="true">🎹</span>
+          <PianoIcon className="title-icon" aria-hidden="true" />
           <h1>Piano Learning App</h1>
         </div>
         <p>Learn piano through interactive lessons and songs</p>
@@ -104,6 +130,7 @@ function App() {
             onKeyFeedback={handleKeyFeedback}
             onShowResults={handleShowResults}
             onRegisterReset={handleRegisterReset}
+            onNotify={showToast}
           />
           {/* Piano Keyboard */}
           <Piano
@@ -121,33 +148,41 @@ function App() {
             onClick={() => setShowHelp(h => !h)}
             aria-expanded={showHelp}
           >
-            {showHelp ? '✕ Hide Help' : '? How to Use'}
+            {showHelp ? (
+              <>
+                <X className="inline-icon" aria-hidden="true" /> Hide Help
+              </>
+            ) : (
+              <>
+                <CircleHelp className="inline-icon" aria-hidden="true" /> How to Use
+              </>
+            )}
           </button>
           {showHelp && (
             <div className="help-content">
               <h2>How to Use</h2>
               <ul>
-                <li>🎵 <strong>Select a song</strong> from the song player above</li>
-                <li>🎮 <strong>Choose a mode:</strong> Demo (watch), Practice (your pace), or Challenge (real-time)</li>
-                <li>▶️ <strong>Demo mode:</strong> Press play to watch and listen</li>
-                <li>🎹 <strong>Practice/Challenge:</strong> Just start playing the highlighted keys!</li>
-                <li>⚡ <strong>Adjust speed</strong> to learn at your own pace</li>
+                <li><Music className="inline-icon" aria-hidden="true" /> <strong>Select a song</strong> from the song player above</li>
+                <li><Gamepad2 className="inline-icon" aria-hidden="true" /> <strong>Choose a mode:</strong> Demo (watch), Practice (your pace), or Challenge (real-time)</li>
+                <li><Play className="inline-icon" aria-hidden="true" /> <strong>Demo mode:</strong> Press play to watch and listen</li>
+                <li><PianoIcon className="inline-icon" aria-hidden="true" /> <strong>Practice/Challenge:</strong> Just start playing the highlighted keys!</li>
+                <li><Zap className="inline-icon" aria-hidden="true" /> <strong>Adjust speed</strong> to learn at your own pace</li>
               </ul>
 
               <h3>Features:</h3>
               <ul>
-                <li>✅ 88-key interactive piano with real sounds</li>
-                <li>✅ MIDI song playback with key highlighting</li>
-                <li>✅ Adjustable playback speed (0.5x to 2.0x)</li>
-                <li>✅ Demo mode - watch and learn</li>
-                <li>✅ Practice mode - play at your own pace</li>
-                <li>✅ Challenge mode - test your timing</li>
-                <li>✅ Performance tracking with detailed metrics</li>
-                <li>⏳ Trivia challenges - coming soon</li>
+                <li><Check className="inline-icon icon-success" aria-hidden="true" /> 88-key interactive piano with real sounds</li>
+                <li><Check className="inline-icon icon-success" aria-hidden="true" /> MIDI song playback with key highlighting</li>
+                <li><Check className="inline-icon icon-success" aria-hidden="true" /> Adjustable playback speed (0.5x to 2.0x)</li>
+                <li><Check className="inline-icon icon-success" aria-hidden="true" /> Demo mode - watch and learn</li>
+                <li><Check className="inline-icon icon-success" aria-hidden="true" /> Practice mode - play at your own pace</li>
+                <li><Check className="inline-icon icon-success" aria-hidden="true" /> Challenge mode - test your timing</li>
+                <li><Check className="inline-icon icon-success" aria-hidden="true" /> Performance tracking with detailed metrics</li>
+                <li><Hourglass className="inline-icon" aria-hidden="true" /> Trivia challenges - coming soon</li>
               </ul>
 
               <div className="tip-box">
-                <h4>💡 Pro Tip:</h4>
+                <h4><Lightbulb className="inline-icon" aria-hidden="true" /> Pro Tip:</h4>
                 <p>Start with the C Major Scale to familiarize yourself with the keyboard layout. Then try more complex songs as they unlock!</p>
               </div>
             </div>
@@ -172,7 +207,7 @@ function App() {
               <div className="results-status">
                 {performanceResults.passed ? (
                   <>
-                    <p className="pass-message">🎉 Excellent! You passed!</p>
+                    <p className="pass-message"><PartyPopper className="inline-icon" aria-hidden="true" /> Excellent! You passed!</p>
                     {performanceResults.mode === 'challenge' && challengeConfig?.code && (
                       <div className="challenge-code">
                         <p className="challenge-code-label">Your unlock code:</p>
@@ -187,19 +222,19 @@ function App() {
             </div>
             <div className="results-breakdown">
               <div className="result-row">
-                <span className="result-label">🌟 Perfect</span>
+                <span className="result-label"><Star className="inline-icon icon-success" aria-hidden="true" /> Perfect</span>
                 <span className="result-value">{performanceResults.perfect}</span>
               </div>
               <div className="result-row">
-                <span className="result-label">👍 Good</span>
+                <span className="result-label"><ThumbsUp className="inline-icon" aria-hidden="true" /> Good</span>
                 <span className="result-value">{performanceResults.good}</span>
               </div>
               <div className="result-row">
-                <span className="result-label">✗ Missed</span>
+                <span className="result-label"><CircleSlash className="inline-icon icon-danger" aria-hidden="true" /> Missed</span>
                 <span className="result-value">{performanceResults.missed}</span>
               </div>
               <div className="result-row">
-                <span className="result-label">❌ Wrong</span>
+                <span className="result-label"><CircleX className="inline-icon icon-danger" aria-hidden="true" /> Wrong</span>
                 <span className="result-value">{performanceResults.wrong}</span>
               </div>
             </div>
@@ -214,6 +249,9 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* Transient in-app notifications (replaces browser alert()) */}
+      <Toast toast={toast} onDismiss={dismissToast} />
     </div>
   );
 }

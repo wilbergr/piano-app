@@ -40,3 +40,26 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+/* Screen-reader-only content: visually hidden but announced by assistive tech. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Inline Lucide icon paired with text inside headings, labels, and buttons.
+   Sizes to the surrounding font and inherits currentColor (icons use
+   stroke="currentColor"), so no hardcoded size/color props. */
+.inline-icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+  vertical-align: -0.15em;
+}

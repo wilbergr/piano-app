@@ -179,11 +179,11 @@ export class PerformanceTracker {
   getRatingMessage(rating, timingDiff) {
     switch (rating) {
       case 'perfect':
-        return '🌟 Perfect!';
+        return 'Perfect!';
       case 'good':
-        return '👍 Good!';
+        return 'Good!';
       case 'late':
-        return `⏰ Late (${Math.round(timingDiff)}ms)`;
+        return `Late (${Math.round(timingDiff)}ms)`;
       default:
         return '';
     }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Music } from 'lucide-react';
 import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
 import { convertMidiToMusicXML, convertSongToMusicXML } from '../../services/midiToMusicXML';
 import './MusicStaff.css';
@@ -44,9 +45,11 @@ function MusicStaff({ song, midiFileData }) {
         if (!musicXmlString) {
           // No music data available
           if (mounted && containerRef.current) {
+            // Rendered on the literal-white sheet-music paper (.music-staff), so
+            // this stays literal ink rather than a theme token (see CLAUDE.md).
             containerRef.current.innerHTML = `
               <div style="padding: 20px; text-align: center; color: #666;">
-                <p>📝 No music notation available.</p>
+                <p>No music notation available.</p>
               </div>
             `;
           }
@@ -127,8 +130,8 @@ function MusicStaff({ song, midiFileData }) {
   return (
     <div className="music-staff-container">
       {isLoading && (
-        <div style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
-          <p>⏳ Loading music notation...</p>
+        <div style={{ padding: '20px', textAlign: 'center', color: 'var(--text-muted)' }}>
+          <p>Loading music notation...</p>
         </div>
       )}
       <div
@@ -139,7 +142,7 @@ function MusicStaff({ song, midiFileData }) {
       ></div>
       {!isLoading && !error && song.notes && (
         <div className="staff-info">
-          <p>📝 Musical Notation ({song.notes.length} notes, Tempo: {song.tempo || 120} BPM)</p>
+          <p><Music className="inline-icon" aria-hidden="true" /> Musical Notation ({song.notes.length} notes, Tempo: {song.tempo || 120} BPM)</p>
         </div>
       )}
     </div>
