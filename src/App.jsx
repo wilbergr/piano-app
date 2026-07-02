@@ -95,28 +95,24 @@ function App() {
       </header>
 
       <main className="app-main">
-        <div className="app-columns">
-          <div className="app-col-left">
-            {/* Piano Keyboard */}
-            <Piano
-              highlightedKeys={highlightedKeys}
-              disableInput={false}
-              scrollToKey={null}
-              onUserKeyPress={handlePianoKeyPress}
-              keyFeedback={keyFeedback}
-            />
-          </div>
-          <div className="app-col-right">
-            {/* Song Player Controls */}
-            <SongPlayer
-              onHighlightKeys={handleHighlightKeys}
-              onSongComplete={handleSongComplete}
-              onUserKeyPress={setUserKeyPressHandler}
-              onKeyFeedback={handleKeyFeedback}
-              onShowResults={handleShowResults}
-              onRegisterReset={handleRegisterReset}
-            />
-          </div>
+        <div className="app-stack">
+          {/* Song Player Controls */}
+          <SongPlayer
+            onHighlightKeys={handleHighlightKeys}
+            onSongComplete={handleSongComplete}
+            onUserKeyPress={setUserKeyPressHandler}
+            onKeyFeedback={handleKeyFeedback}
+            onShowResults={handleShowResults}
+            onRegisterReset={handleRegisterReset}
+          />
+          {/* Piano Keyboard */}
+          <Piano
+            highlightedKeys={highlightedKeys}
+            disableInput={false}
+            scrollToKey={null}
+            onUserKeyPress={handlePianoKeyPress}
+            keyFeedback={keyFeedback}
+          />
         </div>
 
         <div className="help-toggle-container">

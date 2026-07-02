@@ -240,8 +240,8 @@
 }
 
 .reset-inline {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-sm);
   border: none;
   background: var(--accent-bg);
@@ -269,8 +269,8 @@
 }
 
 .control-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-sm);
   border: none;
   background: var(--accent-bg);
@@ -324,7 +324,8 @@
 }
 
 .control-select {
-  padding: var(--space-1) var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--accent);
   background: var(--accent-bg);
@@ -356,6 +357,7 @@
 /* Back Button */
 .back-btn {
   padding: var(--space-2) var(--space-4);
+  min-height: 44px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface-2);
@@ -712,14 +714,14 @@
   }
 
   .control-btn {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     font-size: 1.3rem;
   }
 
   .play-btn {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     font-size: 1.7rem;
   }
 
@@ -730,7 +732,8 @@
   .control-select {
     min-width: 85px;
     font-size: 0.8rem;
-    padding: var(--space-1) var(--space-2);
+    padding: var(--space-2) var(--space-2);
+    min-height: 44px;
   }
 
   .control-group label {
@@ -785,6 +788,12 @@
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
+  /* Keep the big count-in number clear of the notch / rounded corners */
+  padding: calc(var(--space-4) + env(safe-area-inset-top, 0px))
+           calc(var(--space-4) + env(safe-area-inset-right, 0px))
+           calc(var(--space-4) + env(safe-area-inset-bottom, 0px))
+           calc(var(--space-4) + env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
 }
 
 .count-in-display {
@@ -800,11 +809,12 @@
 }
 
 .count-number {
-  font-size: 8rem;
+  font-size: clamp(4.5rem, 22vw, 8rem);
   font-weight: bold;
   color: var(--warning);
   text-shadow: 0 0 20px color-mix(in srgb, var(--warning) 50%, transparent);
   margin: var(--space-4) 0;
+  line-height: 1;
 }
 
 .count-in-display p {
@@ -822,11 +832,11 @@
   }
 }
 
-/* Metronome indicator */
+/* Metronome indicator — offset by safe-area insets so it clears the notch */
 .metronome-indicator {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
   display: flex;
   gap: var(--space-3);
   background: rgba(0, 0, 0, 0.7);
@@ -919,13 +929,13 @@
   color: var(--on-accent);
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
   transition: all 0.2s ease;
   box-shadow: var(--shadow-md);
 }
@@ -945,13 +955,13 @@
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   transition: all 0.2s ease;
   box-shadow: var(--shadow-md);
 }

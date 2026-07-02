@@ -67,6 +67,51 @@
   }
 }
 
+/* Octave navigation (mobile windowed keyboard) */
+.octave-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.octave-btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.octave-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.octave-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.octave-label {
+  min-width: 5.5em;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+}
+
 /* Scrollable piano area */
 .piano-scroll {
   overflow-x: auto;
@@ -76,6 +121,13 @@
   border-radius: var(--radius-md);
   box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
   touch-action: pan-x;
+}
+
+/* Windowed (mobile) keyboard fits within the viewport — center it, no hunting */
+.piano-scroll.is-windowed {
+  display: flex;
+  justify-content: center;
+  touch-action: none;
 }
 
 /* Hide scrollbar for cleaner look but keep functionality */
@@ -352,52 +404,41 @@
   font-family: var(--font-mono);
 }
 
-/* Responsive design */
+/* Responsive design.
+   On mobile the keyboard is windowed to a single octave (7 white keys), so keys
+   can stay a comfortable ≥44px tap target instead of shrinking to fit all 88. */
 @media (max-width: 768px) {
+  .piano-container {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .piano-scroll {
+    padding: var(--space-4) var(--space-1);
+  }
+
   .piano-keyboard {
-    height: 150px;
+    height: 190px;
+    padding: 0;
   }
 
   .white-key {
-    width: 40px;
-    height: 150px;
+    width: 44px;
+    height: 190px;
   }
 
   .black-key {
-    width: 24px;
-    height: 95px;
-    margin-left: -12px;
-    margin-right: -12px;
+    width: 30px;
+    height: 118px;
+    margin-left: -15px;
+    margin-right: -15px;
   }
 
   .key-label {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .piano-info p {
     font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .piano-keyboard {
-    height: 120px;
-  }
-
-  .white-key {
-    width: 32px;
-    height: 120px;
-  }
-
-  .black-key {
-    width: 20px;
-    height: 75px;
-    margin-left: -10px;
-    margin-right: -10px;
-  }
-
-  .key-label {
-    font-size: 8px;
-    bottom: 4px;
   }
 }
