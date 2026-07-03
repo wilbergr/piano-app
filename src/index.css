@@ -36,9 +36,17 @@ button {
   font-family: inherit;
   cursor: pointer;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+/* Tokenized keyboard-focus ring (guitar-app convention): 2px accent outline on
+   :focus-visible only, so mouse/touch interaction stays outline-free.
+   The !important transition suppression is deliberate: several components
+   transition `all` in later-imported CSS (which wins the specificity tie), and
+   without it the ring fades in over their transition duration instead of
+   appearing the instant focus lands. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  transition: none !important;
 }
 
 /* Screen-reader-only content: visually hidden but announced by assistive tech. */

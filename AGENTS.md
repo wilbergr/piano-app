@@ -56,3 +56,37 @@ The "No music notation available" message is injected via `innerHTML` inside
 ink (`#666`), not a theme token — `var(--text-muted)` would go light-on-white in
 dark theme. The sibling loading message renders on a theme surface and does use
 `var(--text-muted)`.
+
+## Accessibility conventions (PR4)
+
+- **Piano keys are keyboard-operable buttons** (`PianoKey.jsx`): `role="button"`,
+  `aria-label` from the note name (`#` spelled out: "C sharp 4"), Enter/Space
+  press/release mirrors mouse down/up (guard `e.repeat`), blur releases a held
+  note. Roving tabindex lives in `Piano.jsx`: one key is tabbable
+  (`focusedNote`, falls back to the first visible key when the mobile octave
+  window shifts), Arrow/Home/End move focus via `handleKeyNavigate` + a
+  note→element ref map — same pattern as guitar-app's fret cells and the mode
+  segmented control.
+- **Focus styling is tokenized**: global `:focus-visible { outline: 2px solid
+  var(--accent); outline-offset: 2px }` in `index.css` (never plain `:focus`,
+  never browser-default rings). Piano keys use an inset ring
+  (`outline-offset: -2px` + `z-index: 3`) so adjacent/overlapping keys don't
+  clip it. The MIDI upload input is `.sr-only` (not `display:none`) so it stays
+  focusable; the ring shows on the label via `.upload-btn:focus-within`.
+- **Live region** (`App.jsx`): one visually-hidden `role="status"
+  aria-live="polite"` div announces practice/challenge feedback and results
+  (`announcement` state). The on-key feedback bubbles are `aria-hidden` — the
+  live region is the single announcement path; include the note name so
+  consecutive messages differ and re-fire.
+- **Results modal is a real dialog** (`App.jsx`): `role="dialog"`,
+  `aria-modal`, `aria-labelledby="results-title"`, a `useEffect` focus trap
+  (Tab cycles the dialog's buttons, Escape closes, focus returns to the
+  previously focused element on close).
+- **Reduced motion**: decorative `animation`s are switched off in a
+  `@media (prefers-reduced-motion: reduce) { ... animation: none }` block at
+  the end of `Piano.css`/`SongPlayer.css` (Toast.css instead wraps with
+  `no-preference` — either idiom is fine; new animations must honor one).
+- **On-key feedback bubble** (`.key-feedback`): dark chip
+  (`rgba(0,0,0,0.78)`) behind light literal status colors so contrast is
+  AA-safe over both white and black key faces (bare status colors on the white
+  face failed); a per-rating Lucide icon is the non-color cue.

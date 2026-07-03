@@ -172,6 +172,14 @@
   transform: scale(0.98);
 }
 
+/* Keyboard focus ring drawn inside the key (adjacent keys overlap the outside
+   edge) and lifted above neighboring black keys (z-index 2) so it never clips. */
+.piano-key:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  z-index: 3;
+}
+
 .piano-key.disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -316,48 +324,52 @@
   bottom: 6px;
 }
 
-/* Key feedback display */
+/* Key feedback display — a dark chip behind the text keeps contrast AA-safe
+   over both the white and black key faces (bare status colors on the white
+   face failed contrast). Rating icons are the non-color cue; literal light
+   status colors because the chip is an intrinsic dark surface in both themes. */
 .key-feedback {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
   pointer-events: none;
   z-index: 10;
   white-space: nowrap;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   animation: feedbackPop 0.3s ease;
 }
 
-/* Feedback text sits over the physical keys — tuned literals keep it legible */
-.white-key .key-feedback {
-  color: #1b5e20;
-}
-
 .black-key .key-feedback {
-  color: #fff;
   font-size: 12px;
 }
 
 .key-feedback.perfect {
-  color: #1b5e20;
+  color: #81c784;
   font-size: 16px;
 }
 
+/* "Good" stays literal blue by convention (light variant for the dark chip) */
 .key-feedback.good {
-  color: #2196f3;
+  color: #64b5f6;
 }
 
 .key-feedback.ok {
-  color: #ff9800;
+  color: #ffb74d;
 }
 
 .key-feedback.late,
 .key-feedback.wrong {
-  color: #f44336;
+  color: #ef9a9a;
 }
 
 @keyframes feedbackPop {
@@ -440,5 +452,16 @@
 
   .piano-info p {
     font-size: 0.85rem;
+  }
+}
+
+/* Motion opt-out: the highlight/feedback animations are decorative — the
+   color/priority styling still marks the target keys without them. */
+@media (prefers-reduced-motion: reduce) {
+  .audio-status,
+  .key-feedback,
+  .white-key.highlighted.priority-1,
+  .black-key.highlighted.priority-1 {
+    animation: none;
   }
 }
