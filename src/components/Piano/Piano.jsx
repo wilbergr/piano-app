@@ -38,6 +38,9 @@ function Piano({ highlightedKeys = [], disableInput = false, scrollToKey = null,
   const [audioReady, setAudioReady] = useState(false);
   const [octaveStart, setOctaveStart] = useState(DEFAULT_OCTAVE);
   const [prevPrimaryNote, setPrevPrimaryNote] = useState(null);
+  // Roving tabindex: exactly one key is tabbable; arrows move focus along keys.
+  const [focusedNote, setFocusedNote] = useState('C4');
+  const keyRefs = useRef({});
   const pianoRef = useRef(null);
   const isMobile = useIsMobile(768);
 
@@ -154,6 +157,36 @@ function Piano({ highlightedKeys = [], disableInput = false, scrollToKey = null,
     audioService.stopNote(note);
   }, [disableInput]);
 
+  // The single tab stop among the keys: the last-focused key if it's still
+  // visible (mobile octave window can shift it out), else the first visible key.
+  const rovingNote = visibleKeys.some((k) => k.fullNote === focusedNote)
+    ? focusedNote
+    : visibleKeys[0]?.fullNote;
+
+  // Arrow/Home/End moves focus along the visible keys (guitar fret-cell pattern).
+  const handleKeyNavigate = useCallback((key, note) => {
+    const idx = visibleKeys.findIndex((k) => k.fullNote === note);
+    if (idx === -1) return;
+    let nextIdx = idx;
+    if (key === 'ArrowRight') nextIdx = Math.min(idx + 1, visibleKeys.length - 1);
+    else if (key === 'ArrowLeft') nextIdx = Math.max(idx - 1, 0);
+    else if (key === 'Home') nextIdx = 0;
+    else if (key === 'End') nextIdx = visibleKeys.length - 1;
+    if (nextIdx === idx) return;
+    const nextNote = visibleKeys[nextIdx].fullNote;
+    setFocusedNote(nextNote);
+    keyRefs.current[nextNote]?.focus();
+  }, [visibleKeys]);
+
+  const registerKeyRef = useCallback((note, el) => {
+    if (el) keyRefs.current[note] = el;
+    else delete keyRefs.current[note];
+  }, []);
+
+  const handleKeyFocus = useCallback((note) => {
+    setFocusedNote(note);
+  }, []);
+
   const getKeyHighlightPriority = useCallback((note) => {
     // Handle both formats: array of strings or array of {note, priority} objects
     if (highlightedKeys.length === 0) return 0;
@@ -204,6 +237,10 @@ function Piano({ highlightedKeys = [], disableInput = false, scrollToKey = null,
               highlightPriority={getKeyHighlightPriority(keyData.fullNote)}
               isDisabled={disableInput}
               feedback={keyFeedback && keyFeedback.note === keyData.fullNote ? keyFeedback : null}
+              tabIndex={keyData.fullNote === rovingNote ? 0 : -1}
+              onNavigate={handleKeyNavigate}
+              onFocus={handleKeyFocus}
+              registerRef={registerKeyRef}
             />
           ))}
         </div>

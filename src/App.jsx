@@ -57,7 +57,10 @@ function App() {
   const [performanceResults, setPerformanceResults] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
   const [toast, setToast] = useState(null);
+  // Screen-reader announcement for the visually-only feedback (live region text)
+  const [announcement, setAnnouncement] = useState('');
   const userKeyPressHandlerRef = useRef(null);
+  const resultsDialogRef = useRef(null);
 
   // In-app notification (replaces browser alert())
   const showToast = useCallback((message, tone = 'default') => {
@@ -76,6 +79,10 @@ function App() {
   const handleKeyFeedback = useCallback((feedback) => {
     setKeyFeedback(feedback);
     if (feedback) {
+      // Announce the rating to screen readers; the note name keeps consecutive
+      // messages distinct so the live region re-fires ("wrong" already names
+      // the expected note in its message).
+      setAnnouncement(feedback.correct ? `${feedback.message} ${feedback.note}` : feedback.message);
       // Clear feedback after 1 second
       setTimeout(() => setKeyFeedback(null), 1000);
     }
@@ -84,12 +91,54 @@ function App() {
   // Handle performance results
   const handleShowResults = useCallback((results) => {
     setPerformanceResults(results);
+    setAnnouncement(
+      `Performance results: ${Math.round(results.accuracy)}% accuracy. ` +
+      `${results.passed ? 'You passed!' : 'Keep practicing! You need 90% to pass.'} ` +
+      `Perfect: ${results.perfect}, good: ${results.good}, missed: ${results.missed}, wrong: ${results.wrong}.`
+    );
   }, []);
 
   const handleCloseResults = useCallback(() => {
     resetChallengeRef.current?.();
     setPerformanceResults(null);
   }, []);
+
+  // Results modal is a real dialog: trap Tab inside, close on Escape, and
+  // return focus to whatever had it before the dialog opened.
+  useEffect(() => {
+    if (!performanceResults) return;
+    const previouslyFocused = document.activeElement;
+    const dialog = resultsDialogRef.current;
+    const getFocusables = () =>
+      Array.from(dialog?.querySelectorAll('button:not([disabled])') ?? []);
+    getFocusables()[0]?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        handleCloseResults();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const focusables = getFocusables();
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus();
+    };
+  }, [performanceResults, handleCloseResults]);
 
   // Handle song completion
   const handleSongComplete = useCallback((song) => {
@@ -197,8 +246,14 @@ function App() {
       {/* Results Modal - Rendered at app root level */}
       {performanceResults && (
         <div className="results-modal">
-          <div className="results-content">
-            <h2>Performance Results</h2>
+          <div
+            className="results-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="results-title"
+            ref={resultsDialogRef}
+          >
+            <h2 id="results-title">Performance Results</h2>
             <div className="results-summary">
               <div className={`accuracy-circle ${performanceResults.passed ? 'passed' : 'failed'}`}>
                 <span className="accuracy-value">{Math.round(performanceResults.accuracy)}%</span>
@@ -252,6 +307,12 @@ function App() {
 
       {/* Transient in-app notifications (replaces browser alert()) */}
       <Toast toast={toast} onDismiss={dismissToast} />
+
+      {/* Visually-hidden live region: announces practice/challenge feedback and
+          results to screen readers (the on-key bubbles are visual-only) */}
+      <div className="sr-only" role="status" aria-live="polite">
+        {announcement}
+      </div>
     </div>
   );
 }

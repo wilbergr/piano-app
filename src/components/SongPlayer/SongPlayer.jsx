@@ -805,7 +805,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
         </div>
         {currentSong && (
           <div className="current-song-info">
-            <h3>{currentSong.title || currentSong.name}</h3>
+            <h2>{currentSong.title || currentSong.name}</h2>
             <span className={`difficulty-badge ${currentSong.difficulty}`}>
               {currentSong.difficulty}
             </span>
@@ -815,7 +815,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
 
       {!currentSong && (
         <div className="song-list">
-          <h3>Select a Song:</h3>
+          <h2>Select a Song:</h2>
           {[
             { key: 'beginner', label: 'Beginner' },
             { key: 'intermediate', label: 'Intermediate' },
@@ -851,12 +851,14 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
             <h3>Or Upload Your Own MIDI File:</h3>
             <label htmlFor="midi-upload" className="upload-btn">
               <FolderOpen className="inline-icon" aria-hidden="true" /> Choose MIDI File
+              {/* sr-only (not display:none) keeps the input focusable so the
+                  upload control is reachable by keyboard */}
               <input
                 id="midi-upload"
                 type="file"
                 accept=".mid,.midi"
                 onChange={handleMidiUpload}
-                style={{ display: 'none' }}
+                className="sr-only"
               />
             </label>
           </div>

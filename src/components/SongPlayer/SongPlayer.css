@@ -88,7 +88,7 @@
   flex-wrap: wrap;
 }
 
-.current-song-info h3 {
+.current-song-info h2 {
   margin: 0;
   color: var(--text);
   font-size: 1.1rem;
@@ -135,6 +135,9 @@
   text-align: center;
 }
 
+/* "Select a Song:" is an h2 (heading order under the app h1); the difficulty
+   group h3s keep the same styling they had when everything here was h3. */
+.song-list h2,
 .song-list h3 {
   color: var(--accent);
   margin-bottom: var(--space-3);
@@ -171,6 +174,13 @@
 
 .upload-btn:hover {
   transform: translateY(-2px);
+}
+
+/* Keyboard focus lands on the sr-only file input inside the label — show the
+   ring on the visible label instead. */
+.upload-btn:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .difficulty-group {
@@ -404,18 +414,12 @@
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  outline: none;
   min-width: 100px;
 }
 
 .control-select:hover {
   background: var(--accent-bg);
   border-color: var(--accent-hi);
-}
-
-.control-select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-bg);
 }
 
 .control-select option {
@@ -750,7 +754,7 @@
     gap: var(--space-2);
   }
 
-  .current-song-info h3 {
+  .current-song-info h2 {
     font-size: 1rem;
   }
 
@@ -879,6 +883,17 @@
   }
   50% {
     transform: scale(1.05);
+  }
+}
+
+/* Motion opt-out: entrance/pulse animations are decorative — the overlay and
+   modal content are fully readable without them. */
+@media (prefers-reduced-motion: reduce) {
+  .results-modal,
+  .results-content,
+  .count-in-overlay,
+  .count-in-display {
+    animation: none;
   }
 }
 

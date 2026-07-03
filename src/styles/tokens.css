@@ -21,7 +21,9 @@
   --border: #262c36;
   --text: #f4f4f6;
   --text-muted: #a1a8b3;
-  --text-faint: #6b7280;
+  /* Lightened from #6b7280 so faint text (app footer) clears AA 4.5:1 on the
+     dark surfaces; the light-theme value below already passes on white. */
+  --text-faint: #7d8694;
 
   /* Color — accent (warm copper) + status */
   --accent: #d4a574;
