@@ -829,14 +829,15 @@
   }
 }
 
-/* Count-in overlay */
+/* Count-in overlay — themed scrim (see --scrim in tokens.css) because the
+   token-colored count-in text sits directly on it. */
 .count-in-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--scrim);
   display: flex;
   align-items: center;
   justify-content: center;

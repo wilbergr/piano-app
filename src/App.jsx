@@ -15,15 +15,20 @@ import {
   ThumbsUp,
   CircleSlash,
   CircleX,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import Piano from './components/Piano/Piano';
 import SongPlayer from './components/SongPlayer/SongPlayer';
 import Toast from './components/Toast/Toast';
 import audioService from './services/audioService';
+import useTheme from './hooks/useTheme';
 import './App.css';
 import './components/SongPlayer/SongPlayer.css';
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
+
   // Preload piano samples on app mount (without starting audio context)
   useEffect(() => {
     const preloadAudio = async () => {
@@ -162,6 +167,20 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
+        {/* Same labels/behavior as guitar's and chess's theme toggle for family
+            parity; piano has no shared .btn system, so the style is the
+            self-contained .theme-toggle-btn in App.css. */}
+        <button
+          type="button"
+          className="theme-toggle-btn"
+          onClick={toggleTheme}
+          aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+          title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+        >
+          {theme === 'light'
+            ? <Moon aria-hidden="true" />
+            : <Sun aria-hidden="true" />}
+        </button>
         <div className="app-title">
           <PianoIcon className="title-icon" aria-hidden="true" />
           <h1>Piano Learning App</h1>

@@ -9,10 +9,43 @@
 
 /* Header */
 .app-header {
+  position: relative;
   text-align: center;
   padding: var(--space-6) var(--space-4);
   background: var(--surface);
   border-bottom: 1px solid var(--border);
+}
+
+/* Theme toggle — anchored to the header's top-right corner (the header text is
+   centered, so it can't sit in the title flow). Piano has no shared .btn
+   system yet, so this is self-contained: 44px touch target, chip-style surface
+   like .help-toggle-btn. Focus-visible outline comes from the global button
+   rule in index.css. */
+.theme-toggle-btn {
+  position: absolute;
+  top: var(--space-3);
+  right: calc(var(--space-3) + env(safe-area-inset-right, 0px));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  transition: background 0.2s, color 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.theme-toggle-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .app-title {
@@ -232,6 +265,12 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  /* Drop the title below the corner theme toggle — at phone widths the
+     centered h1 would otherwise run underneath it. */
+  .app-header {
+    padding-top: calc(var(--space-3) + 44px + var(--space-2));
+  }
+
   .app-header h1 {
     font-size: 2rem;
   }
