@@ -90,3 +90,23 @@ dark theme. The sibling loading message renders on a theme surface and does use
   (`rgba(0,0,0,0.78)`) behind light literal status colors so contrast is
   AA-safe over both white and black key faces (bare status colors on the white
   face failed); a per-rating Lucide icon is the non-color cue.
+
+## Theme system: light theme + persisted toggle (PR5)
+
+Dark is the default (`:root` in `src/styles/tokens.css`); light overrides live
+in `[data-theme="light"]` plus a duplicate `@media (prefers-color-scheme:
+light)` block scoped to `:root:not([data-theme])` that covers pre-JS paint.
+`src/hooks/useTheme.js` (ported from guitar-app, storage key **`piano-theme`**)
+sets `data-theme` on `<html>`: a persisted localStorage choice wins, otherwise
+the OS preference is followed live. The Sun/Moon toggle is `.theme-toggle-btn`
+in the App.jsx header — absolutely positioned top-right (header text is
+centered), self-contained styles in App.css since piano has no shared `.btn`
+system; same aria-labels as guitar's/chess's toggle.
+
+Intrinsic non-token surfaces stay literal in both themes: piano key faces and
+their gradients/labels/feedback colors (Piano.css), sheet-music paper
+(MusicStaff.css), the literal-blue "good" chips, and the results-modal /
+metronome-pill dark scrims (their contents are a tokenized surface card /
+light-toned dots). The count-in overlay is the exception — its token-colored
+text sits directly on the scrim, so it uses the themed `--scrim` token (dark:
+black veil; light: paper veil).
