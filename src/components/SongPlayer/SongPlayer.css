@@ -540,7 +540,8 @@
   color: #2196f3;
 }
 
-.stat-mini.ok {
+.stat-mini.ok,
+.stat-mini.late {
   background: color-mix(in srgb, var(--warning) 15%, transparent);
   color: var(--warning);
 }

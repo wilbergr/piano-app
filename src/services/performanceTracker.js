@@ -11,6 +11,9 @@ export const TIMING_WINDOWS = {
   PERFECT: 400,   // ±400ms = 100%
   GOOD: 600,      // ±600ms = 80%
   // >600ms = late (40%)
+  MISS: 1000,     // challenge only: a note this far past its time with no
+                  // matching press is auto-missed so the index-based scorer
+                  // stays aligned with the wall clock and the player recovers
 };
 
 /**
@@ -24,6 +27,7 @@ export class PerformanceTracker {
     this.results = {
       perfect: 0,
       good: 0,
+      late: 0,
       missed: 0,
       wrong: 0,
       totalNotes: song.notes.length,
@@ -73,10 +77,8 @@ export class PerformanceTracker {
    * @param {number} playedTime - Time when the note was played (in seconds from song start)
    * @returns {Object} Result object with score and timing info
    */
-  checkNote(playedNote, playedTime) {
-    const currentNote = this.getCurrentNote();
-
-    if (!currentNote) {
+  checkNote(playedNote, playedTime, { matchWindow = 0 } = {}) {
+    if (this.currentNoteIndex >= this.notes.length) {
       // Song is finished, this is an extra note
       return {
         correct: false,
@@ -86,20 +88,51 @@ export class PerformanceTracker {
       };
     }
 
-    // Check if correct note
-    if (playedNote !== currentNote.note) {
+    // Decide which note this press is aimed at. Strict mode (matchWindow = 0,
+    // used by practice) only ever considers the current note. Challenge passes a
+    // matchWindow so a press whose pitch does not match the current note can be
+    // attributed to the nearest upcoming note of the same pitch within that time
+    // window — letting a recovering or slightly-off player land on the right
+    // note instead of freezing the pointer on a stale one. Notes skipped over to
+    // reach the match are recorded as missed.
+    let targetIndex = this.currentNoteIndex;
+    if (matchWindow > 0 && this.notes[targetIndex].note !== playedNote) {
+      let bestDelta = Infinity;
+      for (let i = this.currentNoteIndex; i < this.notes.length; i++) {
+        const candidate = this.notes[i];
+        if (candidate.time - playedTime > matchWindow) break; // only look ahead within the window
+        if (candidate.note === playedNote) {
+          const delta = Math.abs(candidate.time - playedTime);
+          if (delta < bestDelta) {
+            bestDelta = delta;
+            targetIndex = i;
+          }
+        }
+      }
+    }
+
+    const targetNote = this.notes[targetIndex];
+
+    // Wrong note: the pitch matches neither the current note nor any nearby
+    // upcoming note. Do not advance the pointer.
+    if (targetNote.note !== playedNote) {
       this.results.wrong++;
       return {
         correct: false,
         score: 0,
         rating: 'wrong',
-        message: `Wrong note! Expected ${currentNote.note}`,
-        expectedNote: currentNote.note,
+        message: `Wrong note! Expected ${targetNote.note}`,
+        expectedNote: targetNote.note,
       };
     }
 
+    // Record any notes we skipped over to reach the matched note as missed.
+    while (this.currentNoteIndex < targetIndex) {
+      this.missNote();
+    }
+
     // Calculate timing difference (in milliseconds)
-    const expectedTime = currentNote.time;
+    const expectedTime = targetNote.time;
     const timingDiff = Math.abs((playedTime - expectedTime) * 1000);
 
     let rating;
@@ -116,12 +149,12 @@ export class PerformanceTracker {
     } else {
       rating = 'late';
       score = 40;
-      this.results.missed++;
+      this.results.late++;
     }
 
     // Store individual note result
     this.results.noteResults.push({
-      note: currentNote.note,
+      note: targetNote.note,
       expectedTime,
       actualTime: playedTime,
       timingDiff,
@@ -168,6 +201,24 @@ export class PerformanceTracker {
     if (this.currentNoteIndex >= this.notes.length) {
       this.finish();
     }
+  }
+
+  /**
+   * Auto-miss any notes whose miss window has fully elapsed (challenge mode).
+   * Keeps the index-based scorer aligned with the wall clock so a late player
+   * recovers instead of the pointer freezing on a stale note.
+   * @param {number} currentTime - Elapsed time in seconds from song start
+   * @returns {number} Number of notes auto-missed
+   */
+  missPassedNotes(currentTime) {
+    let missed = 0;
+    let note = this.getCurrentNote();
+    while (note && currentTime > note.time + TIMING_WINDOWS.MISS / 1000) {
+      this.missNote();
+      missed += 1;
+      note = this.getCurrentNote();
+    }
+    return missed;
   }
 
   /**
@@ -244,6 +295,7 @@ export class PerformanceTracker {
     this.results = {
       perfect: 0,
       good: 0,
+      late: 0,
       missed: 0,
       wrong: 0,
       totalNotes: this.song.notes.length,

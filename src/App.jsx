@@ -8,6 +8,7 @@ import {
   Play,
   Zap,
   Check,
+  Clock,
   Hourglass,
   Lightbulb,
   PartyPopper,
@@ -99,7 +100,7 @@ function App() {
     setAnnouncement(
       `Performance results: ${Math.round(results.accuracy)}% accuracy. ` +
       `${results.passed ? 'You passed!' : 'Keep practicing! You need 90% to pass.'} ` +
-      `Perfect: ${results.perfect}, good: ${results.good}, missed: ${results.missed}, wrong: ${results.wrong}.`
+      `Perfect: ${results.perfect}, good: ${results.good}, late: ${results.late}, missed: ${results.missed}, wrong: ${results.wrong}.`
     );
   }, []);
 
@@ -302,6 +303,10 @@ function App() {
               <div className="result-row">
                 <span className="result-label"><ThumbsUp className="inline-icon" aria-hidden="true" /> Good</span>
                 <span className="result-value">{performanceResults.good}</span>
+              </div>
+              <div className="result-row">
+                <span className="result-label"><Clock className="inline-icon icon-warning" aria-hidden="true" /> Late</span>
+                <span className="result-value">{performanceResults.late}</span>
               </div>
               <div className="result-row">
                 <span className="result-label"><CircleSlash className="inline-icon icon-danger" aria-hidden="true" /> Missed</span>
