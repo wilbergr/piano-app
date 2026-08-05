@@ -110,3 +110,10 @@ metronome-pill dark scrims (their contents are a tokenized surface card /
 light-toned dots). The count-in overlay is the exception — its token-colored
 text sits directly on the scrim, so it uses the themed `--scrim` token (dark:
 black veil; light: paper veil).
+
+## Maintaining this file
+
+Keep this file for knowledge useful to almost every future agent session in this project.
+Do not repeat what the codebase already shows; point to the authoritative file or command instead.
+Prefer rewriting or pruning existing entries over appending new ones.
+When updating this file, preserve this bar for all agents and keep entries concise.
