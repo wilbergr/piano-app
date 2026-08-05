@@ -1049,30 +1049,30 @@ export function createAmazingGraceSong() {
   const h = 1.5;
   const dh = 2.25;
   const notes = [
-    // A-maz-ing grace how sweet the sound
+    // A-maz-ing grace how sweet the sound  (sol do mi do mi re do la,)
     { note: 'C4', midi: 60, time: 0*q,   duration: q,  velocity: 0.75 }, // pickup
     { note: 'F4', midi: 65, time: 1*q,   duration: h,  velocity: 0.8  },
     { note: 'A4', midi: 69, time: 3*q,   duration: q,  velocity: 0.75 },
-    { note: 'C5', midi: 72, time: 4*q,   duration: h,  velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 4*q,   duration: h,  velocity: 0.8  },
     { note: 'A4', midi: 69, time: 6*q,   duration: q,  velocity: 0.75 },
-    { note: 'C5', midi: 72, time: 7*q,   duration: h,  velocity: 0.8  },
-    { note: 'A4', midi: 69, time: 9*q,   duration: q,  velocity: 0.75 },
-    { note: 'F4', midi: 65, time: 10*q,  duration: dh, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 7*q,   duration: h,  velocity: 0.8  }, // "sweet" — passing re
+    { note: 'F4', midi: 65, time: 9*q,   duration: q,  velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 10*q,  duration: dh, velocity: 0.8  }, // "sound" — dips to la,
     // That saved a wretch like me
     { note: 'F4', midi: 65, time: 13*q,  duration: q,  velocity: 0.75 },
     { note: 'A4', midi: 69, time: 14*q,  duration: h,  velocity: 0.8  },
     { note: 'C5', midi: 72, time: 16*q,  duration: q,  velocity: 0.75 },
     { note: 'A4', midi: 69, time: 17*q,  duration: h,  velocity: 0.8  },
     { note: 'F4', midi: 65, time: 19*q,  duration: dh, velocity: 0.8  },
-    // I once was lost but now am found
+    // I once was lost but now am found  (sol do mi do mi re do la,) — same phrase as line 1
     { note: 'C4', midi: 60, time: 22*q,  duration: q,  velocity: 0.75 },
     { note: 'F4', midi: 65, time: 23*q,  duration: h,  velocity: 0.8  },
     { note: 'A4', midi: 69, time: 25*q,  duration: q,  velocity: 0.75 },
-    { note: 'C5', midi: 72, time: 26*q,  duration: h,  velocity: 0.8  },
+    { note: 'F4', midi: 65, time: 26*q,  duration: h,  velocity: 0.8  },
     { note: 'A4', midi: 69, time: 28*q,  duration: q,  velocity: 0.75 },
-    { note: 'C5', midi: 72, time: 29*q,  duration: h,  velocity: 0.8  },
-    { note: 'A4', midi: 69, time: 31*q,  duration: q,  velocity: 0.75 },
-    { note: 'F4', midi: 65, time: 32*q,  duration: dh, velocity: 0.8  },
+    { note: 'G4', midi: 67, time: 29*q,  duration: h,  velocity: 0.8  }, // "now" — passing re
+    { note: 'F4', midi: 65, time: 31*q,  duration: q,  velocity: 0.75 },
+    { note: 'D4', midi: 62, time: 32*q,  duration: dh, velocity: 0.8  }, // "found" — dips to la,
     // Was blind but now I see
     { note: 'F4', midi: 65, time: 35*q,  duration: q,  velocity: 0.75 },
     { note: 'G4', midi: 67, time: 36*q,  duration: h,  velocity: 0.8  },
@@ -1435,15 +1435,15 @@ export function createTurkishMarchSong() {
 
   const notes = [
     // Section A — opening 8-bar theme (A minor)
-    // Bar 1-2: B4 A4 / B4 A4 B4 E4 D4 C4
-    { note: 'B4', midi: 71, time: 0.0,  duration: e, velocity: 0.80 },
-    { note: 'A4', midi: 69, time: 0.19, duration: e, velocity: 0.80 },
-    { note: 'B4', midi: 71, time: 0.38, duration: e, velocity: 0.80 },
-    { note: 'A4', midi: 69, time: 0.57, duration: e, velocity: 0.80 },
-    { note: 'B4', midi: 71, time: 0.76, duration: e, velocity: 0.80 },
-    { note: 'E4', midi: 64, time: 0.95, duration: e, velocity: 0.80 },
-    { note: 'D4', midi: 62, time: 1.14, duration: e, velocity: 0.80 },
-    { note: 'C4', midi: 60, time: 1.33, duration: e, velocity: 0.80 },
+    // Bar 1-2: B4 A4 G#4 A4 C5 (the upper-neighbor turn on the leading tone) then E4 D4 C4
+    { note: 'B4',  midi: 71, time: 0.0,  duration: e, velocity: 0.80 },
+    { note: 'A4',  midi: 69, time: 0.19, duration: e, velocity: 0.80 },
+    { note: 'G#4', midi: 68, time: 0.38, duration: e, velocity: 0.80 },
+    { note: 'A4',  midi: 69, time: 0.57, duration: e, velocity: 0.80 },
+    { note: 'C5',  midi: 72, time: 0.76, duration: e, velocity: 0.80 },
+    { note: 'E4',  midi: 64, time: 0.95, duration: e, velocity: 0.80 },
+    { note: 'D4',  midi: 62, time: 1.14, duration: e, velocity: 0.80 },
+    { note: 'C4',  midi: 60, time: 1.33, duration: e, velocity: 0.80 },
     // Bar 3-4: A4 C4 E4 A4 / B4 E4 G#4 B4
     { note: 'A3', midi: 57, time: 1.52, duration: e, velocity: 0.85 },
     { note: 'C4', midi: 60, time: 1.71, duration: e, velocity: 0.80 },
@@ -1452,15 +1452,15 @@ export function createTurkishMarchSong() {
     { note: 'E4', midi: 64, time: 2.47, duration: e, velocity: 0.80 },
     { note: 'G#4', midi: 68, time: 2.66, duration: e, velocity: 0.80 },
     { note: 'B4', midi: 71, time: 2.85, duration: q, velocity: 0.85 },
-    // Bar 5-6: B4 A4 B4 A4 B4 E4 D4 C4
-    { note: 'B4', midi: 71, time: 3.23, duration: e, velocity: 0.80 },
-    { note: 'A4', midi: 69, time: 3.42, duration: e, velocity: 0.80 },
-    { note: 'B4', midi: 71, time: 3.61, duration: e, velocity: 0.80 },
-    { note: 'A4', midi: 69, time: 3.80, duration: e, velocity: 0.80 },
-    { note: 'B4', midi: 71, time: 3.99, duration: e, velocity: 0.80 },
-    { note: 'E4', midi: 64, time: 4.18, duration: e, velocity: 0.80 },
-    { note: 'D4', midi: 62, time: 4.37, duration: e, velocity: 0.80 },
-    { note: 'C4', midi: 60, time: 4.56, duration: e, velocity: 0.80 },
+    // Bar 5-6: B4 A4 G#4 A4 D5 (same turn, repeating up a step) then E4 D4 C4
+    { note: 'B4',  midi: 71, time: 3.23, duration: e, velocity: 0.80 },
+    { note: 'A4',  midi: 69, time: 3.42, duration: e, velocity: 0.80 },
+    { note: 'G#4', midi: 68, time: 3.61, duration: e, velocity: 0.80 },
+    { note: 'A4',  midi: 69, time: 3.80, duration: e, velocity: 0.80 },
+    { note: 'D5',  midi: 74, time: 3.99, duration: e, velocity: 0.80 },
+    { note: 'E4',  midi: 64, time: 4.18, duration: e, velocity: 0.80 },
+    { note: 'D4',  midi: 62, time: 4.37, duration: e, velocity: 0.80 },
+    { note: 'C4',  midi: 60, time: 4.56, duration: e, velocity: 0.80 },
     // Bar 7-8: A3 C4 E4 A4 / E4 A4 C5 A4 E4
     { note: 'A3', midi: 57, time: 4.75, duration: e, velocity: 0.85 },
     { note: 'C4', midi: 60, time: 4.94, duration: e, velocity: 0.80 },
