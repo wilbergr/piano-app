@@ -1377,25 +1377,31 @@ export function createBachPreludeSong() {
     return out;
   }
 
-  // BWV 846 chord progression (first 8 measures):
-  // m1: C major  [36, 52, 55, 60, 64] (C2 E3 G3 C4 E4)
-  // m2: C major  [36, 52, 57, 60, 64] (C2 A3 variation)
-  // m3: D minor  [38, 53, 57, 62, 65] (D2 F3 A3 D4 F4)
-  // m4: G dom7   [43, 50, 55, 59, 65] (G2 D3 G3 B3 F4)
-  // m5: C major  [36, 52, 55, 60, 64]
-  // m6: Am       [33, 52, 57, 60, 64] (A1 E3 A3 C4 E4)
-  // m7: D7       [38, 50, 54, 60, 65] (D2 D3 F#3 C4 F4)
-  // m8: G major  [43, 50, 55, 59, 67] (G2 D3 G3 B3 G4)
+  // BWV 846 chord progression (first 8 measures). Each entry is
+  // [bass, then the 4 upper notes the figure cycles]. The signature of this
+  // opening is its near-static bass line C C B C C C B C — the harmony moves
+  // above a tonic pedal, only dipping to B under the two G7/B measures.
+  // m1: C major     C2 E3 G3 C4 E4   (I)
+  // m2: D min 7 /C   C2 D3 A3 D4 F4  (ii7 over tonic pedal)
+  // m3: G 7 /B       B1 D3 G3 D4 F4  (V7, first inversion)
+  // m4: C major      C2 E3 G3 C4 E4  (I)
+  // m5: A min /C      C2 E3 A3 E4 A4 (vi over tonic pedal)
+  // m6: D 7 /C        C2 D3 F#3 A3 D4 (V7/V, 7th in bass)
+  // m7: G 7 /B        B1 D3 G3 D4 F4 (V7, first inversion)
+  // m8: C major       C2 E3 G3 C4 E4 (I)
+  // Verified note-for-note for m1-m4 (the iconic opening); m5-m8 follow the
+  // standard published analysis and should get a final musician check before
+  // any release (see diagnosis report §9). Only m1 was correct before this fix.
 
   const chords = [
-    [36, 52, 55, 60, 64], // C maj
-    [36, 52, 57, 60, 64], // C maj sus/add9
-    [38, 53, 57, 62, 65], // D min
-    [43, 50, 55, 59, 65], // G7
-    [36, 52, 55, 60, 64], // C maj
-    [33, 52, 57, 60, 64], // A min
-    [38, 50, 54, 60, 65], // D7
-    [43, 50, 55, 59, 67], // G maj
+    [36, 52, 55, 60, 64], // m1 C major
+    [36, 50, 57, 62, 65], // m2 Dm7/C
+    [35, 50, 55, 62, 65], // m3 G7/B
+    [36, 52, 55, 60, 64], // m4 C major
+    [36, 52, 57, 64, 69], // m5 Am/C
+    [36, 50, 54, 57, 62], // m6 D7/C
+    [35, 50, 55, 62, 65], // m7 G7/B
+    [36, 52, 55, 60, 64], // m8 C major
   ];
 
   const measureLen = s * 16; // 16 sixteenth notes per measure
