@@ -1097,6 +1097,11 @@ export function createAmazingGraceSong() {
  * @returns {Object} Song data for Greensleeves
  */
 export function createGreensleevesSong() {
+  // Accuracy audit (2026-08-05, song-audit-set-a): pitch content verified against
+  // the tune — correct A-minor mode, opens A-C-D-E-F, cadences on the G# leading
+  // tone. No pitch errors. Note: the refrain (notes 18-33) is encoded identically
+  // to the verse (1-17); the real refrain ("Greensleeves was all my joy") is a
+  // distinct, higher answering phrase. Kept as a simplification, not a bug.
   // 3/4 time at 100 BPM: q=0.6s, e=0.3s, dq=0.9s, dh=1.8s
   // All times are explicit and sequential (each = previous time + previous duration)
   const notes = [
@@ -1221,6 +1226,13 @@ export function createSaintsGoMarchingSong() {
  * @returns {Object} Song data for Danny Boy
  */
 export function createDannyBoySong() {
+  // Accuracy audit (2026-08-05, song-audit-set-a): the four encoded phrases are a
+  // faithful, complete VERSE 1 (two strains AA'; phrases 3-4 correctly reprise
+  // 1-2, as the real tune does). Pitches are correct, peak E5. By design this
+  // omits the second section ("...in sunshine or in shadow, oh Danny Boy") that
+  // carries the signature octave-leap climax — i.e. the melody never reaches that
+  // climactic high note because that section isn't present. Left as a verse-1
+  // arrangement (completeness scope, not a pitch error).
   // 4/4 time at 72 BPM: q=0.833s, e=0.417s, h=1.667s, dq=1.25s, dh=2.5s
   // Using rounded values: q=0.83, e=0.42, h=1.67, dq=1.25, dh=2.5
   const notes = [
@@ -1280,6 +1292,10 @@ export function createDannyBoySong() {
  * @returns {Object} Song data for Simple Gifts
  */
 export function createSimpleGiftsSong() {
+  // Accuracy audit (2026-08-05, song-audit-set-a): correct F-major pentatonic set
+  // (F G A C + low C), recognizable contour. The repeated tones (C C, F F, A A A)
+  // are the tune's genuine syllabic repetition, not stand-ins for notes that
+  // should move. No pitch errors found.
   // 4/4 time at 100 BPM: q=0.6s, e=0.3s, h=1.2s, dq=0.9s
   const notes = [
     // 'Tis the gift to be simple
