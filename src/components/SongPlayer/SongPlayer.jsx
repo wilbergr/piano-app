@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   CircleSlash,
   CircleX,
+  Clock,
   Eye,
   FolderOpen,
   GraduationCap,
@@ -45,7 +46,7 @@ import {
   getNotesAtTime
 } from '../../services/midiParser';
 import audioService from '../../services/audioService';
-import PerformanceTracker from '../../services/performanceTracker';
+import PerformanceTracker, { TIMING_WINDOWS } from '../../services/performanceTracker';
 import songsData from '../../data/songs.json';
 import MusicStaff from '../MusicStaff/MusicStaff';
 import './SongPlayer.css';
@@ -85,6 +86,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
   const lastStateUpdateRef = useRef(0); // Track last time we updated state
   const metronomeIntervalRef = useRef(null);
   const metronomeSynthRef = useRef(null);
+  const lastPressRef = useRef({ note: null, at: 0 }); // Debounce accidental repeat presses
 
   // Initialize metronome synth
   useEffect(() => {
@@ -366,6 +368,15 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
   const handleUserKeyPress = useCallback(async (note) => {
     if (!performanceTracker || mode === 'demo') return;
 
+    // Debounce accidental repeat presses of the same note (double-tap, a key
+    // that re-fires, or a held key) so a stray second press can't be
+    // misattributed to the next note.
+    const pressAt = Date.now();
+    if (note === lastPressRef.current.note && pressAt - lastPressRef.current.at < 120) {
+      return;
+    }
+    lastPressRef.current = { note, at: pressAt };
+
     // Auto-start playback on first note press for practice/challenge modes
     if (!isPlaying && (mode === 'practice' || mode === 'challenge')) {
       // Ensure audio is started
@@ -391,9 +402,12 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       // Note: playbackLoop will be started by the useEffect that watches isPlaying
     }
 
-    // Check the note
+    // Check the note. Challenge attributes a press to the nearest upcoming note
+    // of the same pitch within the GOOD window so a recovering player isn't
+    // frozen on a stale note; practice stays strict (current note only).
     const currentTime = pausedTimeRef.current;
-    const result = performanceTracker.checkNote(note, currentTime);
+    const matchWindow = mode === 'challenge' ? TIMING_WINDOWS.GOOD / 1000 : 0;
+    const result = performanceTracker.checkNote(note, currentTime, { matchWindow });
 
     // Send feedback with note information
     if (onKeyFeedback) {
@@ -530,6 +544,14 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       const now = Tone.now();
       const elapsed = (now - startTimeRef.current) * playbackSpeed;
       pausedTimeRef.current = elapsed;
+
+      // Keep the index-based scorer aligned with the wall clock: auto-miss any
+      // notes whose window has fully passed so a late player recovers instead of
+      // the pointer freezing on a stale note (which otherwise made every later
+      // press "wrong" once the player fell behind).
+      if (mode === 'challenge' && performanceTracker) {
+        performanceTracker.missPassedNotes(elapsed);
+      }
 
       // Update metronome beat indicator (visual only, sound handled by Tone.js scheduling)
       if (metronomeEnabled) {
@@ -928,6 +950,9 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
                     </span>
                     <span className="stat-mini good">
                       <ThumbsUp aria-hidden="true" /><span className="sr-only">Good</span> {performanceTracker.results.good}
+                    </span>
+                    <span className="stat-mini late">
+                      <Clock aria-hidden="true" /><span className="sr-only">Late</span> {performanceTracker.results.late}
                     </span>
                     <span className="stat-mini missed">
                       <CircleSlash aria-hidden="true" /><span className="sr-only">Missed</span> {performanceTracker.results.missed}
