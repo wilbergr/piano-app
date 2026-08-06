@@ -635,126 +635,90 @@ export function createMoonlightSonataSong() {
  * @returns {Object} Song data for Hungarian Dance No. 5
  */
 export function createHungarianDanceSong() {
+  // Brahms' Hungarian Dance No. 5 — opening theme, G minor, 2/4, ~140 BPM.
+  // Re-transcribed from the authoritative melody line (the piece's clarinet/RH
+  // lead). The tune is in G minor with the raised-F# "Hungarian minor" leading
+  // tone; an earlier version encoded a D-MAJOR arpeggio (D F# A …) that carried
+  // none of the piece's minor character. Times below are seconds; `beat` values
+  // are quarter-note beats converted via `spb`.
+  const spb = 60 / 140; // seconds per beat
   const notes = [];
 
-  // Section A - Fast opening theme (D minor)
-  const themeA = [
-    { midi: 62, time: 0, dur: 0.25 }, { midi: 66, time: 0.25, dur: 0.25 },
-    { midi: 69, time: 0.5, dur: 0.25 }, { midi: 74, time: 0.75, dur: 0.25 },
-    { midi: 73, time: 1.0, dur: 0.375 }, { midi: 74, time: 1.375, dur: 0.125 },
-    { midi: 76, time: 1.5, dur: 0.5 },
-
-    { midi: 62, time: 2.0, dur: 0.25 }, { midi: 66, time: 2.25, dur: 0.25 },
-    { midi: 69, time: 2.5, dur: 0.25 }, { midi: 74, time: 2.75, dur: 0.25 },
-    { midi: 78, time: 3.0, dur: 0.5 }, { midi: 76, time: 3.5, dur: 0.5 },
+  // Melody (top voice) — one full statement = 32 beats. { midi, beat, dur(beats) }
+  const theme = [
+    // Phrase A — the fiery opening gesture over the tonic (D–G–Bb–G, F#→G turn)
+    { midi: 62, beat: 0.0,   dur: 1.5 },  { midi: 67, beat: 1.5,   dur: 0.5 },
+    { midi: 70, beat: 2.0,   dur: 1.5 },  { midi: 67, beat: 3.5,   dur: 0.5 },
+    { midi: 66, beat: 4.0,   dur: 1.5 },  { midi: 67, beat: 5.5,   dur: 0.25 },
+    { midi: 69, beat: 5.75,  dur: 0.25 }, { midi: 67, beat: 6.0,   dur: 2.0 },
+    // Phrase A' — the answering phrase, a step lower
+    { midi: 63, beat: 8.0,   dur: 1.5 },  { midi: 65, beat: 9.5,   dur: 0.25 },
+    { midi: 67, beat: 9.75,  dur: 0.25 }, { midi: 62, beat: 10.0,  dur: 2.0 },
+    { midi: 60, beat: 12.0,  dur: 0.25 }, { midi: 58, beat: 12.25, dur: 0.25 },
+    { midi: 58, beat: 12.5,  dur: 0.25 }, { midi: 57, beat: 12.75, dur: 0.25 },
+    { midi: 57, beat: 13.0,  dur: 0.75 }, { midi: 62, beat: 13.75, dur: 0.25 },
+    { midi: 55, beat: 14.0,  dur: 2.0 },
+    // Phrase B — higher restatement
+    { midi: 62, beat: 16.0,  dur: 1.5 },  { midi: 67, beat: 17.5,  dur: 0.25 },
+    { midi: 70, beat: 17.75, dur: 0.25 }, { midi: 74, beat: 18.0,  dur: 1.5 },
+    { midi: 70, beat: 19.5,  dur: 0.5 },  { midi: 69, beat: 20.0,  dur: 1.5 },
+    { midi: 70, beat: 21.5,  dur: 0.25 }, { midi: 72, beat: 21.75, dur: 0.25 },
+    { midi: 70, beat: 22.0,  dur: 2.0 },
+    // Phrase C — the fast descending czardas run down to the cadence
+    { midi: 75, beat: 24.0,  dur: 0.25 }, { midi: 77, beat: 24.25, dur: 0.25 },
+    { midi: 79, beat: 24.5,  dur: 0.25 }, { midi: 75, beat: 24.75, dur: 0.25 },
+    { midi: 74, beat: 25.0,  dur: 0.25 }, { midi: 75, beat: 25.25, dur: 0.25 },
+    { midi: 77, beat: 25.5,  dur: 0.25 }, { midi: 74, beat: 25.75, dur: 0.25 },
+    { midi: 72, beat: 26.0,  dur: 0.25 }, { midi: 74, beat: 26.25, dur: 0.25 },
+    { midi: 75, beat: 26.5,  dur: 0.25 }, { midi: 72, beat: 26.75, dur: 0.25 },
+    { midi: 70, beat: 27.0,  dur: 0.25 }, { midi: 72, beat: 27.25, dur: 0.25 },
+    { midi: 74, beat: 27.5,  dur: 0.25 }, { midi: 70, beat: 27.75, dur: 0.25 },
+    { midi: 72, beat: 28.0,  dur: 0.25 }, { midi: 70, beat: 28.25, dur: 0.25 },
+    { midi: 70, beat: 28.5,  dur: 0.25 }, { midi: 69, beat: 28.75, dur: 0.25 },
+    { midi: 69, beat: 29.0,  dur: 0.75 }, { midi: 74, beat: 29.75, dur: 0.25 },
+    { midi: 67, beat: 30.0,  dur: 2.0 },
   ];
 
-  themeA.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.88 });
-  });
+  // Oom-pah accompaniment: tonic (G minor) / dominant (D major) per 2/4 bar.
+  // Bar roots across the 32-beat statement (16 bars): G G D G, four times.
+  const barRoots = ['G', 'G', 'D', 'G', 'G', 'G', 'D', 'G',
+                    'G', 'G', 'D', 'G', 'G', 'G', 'D', 'G'];
+  const CHORD = {
+    G: { bass: 43, mid: [58, 62] }, // G2 + (Bb3, D4)  → i  (G minor)
+    D: { bass: 38, mid: [54, 57] }, // D2 + (F#3, A3)  → V  (D major)
+  };
 
-  // Bass accompaniment for theme A
-  const bassA = [
-    { midi: 50, time: 0, dur: 0.5 }, { midi: 50, time: 0.5, dur: 0.5 },
-    { midi: 57, time: 1.0, dur: 0.5 }, { midi: 57, time: 1.5, dur: 0.5 },
-    { midi: 50, time: 2.0, dur: 0.5 }, { midi: 50, time: 2.5, dur: 0.5 },
-    { midi: 57, time: 3.0, dur: 0.5 }, { midi: 57, time: 3.5, dur: 0.5 },
-  ];
-
-  bassA.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.7 });
-  });
-
-  // Repeat and develop theme A
-  const themeA2 = [
-    { midi: 74, time: 4, dur: 0.25 }, { midi: 73, time: 4.25, dur: 0.25 },
-    { midi: 74, time: 4.5, dur: 0.25 }, { midi: 76, time: 4.75, dur: 0.25 },
-    { midi: 78, time: 5.0, dur: 0.375 }, { midi: 76, time: 5.375, dur: 0.125 },
-    { midi: 74, time: 5.5, dur: 0.5 },
-
-    { midi: 73, time: 6.0, dur: 0.25 }, { midi: 71, time: 6.25, dur: 0.25 },
-    { midi: 69, time: 6.5, dur: 0.5 }, { midi: 74, time: 7.0, dur: 1.0 },
-  ];
-
-  themeA2.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.86 });
-  });
-
-  bassA.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time + 4, duration: n.dur, velocity: 0.7 });
-  });
-
-  // Section B - Slower lyrical section (F# major)
-  const themeB = [
-    { midi: 73, time: 8, dur: 1.5 }, { midi: 78, time: 9.5, dur: 0.5 },
-    { midi: 80, time: 10, dur: 1.0 }, { midi: 78, time: 11, dur: 1.0 },
-    { midi: 73, time: 12, dur: 1.0 }, { midi: 75, time: 13, dur: 1.0 },
-    { midi: 73, time: 14, dur: 1.5 }, { midi: 71, time: 15.5, dur: 0.5 },
-
-    { midi: 69, time: 16, dur: 1.5 }, { midi: 73, time: 17.5, dur: 0.5 },
-    { midi: 75, time: 18, dur: 1.0 }, { midi: 73, time: 19, dur: 1.0 },
-    { midi: 71, time: 20, dur: 2.0 }, { midi: 69, time: 22, dur: 2.0 },
-  ];
-
-  themeB.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.75 });
-  });
-
-  // Bass for slower section
-  const slowBass = [
-    { midi: 49, time: 8 }, { midi: 54, time: 10 }, { midi: 49, time: 12 }, { midi: 54, time: 14 },
-    { midi: 45, time: 16 }, { midi: 52, time: 18 }, { midi: 45, time: 20 }, { midi: 52, time: 22 },
-  ];
-
-  slowBass.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: 2.0, velocity: 0.65 });
-  });
-
-  // Section C - Return to fast theme with variation
-  const themeC = [
-    { midi: 74, time: 24, dur: 0.125 }, { midi: 76, time: 24.125, dur: 0.125 },
-    { midi: 78, time: 24.25, dur: 0.125 }, { midi: 81, time: 24.375, dur: 0.125 },
-    { midi: 83, time: 24.5, dur: 0.25 }, { midi: 81, time: 24.75, dur: 0.25 },
-    { midi: 78, time: 25.0, dur: 0.5 }, { midi: 76, time: 25.5, dur: 0.5 },
-
-    { midi: 74, time: 26, dur: 0.25 }, { midi: 73, time: 26.25, dur: 0.25 },
-    { midi: 71, time: 26.5, dur: 0.25 }, { midi: 69, time: 26.75, dur: 0.25 },
-    { midi: 74, time: 27.0, dur: 1.0 },
-  ];
-
-  themeC.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.9 });
-  });
-
-  // Fast bass pattern
-  for (let i = 0; i < 4; i++) {
-    notes.push({ note: midiToNoteName(50), midi: 50, time: 24 + i, duration: 0.5, velocity: 0.75 });
-    notes.push({ note: midiToNoteName(57), midi: 57, time: 24.5 + i, duration: 0.5, velocity: 0.75 });
+  // The theme is stated, then repeated (as the dance does), plus a final tonic.
+  const STATEMENTS = 2;
+  for (let s = 0; s < STATEMENTS; s++) {
+    const off = s * 32;
+    theme.forEach(n => {
+      notes.push({
+        note: midiToNoteName(n.midi), midi: n.midi,
+        time: (n.beat + off) * spb, duration: n.dur * spb, velocity: 0.9,
+      });
+    });
+    for (let bar = 0; bar < 16; bar++) {
+      const c = CHORD[barRoots[bar]];
+      const bar0 = (off + bar * 2) * spb;
+      notes.push({ note: midiToNoteName(c.bass), midi: c.bass, time: bar0, duration: spb, velocity: 0.7 });
+      c.mid.forEach(m => {
+        notes.push({ note: midiToNoteName(m), midi: m, time: bar0 + spb, duration: spb, velocity: 0.6 });
+      });
+    }
   }
 
-  // Grand finale - accelerating to climax
-  const finale = [
-    { midi: 78, time: 28, dur: 0.25 }, { midi: 76, time: 28.25, dur: 0.25 },
-    { midi: 74, time: 28.5, dur: 0.25 }, { midi: 73, time: 28.75, dur: 0.25 },
-    { midi: 74, time: 29.0, dur: 0.5 }, { midi: 76, time: 29.5, dur: 0.5 },
-    { midi: 78, time: 30.0, dur: 0.5 }, { midi: 81, time: 30.5, dur: 0.5 },
-    { midi: 74, time: 31.0, dur: 1.0 },
-  ];
-
-  finale.forEach(n => {
-    notes.push({ note: midiToNoteName(n.midi), midi: n.midi, time: n.time, duration: n.dur, velocity: 0.92 });
+  // Final G-minor chord
+  const endTime = STATEMENTS * 32 * spb;
+  [43, 55, 58, 62, 67].forEach(m => {
+    notes.push({ note: midiToNoteName(m), midi: m, time: endTime, duration: 2 * spb, velocity: 0.85 });
   });
 
-  // Final bass chords
-  notes.push({ note: midiToNoteName(50), midi: 50, time: 28, duration: 1.0, velocity: 0.8 });
-  notes.push({ note: midiToNoteName(57), midi: 57, time: 29, duration: 1.0, velocity: 0.8 });
-  notes.push({ note: midiToNoteName(50), midi: 50, time: 30, duration: 1.0, velocity: 0.85 });
-  notes.push({ note: midiToNoteName(38), midi: 38, time: 31, duration: 1.0, velocity: 0.9 }); // Low D
-
+  const duration = notes.reduce((mx, n) => Math.max(mx, n.time + n.duration), 0);
   return {
     name: 'Hungarian Dance No. 5',
-    duration: 32.0,
-    tempo: 160,
+    duration: Math.round(duration * 10) / 10,
+    tempo: 140,
     timeSignature: { timeSignature: [2, 4] },
     tracks: 2,
     notes,
