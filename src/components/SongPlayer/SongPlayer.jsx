@@ -478,7 +478,7 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       if (onShowResults && performanceTracker) {
         // Small delay to show 100% progress before results
         setTimeout(() => {
-          const results = { ...performanceTracker.getResults(), mode };
+          const results = { ...performanceTracker.getResults(), mode, songId: currentSong.id };
           onShowResults(results);
 
           // Show trivia only after successful challenge completion
