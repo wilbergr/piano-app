@@ -111,6 +111,21 @@ light-toned dots). The count-in overlay is the exception — its token-colored
 text sits directly on the scrim, so it uses the themed `--scrim` token (dark:
 black veil; light: paper veil).
 
+=======
+## Song note data & verifying melodies
+
+The 23 built-in songs are **not** MIDI files: each is a hand-coded
+`createXxxSong()` function in `src/services/midiParser.js` returning a
+`{ note, midi, time, duration, velocity }` array. `src/data/songs.json` only
+holds metadata; `SongPlayer.jsx`'s if/else maps `song.midiFile` (a string key,
+not a path) to the matching builder. Only uploaded MIDIs use `parseMidiFile()`.
+So melody-accuracy bugs are fixed by editing pitches in the `create…` function.
+
+To dump/verify a song's notes headlessly, stub the top-level
+`import { Midi } from '@tonejs/midi'` (the builders don't use it) via a Node
+resolve hook, then import the builder and read `.notes`. Example loader/stub in
+this branch's history (commit fixing Amazing Grace + Turkish March).
+
 ## Maintaining this file
 
 Keep this file for knowledge useful to almost every future agent session in this project.
