@@ -718,22 +718,7 @@
 .riddle-prompt {
   color: var(--text-muted);
   line-height: 1.5;
-  margin: 0 0 var(--space-4);
-}
-
-.riddle-reveal-btn {
-  padding: var(--space-3) var(--space-5);
-}
-
-.riddle-answer {
-  margin: var(--space-4) 0 0;
-  color: var(--text);
-  font-size: 1.2rem;
-}
-
-.riddle-answer strong {
-  font-family: var(--font-mono);
-  color: var(--accent);
+  margin: 0;
 }
 
 .results-actions {
