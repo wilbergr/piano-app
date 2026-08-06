@@ -42,7 +42,6 @@ import {
   createBachPreludeSong,
   createTurkishMarchSong,
   createChopinNocturneSong,
-  createClairDeLuneSong,
   getNotesAtTime
 } from '../../services/midiParser';
 import audioService from '../../services/audioService';
@@ -319,7 +318,11 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
       } else if (song.midiFile === 'chopin-nocturne') {
         songData = createChopinNocturneSong();
       } else if (song.midiFile === 'clair-de-lune') {
-        songData = createClairDeLuneSong();
+        // Real public-domain MIDI parsed through the same path as user-uploaded
+        // MIDIs. Debussy (d. 1918) is public domain; the opening is written in
+        // parallel thirds that can't be reduced to one hand-typed melody line,
+        // so we load the actual recording from public/clair-de-lune.mid.
+        songData = await parseMidiFile('clair-de-lune.mid');
       } else {
         // Load actual MIDI file
         songData = await parseMidiFile(song.midiFile);
