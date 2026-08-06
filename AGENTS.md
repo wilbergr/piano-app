@@ -111,6 +111,7 @@ light-toned dots). The count-in overlay is the exception — its token-colored
 text sits directly on the scrim, so it uses the themed `--scrim` token (dark:
 black veil; light: paper veil).
 
+=======
 ## Song note data & verifying melodies
 
 The 23 built-in songs are **not** MIDI files: each is a hand-coded
