@@ -111,6 +111,18 @@ light-toned dots). The count-in overlay is the exception — its token-colored
 text sits directly on the scrim, so it uses the themed `--scrim` token (dark:
 black veil; light: paper veil).
 
+## Per-song challenge-completion UI (results.songId gate)
+
+The performance-results object now carries **`songId`** (added in
+`SongPlayer.jsx`'s `finishSong` alongside `mode`, sourced from
+`currentSong.id`). App.jsx's results modal uses it to gate per-song
+completion extras: the "Happy Birthday to You" passing challenge shows a
+riddle panel (answer 234) gated on
+`mode === 'challenge' && passed && songId === 'happy-birthday'`. Add other
+per-song completion easter eggs the same way — key off `songId`, don't make
+the completion dialog branch globally. Passing/threshold logic is unchanged
+(`performanceTracker.hasPassed()`, ≥90%).
+
 =======
 ## Song note data & verifying melodies
 
