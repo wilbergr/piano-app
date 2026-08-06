@@ -252,6 +252,17 @@
       "unlocked": true,
       "preview": "Debussy's impressionist masterpiece",
       "description": "The opening theme of Debussy's Clair de Lune — a slow, atmospheric melody in Db major that demands delicate touch and careful voicing."
+    },
+    {
+      "id": "happy-birthday",
+      "title": "Happy Birthday to You",
+      "difficulty": "beginner",
+      "order": 24,
+      "midiFile": "happy-birthday",
+      "triviaQuestionId": "q24",
+      "unlocked": true,
+      "preview": "The world's most-sung melody",
+      "description": "The traditional birthday tune in C major (3/4) — its short, mostly stepwise phrases and the signature octave leap on \"dear\" make it a friendly, rewarding song for beginners."
     }
   ]
 }

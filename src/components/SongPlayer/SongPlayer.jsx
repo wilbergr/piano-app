@@ -42,6 +42,7 @@ import {
   createBachPreludeSong,
   createTurkishMarchSong,
   createChopinNocturneSong,
+  createHappyBirthdaySong,
   getNotesAtTime
 } from '../../services/midiParser';
 import audioService from '../../services/audioService';
@@ -317,6 +318,8 @@ function SongPlayer({ onHighlightKeys, onSongComplete, onUserKeyPress, onKeyFeed
         songData = createTurkishMarchSong();
       } else if (song.midiFile === 'chopin-nocturne') {
         songData = createChopinNocturneSong();
+      } else if (song.midiFile === 'happy-birthday') {
+        songData = createHappyBirthdaySong();
       } else if (song.midiFile === 'clair-de-lune') {
         // Real public-domain MIDI parsed through the same path as user-uploaded
         // MIDIs. Debussy (d. 1918) is public domain; the opening is written in

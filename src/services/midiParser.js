@@ -1576,6 +1576,56 @@ export function createChopinNocturneSong() {
   };
 }
 
+/**
+ * Create Happy Birthday to You song
+ * Traditional melody (Patty & Mildred Hill), public domain, in C major (3/4).
+ * @returns {Object} Song data for Happy Birthday
+ */
+export function createHappyBirthdaySong() {
+  const notes = [
+    // Hap-py birth-day to you
+    { note: 'G4', midi: 67, time: 0.0,  duration: 0.25, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 0.25, duration: 0.25, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 0.5,  duration: 0.5,  velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 1.0,  duration: 0.5,  velocity: 0.8 },
+    { note: 'C5', midi: 72, time: 1.5,  duration: 0.5,  velocity: 0.8 },
+    { note: 'B4', midi: 71, time: 2.0,  duration: 1.0,  velocity: 0.8 },
+    // Hap-py birth-day to you
+    { note: 'G4', midi: 67, time: 3.0,  duration: 0.25, velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 3.25, duration: 0.25, velocity: 0.8 },
+    { note: 'A4', midi: 69, time: 3.5,  duration: 0.5,  velocity: 0.8 },
+    { note: 'G4', midi: 67, time: 4.0,  duration: 0.5,  velocity: 0.8 },
+    { note: 'D5', midi: 74, time: 4.5,  duration: 0.5,  velocity: 0.8 },
+    { note: 'C5', midi: 72, time: 5.0,  duration: 1.0,  velocity: 0.8 },
+    // Hap-py birth-day dear [name]
+    { note: 'G4', midi: 67, time: 6.0,  duration: 0.25, velocity: 0.85 },
+    { note: 'G4', midi: 67, time: 6.25, duration: 0.25, velocity: 0.85 },
+    { note: 'G5', midi: 79, time: 6.5,  duration: 0.5,  velocity: 0.85 },
+    { note: 'E5', midi: 76, time: 7.0,  duration: 0.5,  velocity: 0.85 },
+    { note: 'C5', midi: 72, time: 7.5,  duration: 0.5,  velocity: 0.85 },
+    { note: 'B4', midi: 71, time: 8.0,  duration: 0.5,  velocity: 0.85 },
+    { note: 'A4', midi: 69, time: 8.5,  duration: 1.0,  velocity: 0.85 },
+    // Hap-py birth-day to you
+    { note: 'F5', midi: 77, time: 9.5,  duration: 0.25, velocity: 0.85 },
+    { note: 'F5', midi: 77, time: 9.75, duration: 0.25, velocity: 0.85 },
+    { note: 'E5', midi: 76, time: 10.0, duration: 0.5,  velocity: 0.85 },
+    { note: 'C5', midi: 72, time: 10.5, duration: 0.5,  velocity: 0.85 },
+    { note: 'D5', midi: 74, time: 11.0, duration: 0.5,  velocity: 0.85 },
+    { note: 'C5', midi: 72, time: 11.5, duration: 1.5,  velocity: 0.8 },
+  ];
+
+  return {
+    name: 'Happy Birthday to You',
+    duration: 13.0,
+    tempo: 120,
+    timeSignature: { timeSignature: [3, 4] },
+    tracks: 1,
+    notes,
+    totalNotes: notes.length,
+    difficulty: 'beginner',
+  };
+}
+
 // Clair de Lune (Debussy) is loaded from a real public-domain MIDI file at
 // public/clair-de-lune.mid via parseMidiFile(), not a hand-coded note array:
 // its opening is written in parallel thirds that can't be safely reduced to a
