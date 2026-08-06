@@ -1576,69 +1576,10 @@ export function createChopinNocturneSong() {
   };
 }
 
-/**
- * Create Clair de Lune — Debussy, opening theme
- * @returns {Object} Song data for Clair de Lune
- */
-export function createClairDeLuneSong() {
-  // 9/8 time at 56 BPM: dotted quarter = 60/56 ≈ 1.071s, eighth = 0.357s
-  // Using e=0.36s, dq=1.07s, q=0.71s
-  const e = 0.36;
-  const dq = 1.07;
-  const q = 0.71;
-
-  const notes = [
-    // Opening — Db major, very slow and impressionistic
-    // Phrase 1: high melody with long notes
-    { note: 'Ab4', midi: 68, time: 0.0,   duration: dq,    velocity: 0.62 },
-    { note: 'Gb4', midi: 66, time: dq,    duration: q,     velocity: 0.60 },
-    { note: 'F4',  midi: 65, time: dq+q,  duration: e,     velocity: 0.58 },
-    { note: 'Eb4', midi: 63, time: dq+q+e, duration: e,    velocity: 0.58 },
-    { note: 'Db4', midi: 61, time: dq+q+2*e, duration: dq, velocity: 0.62 },
-    { note: 'Eb4', midi: 63, time: 2*dq+q+2*e, duration: q, velocity: 0.60 },
-    { note: 'F4',  midi: 65, time: 2*dq+2*q+2*e, duration: e, velocity: 0.60 },
-    { note: 'Gb4', midi: 66, time: 2*dq+2*q+3*e, duration: dq, velocity: 0.62 },
-    { note: 'Ab4', midi: 68, time: 3*dq+2*q+3*e, duration: q, velocity: 0.62 },
-    { note: 'Bb4', midi: 70, time: 3*dq+3*q+3*e, duration: dq, velocity: 0.65 },
-
-    // Phrase 2 — climbing
-    { note: 'Db5', midi: 73, time: 4*dq+3*q+3*e, duration: dq,   velocity: 0.68 },
-    { note: 'Bb4', midi: 70, time: 5*dq+3*q+3*e, duration: q,    velocity: 0.65 },
-    { note: 'Ab4', midi: 68, time: 5*dq+4*q+3*e, duration: e,    velocity: 0.63 },
-    { note: 'Gb4', midi: 66, time: 5*dq+4*q+4*e, duration: e,    velocity: 0.62 },
-    { note: 'F4',  midi: 65, time: 5*dq+4*q+5*e, duration: dq,   velocity: 0.62 },
-    { note: 'Ab4', midi: 68, time: 6*dq+4*q+5*e, duration: q,    velocity: 0.65 },
-    { note: 'Gb4', midi: 66, time: 6*dq+5*q+5*e, duration: dq,   velocity: 0.63 },
-    { note: 'Eb4', midi: 63, time: 7*dq+5*q+5*e, duration: q,    velocity: 0.62 },
-    { note: 'Db4', midi: 61, time: 7*dq+6*q+5*e, duration: 2*dq, velocity: 0.65 }, // held
-
-    // Phrase 3 — higher register
-    { note: 'Eb5', midi: 75, time: 9*dq+6*q+5*e,  duration: dq,   velocity: 0.68 },
-    { note: 'Db5', midi: 73, time: 10*dq+6*q+5*e, duration: q,    velocity: 0.65 },
-    { note: 'Bb4', midi: 70, time: 10*dq+7*q+5*e, duration: e,    velocity: 0.63 },
-    { note: 'Ab4', midi: 68, time: 10*dq+7*q+6*e, duration: e,    velocity: 0.62 },
-    { note: 'Gb4', midi: 66, time: 10*dq+7*q+7*e, duration: dq,   velocity: 0.62 },
-    { note: 'Ab4', midi: 68, time: 11*dq+7*q+7*e, duration: q,    velocity: 0.65 },
-    { note: 'Gb4', midi: 66, time: 11*dq+8*q+7*e, duration: q,    velocity: 0.63 },
-    { note: 'Eb4', midi: 63, time: 11*dq+9*q+7*e, duration: q,    velocity: 0.62 },
-    { note: 'Db4', midi: 61, time: 11*dq+10*q+7*e, duration: 3*dq, velocity: 0.65 }, // final held
-  ];
-
-  // Compute total duration from last note
-  const last = notes[notes.length - 1];
-  const duration = Math.round((last.time + last.duration) * 10) / 10;
-
-  return {
-    name: 'Clair de Lune',
-    duration,
-    tempo: 56,
-    timeSignature: { timeSignature: [9, 8] },
-    tracks: 1,
-    notes,
-    totalNotes: notes.length,
-    difficulty: 'advanced',
-  };
-}
+// Clair de Lune (Debussy) is loaded from a real public-domain MIDI file at
+// public/clair-de-lune.mid via parseMidiFile(), not a hand-coded note array:
+// its opening is written in parallel thirds that can't be safely reduced to a
+// single melody line by hand. See the 'clair-de-lune' branch in SongPlayer.jsx.
 
 /**
  * Get notes that should be playing at a specific time
