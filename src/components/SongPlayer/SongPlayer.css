@@ -698,6 +698,44 @@
   font-family: var(--font-mono);
 }
 
+/* Birthday riddle panel — shown only after a passing Happy Birthday challenge
+   (App.jsx). Reuses the tinted-surface idiom of .results-breakdown. */
+.riddle-panel {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.riddle-title {
+  margin: 0 0 var(--space-3);
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.riddle-prompt {
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 var(--space-4);
+}
+
+.riddle-reveal-btn {
+  padding: var(--space-3) var(--space-5);
+}
+
+.riddle-answer {
+  margin: var(--space-4) 0 0;
+  color: var(--text);
+  font-size: 1.2rem;
+}
+
+.riddle-answer strong {
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
 .results-actions {
   display: flex;
   gap: var(--space-4);

@@ -27,6 +27,20 @@ import useTheme from './hooks/useTheme';
 import './App.css';
 import './components/SongPlayer/SongPlayer.css';
 
+// A passing Challenge run of "Happy Birthday to You" reveals a birthday-themed
+// riddle whose unambiguous answer is 234 (three consecutive digits 2-3-4 that
+// sum to 9). Scoped to this one song id so other songs' completions are
+// unaffected. See CLAUDE.md song-note-data notes for the happy-birthday id.
+const HAPPY_BIRTHDAY_SONG_ID = 'happy-birthday';
+const HAPPY_BIRTHDAY_RIDDLE = {
+  prompt:
+    'Three candles stand in a row across the cake, each one an inch taller ' +
+    'than the candle to its left. Read left to right, their heights spell a ' +
+    'three-digit number whose digits climb one step at a time — and blown ' +
+    'out, those three heights add up to 9. What number do the candles show?',
+  answer: '234',
+};
+
 function App() {
   const { theme, toggleTheme } = useTheme();
 
@@ -62,6 +76,7 @@ function App() {
   const [keyFeedback, setKeyFeedback] = useState(null);
   const [performanceResults, setPerformanceResults] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
+  const [showRiddleAnswer, setShowRiddleAnswer] = useState(false);
   const [toast, setToast] = useState(null);
   // Screen-reader announcement for the visually-only feedback (live region text)
   const [announcement, setAnnouncement] = useState('');
@@ -107,6 +122,7 @@ function App() {
   const handleCloseResults = useCallback(() => {
     resetChallengeRef.current?.();
     setPerformanceResults(null);
+    setShowRiddleAnswer(false);
   }, []);
 
   // Results modal is a real dialog: trap Tab inside, close on Escape, and
@@ -317,6 +333,29 @@ function App() {
                 <span className="result-value">{performanceResults.wrong}</span>
               </div>
             </div>
+            {performanceResults.mode === 'challenge' &&
+              performanceResults.passed &&
+              performanceResults.songId === HAPPY_BIRTHDAY_SONG_ID && (
+              <div className="riddle-panel">
+                <h3 className="riddle-title">
+                  <Lightbulb className="inline-icon" aria-hidden="true" /> Birthday riddle
+                </h3>
+                <p className="riddle-prompt">{HAPPY_BIRTHDAY_RIDDLE.prompt}</p>
+                <button
+                  type="button"
+                  className="btn-secondary riddle-reveal-btn"
+                  onClick={() => setShowRiddleAnswer((v) => !v)}
+                  aria-expanded={showRiddleAnswer}
+                >
+                  {showRiddleAnswer ? 'Hide answer' : 'Reveal answer'}
+                </button>
+                {showRiddleAnswer && (
+                  <p className="riddle-answer" role="status">
+                    Answer: <strong>{HAPPY_BIRTHDAY_RIDDLE.answer}</strong>
+                  </p>
+                )}
+              </div>
+            )}
             <div className="results-actions">
               <button onClick={handleCloseResults} className="btn-primary">
                 Try Again
