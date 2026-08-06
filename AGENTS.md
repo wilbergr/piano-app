@@ -114,12 +114,21 @@ black veil; light: paper veil).
 =======
 ## Song note data & verifying melodies
 
-The 23 built-in songs are **not** MIDI files: each is a hand-coded
+Most built-in songs are **not** MIDI files: each is a hand-coded
 `createXxxSong()` function in `src/services/midiParser.js` returning a
 `{ note, midi, time, duration, velocity }` array. `src/data/songs.json` only
 holds metadata; `SongPlayer.jsx`'s if/else maps `song.midiFile` (a string key,
-not a path) to the matching builder. Only uploaded MIDIs use `parseMidiFile()`.
-So melody-accuracy bugs are fixed by editing pitches in the `create…` function.
+not a path) to the matching builder. So melody-accuracy bugs in those are fixed
+by editing pitches in the `create…` function.
+
+**Exception — Clair de Lune** loads a real public-domain MIDI (Debussy) from
+`public/clair-de-lune.mid` through `parseMidiFile()` — the same async path
+user-uploaded MIDIs use — because its opening is written in parallel thirds
+that can't be safely reduced to one hand-typed melody line. Its `clair-de-lune`
+branch in `SongPlayer.jsx` calls `await parseMidiFile('clair-de-lune.mid')`
+(relative fetch, mirroring `public/challenge-config.json`); there is no
+`createClairDeLuneSong()`. Add real-MIDI songs by dropping the file in
+`public/` and pointing a branch at it, not by hand-coding notes.
 
 To dump/verify a song's notes headlessly, stub the top-level
 `import { Midi } from '@tonejs/midi'` (the builders don't use it) via a Node
