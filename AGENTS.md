@@ -117,9 +117,11 @@ The performance-results object now carries **`songId`** (added in
 `SongPlayer.jsx`'s `finishSong` alongside `mode`, sourced from
 `currentSong.id`). App.jsx's results modal uses it to gate per-song
 completion extras: the "Happy Birthday to You" passing challenge shows a
-riddle panel (answer 234) gated on
-`mode === 'challenge' && passed && songId === 'happy-birthday'`. Add other
-per-song completion easter eggs the same way — key off `songId`, don't make
+riddle panel gated on
+`mode === 'challenge' && passed && songId === 'happy-birthday'`. The riddle's
+answer (234) is intentionally NOT surfaced in the UI — there is no reveal
+toggle/button/answer render; players solve it themselves. Add other per-song
+completion easter eggs the same way — key off `songId`, don't make
 the completion dialog branch globally. Passing/threshold logic is unchanged
 (`performanceTracker.hasPassed()`, ≥90%).
 
