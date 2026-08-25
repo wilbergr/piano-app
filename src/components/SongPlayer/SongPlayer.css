@@ -715,6 +715,25 @@
   font-size: 1.1rem;
 }
 
+/* Tinted status-chip idiom (see CLAUDE.md) adapted for the literal padlock
+   blue: which physical, colored padlock this riddle's answer opens. The color
+   name is real text (not color-only) for colorblind-accessible distinction
+   between padlock colors; the icon is aria-hidden. --padlock-blue darkens in
+   light theme (tokens.css) to keep AA contrast on the tint in both themes. */
+.padlock-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--padlock-blue);
+  background: color-mix(in srgb, var(--padlock-blue) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--padlock-blue) 45%, transparent);
+}
+
 .riddle-prompt {
   color: var(--text-muted);
   line-height: 1.5;
