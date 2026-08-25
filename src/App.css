@@ -239,34 +239,6 @@
   font-size: 0.9rem;
 }
 
-/* Challenge unlock code */
-.challenge-code {
-  margin-top: var(--space-4);
-  padding: var(--space-3) var(--space-5);
-  background: var(--accent-bg);
-  border: 1px solid var(--accent);
-  border-radius: var(--radius-md);
-  text-align: center;
-}
-
-.challenge-code-label {
-  margin: 0 0 var(--space-1) 0;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.challenge-code-value {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  user-select: all;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   /* Drop the title below the corner theme toggle — at phone widths the
