@@ -60,14 +60,6 @@ function App() {
     preloadAudio();
   }, []);
 
-  const [challengeConfig, setChallengeConfig] = useState(null);
-  useEffect(() => {
-    fetch('challenge-config.json')
-      .then((r) => r.json())
-      .then(setChallengeConfig)
-      .catch(() => {});
-  }, []);
-
   const resetChallengeRef = useRef(null);
   const handleRegisterReset = useCallback((fn) => {
     resetChallengeRef.current = fn;
@@ -298,12 +290,6 @@ function App() {
                 {performanceResults.passed ? (
                   <>
                     <p className="pass-message"><PartyPopper className="inline-icon" aria-hidden="true" /> Excellent! You passed!</p>
-                    {performanceResults.mode === 'challenge' && challengeConfig?.code && (
-                      <div className="challenge-code">
-                        <p className="challenge-code-label">Your unlock code:</p>
-                        <span className="challenge-code-value">{challengeConfig.code}</span>
-                      </div>
-                    )}
                   </>
                 ) : (
                   <p className="fail-message">Keep practicing! You need 90% to pass.</p>
