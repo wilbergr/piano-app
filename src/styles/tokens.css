@@ -35,6 +35,11 @@
   --success: #4ade80;
   --danger: #f87171;
   --warning: #fbbf24;
+  /* Padlock indicator blue (birthday-challenge physical-lock color cue). Not a
+     semantic status token — it names a real-world lock color, so it lives as its
+     own token and, like the status colors, darkens in light theme to keep AA
+     contrast as text/icon on the tinted .padlock-chip. */
+  --padlock-blue: #64b5f6;
 
   /* Full-screen overlay scrim (count-in overlay). Dark theme dims with black;
      light theme uses a paper-toned veil so token ink (--text/--accent/--warning)
@@ -90,6 +95,7 @@
   --success: #15803d;
   --danger: #dc2626;
   --warning: #b45309;
+  --padlock-blue: #0d47a1;
   --shadow-md: 0 4px 12px rgba(60, 50, 40, 0.15);
   --scrim: rgba(250, 248, 245, 0.92);
 }
@@ -110,6 +116,7 @@
     --success: #15803d;
     --danger: #dc2626;
     --warning: #b45309;
+    --padlock-blue: #0d47a1;
     --shadow-md: 0 4px 12px rgba(60, 50, 40, 0.15);
     --scrim: rgba(250, 248, 245, 0.92);
   }

@@ -125,6 +125,17 @@ completion easter eggs the same way — key off `songId`, don't make
 the completion dialog branch globally. Passing/threshold logic is unchanged
 (`performanceTracker.hasPassed()`, ≥90%).
 
+The riddle panel also shows a **`.padlock-chip`** (SongPlayer.css) — a small
+`Lock`-icon pill labelling the physical colored padlock this riddle's answer
+opens (a real-world birthday-challenge prop; Happy Birthday = **blue**). It
+reuses the status-chip tint idiom but keys off a dedicated **`--padlock-blue`**
+token (tokens.css), not a semantic status token, because "padlock blue" isn't
+`--success`/`--danger`/etc.; like the status colors it darkens in light theme
+(dark `#64b5f6` → light `#0d47a1`) to hold AA on the tint. The color NAME is
+real text (icon is `aria-hidden`) so padlock colors are distinguishable without
+relying on color alone. Other apps' riddles get their own padlock color the
+same way.
+
 =======
 ## Song note data & verifying melodies
 

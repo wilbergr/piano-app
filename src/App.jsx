@@ -11,6 +11,7 @@ import {
   Clock,
   Hourglass,
   Lightbulb,
+  Lock,
   PartyPopper,
   Star,
   ThumbsUp,
@@ -325,6 +326,9 @@ function App() {
                 <h3 className="riddle-title">
                   <Lightbulb className="inline-icon" aria-hidden="true" /> Birthday riddle
                 </h3>
+                <p className="padlock-chip">
+                  <Lock className="inline-icon" aria-hidden="true" /> Blue padlock
+                </p>
                 <p className="riddle-prompt">{HAPPY_BIRTHDAY_RIDDLE.prompt}</p>
               </div>
             )}
